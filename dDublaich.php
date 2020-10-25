@@ -13,7 +13,7 @@
   try {
     $moSMO->dearbhaich();
     $smid = $moSMO->id;
-    $bunadasURL = SM_Bunadas::BUNADASURL;
+    $bunadasURL = SM_Bunadas::bunadasurl();
     $T = new SM_T('bunadas/dDublaich');
     $hl = $T::hl0();
     $T_Chaidh_drong_a_chopaigeadh = $T->_('Chaidh_drong_a_chopaigeadh');

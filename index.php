@@ -39,7 +39,7 @@
 
   $T_fiosStordata     = strtr ( $T_fiosStordata, [ '{' => '<b>', '}' => '</b>' ] );
 
-  $bunadasURL = SM_Bunadas::BUNADASURL;
+  $bunadasURL = SM_Bunadas::bunadasurl();
   if (!empty($_GET['bundb'])) {
       setcookie('bundb',$_GET['bundb']);
       header("Location:$bunadasURL");

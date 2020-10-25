@@ -45,7 +45,7 @@
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
-    $bunadasurl = SM_Bunadas::BUNADASURL;
+    $bunadasurl = SM_Bunadas::bunadasurl();
     $deasaich = SM_Bunadas::ceadSgriobhaidh();
     $T = new SM_T('bunadas/d');
 

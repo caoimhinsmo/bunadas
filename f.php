@@ -73,7 +73,6 @@
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
-//    $bunadasurl = SM_Bunadas::BUNADASURL;
     $bunadasurl = SM_Bunadas::bunadasurl();
 
     function uairHtml ($utime) {

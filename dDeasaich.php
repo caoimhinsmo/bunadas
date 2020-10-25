@@ -28,7 +28,7 @@
     $T_Drong_ur_ann        = $T->_('Chaidh an drong a chur ann');
 
     $smid = $moSMO->id;
-    $bunadasURL = SM_Bunadas::BUNADASURL;
+    $bunadasURL = SM_Bunadas::bunadasurl();
     $navbar = SM_Bunadas::navbar($T->domhan);
 
     $dUr = -1;

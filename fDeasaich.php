@@ -35,7 +35,7 @@
     $T_Facal_ann_mu_thrath = strtr ($T_Facal_ann_mu_thrath, [ '{' => "<a href='lorg.php?t=%s&amp;f=%s&amp;derb=%s'>", '}' => '</a>' ] );
 
     $smid = $moSMO->id;
-    $bunadasURL = SM_Bunadas::BUNADASURL;
+    $bunadasURL = SM_Bunadas::bunadasurl();
     $navbar = SM_Bunadas::navbar($T->domhan);
 
     $fUr = -1;

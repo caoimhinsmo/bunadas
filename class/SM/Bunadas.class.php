@@ -4,10 +4,9 @@ class SM_Bunadas
 //  const LUCHD_SGRIOBHAIDH = '1987-rg|1991-cpd|1999-mb|2000-mmd|2015-cc|2016-mp';
 //  const LUCHD_SGRIOBHAIDH = '1991-cpd|2019-kjg';
   CONST LUCHD_SGRIOBHAIDH = 'caoimhinsmo|MáireNU';
-  const BUNADASURL = 'https://www2.smo.uhi.ac.uk/teanga/bunadas';
   public static function bunadasurl() {
-      if ($_SERVER['HTTPS']) { return 'https://www2.smo.uhi.ac.uk/teanga/bunadas'; }
-       else                  { return  'http://www2.smo.uhi.ac.uk/teanga/bunadas'; }
+       $url = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/teanga/bunadas';
+       return $url;
   }
 
   public $fArr, $dArr, $fdArr, $dfArr;
@@ -55,11 +54,13 @@ class SM_Bunadas
       $myCLIL = SM_myCLIL::singleton();
       if ($myCLIL->cead(SM_myCLIL::LUCHD_EADARTHEANGACHAIDH) && !empty($domhan))
         { $trPutan = "\n<li class=deas><a href='http://www3.smo.uhi.ac.uk/teanga/smotr/tr.php?domhan=$domhan' target='tr' title='$T_tr_fios'>tr</a>"; } else { $trPutan = ''; }
-      $bunadasURL = self::BUNADASURL;
+      $bunadasURL = self::bunadasurl();
+      $smotr = ( strpos($bunadasURL,'www2')!==false ? 'smotr_dev' : 'smotr'); //Adhockery - Cleachd 'smotr_dev' airson login air www2.smo.uhi.ac.uk
       $ceangalRiMoSMO = ( isset($myCLIL->id)
-                        ? "<li class='deas'><a href='/teanga/smotr_dev/logout.php' title='Log out from myCLIL'>Logout</a></li>"
-                        : "<li class='deas'><a href='/teanga/smotr_dev/login.php?till_gu=https://www2.smo.uhi.ac.uk/teanga/bunadas/' title='$T_Log_air_fios'>$T_Log_air</a></li>"
-                        );      $hlArr = array(
+                        ? "<li class='deas'><a href='/teanga/$smotr/logout.php' title='Log out from myCLIL'>Logout</a></li>"
+                        : "<li class='deas'><a href='/teanga/$smotr/login.php?till_gu=$bunadasURL' title='$T_Log_air_fios'>$T_Log_air</a></li>"
+                        );
+      $hlArr = array(
           'br'=>'Brezhoneg',
           'de'=>'Deutsch',
           'en'=>'English',
