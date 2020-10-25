@@ -1,0 +1,603 @@
+<?php
+  if (!include('autoload.inc.php'))
+    header("Location:https://claran.smo.uhi.ac.uk/mearachd/include_a_dhith/?faidhle=autoload.inc.php");
+  header('Cache-Control:max-age=0');
+
+  try {
+      $moSMO = SM_moSMO::singleton();
+  } catch (Exception $e) {
+      $moSMO->toradh = $e->getMessage();
+  }
+
+  try {
+    $T = new SM_T('bunadas/f');
+    $hl = $T::hl0();
+    $T_Fios_mu_fhacal       = $T->_('Fiosrachadh mu fhacal');
+    $T_Facal                = $T->_('Facal');
+    $T_Coimhearsnachd       = $T->_('Coimhearsnachd');
+    $T_Drong                = $T->_('Drong');
+    $T_topar                = $T->_('topar');
+    $T_Lorg_le_Multidict    = $T->_('Lorg le Multidict');
+    $T_Lorg_ann_an_DASG     = $T->_('Lorg ann an DASG');
+    $T_Deasaich_am_facal    = $T->_('Deasaich am facal');
+    $T_Cru_drong_le_facal   = $T->_('Cruthaich drong ùr leis an fhacal seo');
+    $T_Sguab_as             = $T->_('Sguab às');
+    $T_Derb                 = $T->_('Derb');
+    $T_Canan                = $T->_('Language');
+    $T_Gram                 = $T->_('Gram');
+    $T_Fis                  = $T->_('Fis');
+    $T_IPA                  = $T->_('IPA');
+    $T_Gluas                = $T->_('Gluas');
+    $T_Cruthachadh          = $T->_('Cruthachadh');
+    $T_Atharrachadh         = $T->_('Atharrachadh');
+    $T_le                   = $T->_('le');
+    $T_Cru_facal_don_drong  = $T->_('Cruthaich facal ùr dhan drong seo');
+    $T_Dublaich_an_drong    = $T->_('Dùblaich an drong');
+    $T_Cuir_as_don_drong    = $T->_('Cuir às don drong');
+    $T_Sguab_as_an_drong    = $T->_('Sguab am facal seo às an drong');
+    $T_Atharr_nasg_le_drong = $T->_('Atharr_nasg_le_drong');
+    $T_litreachadh          = $T->_('litreachadh');
+    $T_fiosrachadh          = $T->_('fiosrachadh');
+    $T_Litreachaidhean_eile = $T->_('Litreachaidhean eile');
+    $T_Cuir_ris             = $T->_('Cuir ris');
+    $T_teacsa               = $T->_('teacsa');
+    $T_Iomraidhean          = $T->_('Iomraidhean');
+    $T_Iomraidhean_fios     = $T->_('Iomraidhean_fios');
+    $T_Faclairean           = $T->_('Faclairean');
+    $T_Faclairean_fios      = $T->_('Faclairean_fios');
+    $T_dictsltl_fios        = $T->_('dictsltl_fios');
+    $T_word_placeholder     = $T->_('word_placeholder');
+    $T_dictfis_ph           = $T->_('dictfis_ph');
+    $T_a_bharrachd          = $T->_('a_bharrachd');
+    $T_Briog_gus_am_faicinn = $T->_('Briog_gus_am_faicinn');
+    $T_lexLegend            = $T->_('lexLegend');
+    $T_lexLegend_fios       = $T->_('lexLegend_fios');
+    $T_Os_fhacail           = $T->_('Os_fhacail');
+    $T_Co_fhacail           = $T->_('Co_fhacail');
+    $T_Fo_fhacail           = $T->_('Fo_fhacail');
+    $T_Air_neo              = $T->_('Air neo');
+    $T_Sguir                = $T->_('Sguir');
+    $T_Sguab_facal_da_rir   = $T->_('Sguab_facal_da_rir');
+    $T_Chan_eil_facal_ann   = $T->_('Chan_eil_facal_ann');
+    $T_dictsltl_format_exc  = $T->_('dictsltl_format_exc');
+
+    $dronganHtml = $lexHtml = $litHtml = $imradHtml = $dictHtml = $dictHtmlC = $javascriptDeasachaidh = $onload = '';
+
+    $f = $_GET['f'];
+    $deasaich = SM_Bunadas::ceadSgriobhaidh();
+
+    $navbar = SM_Bunadas::navbar($T->domhan);
+
+    $ainmTeanga = SM_Bunadas::ainmTeanga();
+    $teangaithe = array_keys($ainmTeanga);
+
+    $stordataConnector = SM_Bunadas::stordataConnector();
+    $DbBun = $stordataConnector::singleton('rw');
+//    $bunadasurl = SM_Bunadas::BUNADASURL;
+    $bunadasurl = SM_Bunadas::bunadasurl();
+
+    function uairHtml ($utime) {
+        $uairObject = new DateTime("@$utime");
+        $latha     = date_format($uairObject, 'Y-m-d');
+        $lathaUair = date_format($uairObject, 'Y-m-d H:i:s');
+        return "<span title=\"$lathaUair UT\">$latha</span>";
+    }
+
+    function comDrongHtml($f1,$f2) {
+    //Cruthaich tick ma tha $f1 agus $f2 ann an drong còmhla
+        global $DbBun;
+        $stmt = $DbBun->prepare('SELECT 1 FROM bundf AS bundf1, bundf AS bundf2 WHERE bundf1.f=:f1 AND bundf2.f=:f2 AND bundf1.d=bundf2.d'); 
+        $stmt->execute([':f1'=>$f1,':f2'=>$f2]);
+        if ($stmt->fetch()) { return '<span class=cdTick>✓</span>'; }
+         else               { return ''; }
+    }
+
+    $stmt = $DbBun->prepare('SELECT * FROM bunf WHERE f=:f');
+    $stmt->execute(array(':f'=>$f));
+    if (!$row = $stmt->fetch(PDO::FETCH_ASSOC)) { throw new SM_Exception("$T_Chan_eil_facal_ann: " . htmlspecialchars($f)); }
+    extract($row);
+    $fis   = htmlspecialchars($fis);
+    $gluas = htmlspecialchars($gluas);
+    $fiosCo   = ( empty($csmid) ? '' : "<b>$T_Cruthachadh:</b>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
+    $fiosCo  .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><b>$T_Atharrachadh:</b> " . uairHtml($mutime) . " $T_le $msmid" );
+    $fiosCo   = ( empty($fiosCo)? '' : "<tr style='font-size:50%'><td colspan=2>$fiosCo</td></tr>\n" );
+    $fDeasaichHtml = $fSguabHtml = '';
+    if ($deasaich) {
+        if (isset($_GET['sguab'])) {
+            $fSguabHtml = <<< EODsguab
+<div class=sguab>
+$T_Sguab_facal_da_rir&nbsp;&nbsp; <a href="fSguab.php?f=$f&amp;till=./" class=sguab>$T_Sguab_as</a>
+<br><br>
+$T_Air_neo <a href=f.php?f=$f>$T_Sguir</a>
+</div>
+EODsguab;
+        } else { 
+            $fDeasaichHtml  = " <a href='fDeasaich.php?f=$f'><img src='/icons-smo/peann.png' alt='Deasaich' title='$T_Deasaich_am_facal'></a>"
+                            . " <a href='dDeasaich.php?f=$f&d=0'><img src='/favicons/drongUr.png' alt='Drong ùr' title='$T_Cru_drong_le_facal'></a>"
+                            . " <a href='f.php?f=$f&amp;sguab'><img src='/icons-smo/curAs2.png' title='$T_Sguab_as' alt='$T_Sguab_as'></a>";
+        }
+        if (isset($_REQUEST['curLit']) && !empty($_REQUEST['lit']) && isset($_REQUEST['litfis'])) {
+            $litREQ    = trim($_REQUEST['lit']);
+            $litfisREQ = trim($_REQUEST['litfis']);
+            $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,litfis) VALUES (:f,:lit,:litfis)");
+            $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':litfis'=>$litfisREQ) );
+            header("Location:$bunadasurl/f.php?f=$f");
+        }
+        if (isset($_REQUEST['curImrad']) && isset($_REQUEST['imrad']) && isset($_REQUEST['url'])) {
+            $imradREQ = trim($_REQUEST['imrad']);
+            $urlREQ   = trim($_REQUEST['url']);
+            if (!(empty($imradREQ)&&empty($urlREQ))) {
+                $stmtCurImrad = $DbBun->prepare("INSERT IGNORE INTO bunfImrad(f,imrad,url) VALUES (:f,:imrad,:url)");
+                $stmtCurImrad->execute( array(':f'=>$f, ':imrad'=>$imradREQ, ':url'=>$urlREQ) );
+                header("Location:$bunadasurl/f.php?f=$f");
+            }
+        }
+        if (isset($_REQUEST['curDict']) && isset($_REQUEST['dictsltl']) && isset($_REQUEST['word'])) {
+            $dictsltlREQ = trim($_REQUEST['dictsltl']);
+            $wordREQ     = trim($_REQUEST['word']);
+            $dictfisREQ  = trim($_REQUEST['dictfis']);
+            if (!(empty($dictSlTlREQ)&&empty($wordREQ))) {
+                if (count(explode('-',$dictsltlREQ))<>3) { throw new SM_Exception($T_dictsltl_format_exc); }
+                if (preg_match('|^\d+$|',$wordREQ)) { $wordREQ = "[$wordREQ]"; }
+                $stmtCurDict = $DbBun->prepare("INSERT IGNORE INTO bunfDict(f,dictsltl,word,dictfis) VALUES (:f,:dictsltl,:word,:dictfis)");
+                $stmtCurDict->execute([':f'=>$f, ':dictsltl'=>$dictsltlREQ, ':word'=>$wordREQ, ':dictfis'=>$dictfisREQ]);
+                header("Location:$bunadasurl/f.php?f=$f");
+            }
+        }
+        if ( isset($_REQUEST['DnD']) && isset($_REQUEST['fDrag']) && isset($_REQUEST['dDrop']) ) {  //Slaod is leig às
+            $fDrag = $_REQUEST['fDrag'];
+            $dDrop = $_REQUEST['dDrop'];
+            $DbBun->beginTransaction();
+            $stmtCuirriDrong = $DbBun->prepare("INSERT IGNORE INTO bundf(f,d) VALUES (:f,:d)");
+            $stmtCuirriDrong->execute( array(':f'=>$fDrag, ':d'=>$dDrop) );
+            if (isset($_REQUEST['dDrag'])) {
+                $dDrag = $_REQUEST['dDrag'];
+                $stmtDEL = $DbBun->prepare('DELETE FROM bundf WHERE f=:f AND d=:d');
+                $stmtDEL->execute(array(':f'=>$fDrag,':d'=>$dDrag));
+            }
+            $DbBun->commit();
+        }
+    }
+    $ceanglaicheanHtml = "<a href=\"//multidict.net/multidict/?sl=$t&amp;word=" . urlencode($focal) . "\"><img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
+    if ($t=='gd') {
+        $ceangalDASG = '//www.dasg.ac.uk/corpus/concordance.php?theData=' . urlencode($focal) . '&amp;qmode=sq_nocase&amp;pp=50&amp;del=end&amp;uT=y&amp;del=begin&amp;del=end&amp;uT=y';
+        $ceanglaicheanHtml .= " <a href='$ceangalDASG'><img src=\"//multidict.net/multidict/icon.php?dict=DASG\" alt='DASG' title='$T_Lorg_ann_an_DASG'></a>";
+    }
+    if      ($t=='ieur') { $focalWikt = "Reconstruction:Proto-Indo-European/$focal"; }
+     elseif ($t=='celt') { $focalWikt = "Reconstruction:Proto-Celtic/$focal"; }
+     elseif ($t=='brit') { $focalWikt = "Reconstruction:Proto-Brythonic/$focal"; }
+     elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
+     elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slav/$focal"; }
+     elseif ($t=='la')   { setlocale(LC_CTYPE, 'en_GB.utf8');
+                           $focalWikt = iconv('UTF-8','US-ASCII//TRANSLIT',$focal); }
+     else                { $focalWikt = $focal; }
+    $focalWikt = urlencode($focalWikt);
+    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary'><img src='/favicons/wiktionary.png' alt='W'></a>";
+
+    $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
+    $stmtDictC->execute([':f'=>$f]);
+    $rows = $stmtDictC->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($rows as $r) {
+        extract($r);
+        list($dict,$sl,$tl) = explode('-',$dictsltl);
+        $title = "$dictsltl - $word";
+        if (!empty($dictfis)) { $title .= " - $dictfis"; }
+        $dictHtmlC .= " <a href='//multidict.net/multidict/?dict=$dict&amp;sl=$sl&amp;tl=$tl&amp;word=$word' title='$title'><img src='//multidict.net/multidict/icon.php?dict=$dict' alt='$dict'></a>";
+    }
+    $ceanglaicheanHtml .= $dictHtmlC;
+
+    $putan = SM_Bunadas::fHTML($f,0);
+    $gramHtml = ( empty($gram) ? '' : " <span style='font-size:90%'>[$gram]</span>" );
+    $fiosHtml = "<div style='float:left'>\n"
+              . "<div style='margin:4px 0 7px 0'><span style='font-size:80%;font-weight:bold'>$T_Facal " . htmlspecialchars($f) ."</span> $ceanglaicheanHtml &nbsp;&nbsp;&nbsp;"
+              . "<a href='fc.php?f=$f' class=putan>⇒ $T_Coimhearsnachd</a></div/\n"
+              . "<div style='margin:2px 0;font-size:170%'>$putan$fDeasaichHtml</div>\n"
+              . "</div>\n"
+              . "<table id=fiost><tr>\n"
+              . "<td style='width:10em'><b>$T_Derb:</b> $derb<br><b>$T_Canan:</b> " . $ainmTeanga[$t] ."<br><b>$T_Gram:</b>$gramHtml</td>\n"
+              . "<td><b>$T_Fis:</b> <span style='font-size:80%'>$fis</span><br><b>$T_IPA:</b> $ipa</td></tr>\n"
+              . "<tr><td colspan=2 style='white-space:normal'><b>$T_Gluas:</b> $gluas</td></tr>\n$fiosCo</table>\n";
+
+    //(Dèan rudeigin nas adhartaiche uaireigin airson os-fhacail agus fo-fhacail, a’ toirt fa-near thàthanan agus toiseach facail agus deireadh facail)
+    $stmtOs = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal LIKE :aPat AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3 LIMIT 21');
+    $stmtOs->execute(array(':aPat'=>"%$focal%",':focal'=>$focal,':t'=>$t,':f'=>$f));
+    $rows = $stmtOs->fetchAll(PDO::FETCH_ASSOC);
+    if (count($rows)>0 && count($rows)<21) {
+        $lexHtml .= "<p class=tiotal>$T_Os_fhacail</p>\n";
+        $lexHtml .= '<div style="margin:0.5em 0 0.5em 1em;line-height:150%">';
+        foreach ($rows as $r) {
+            extract($r);
+            $lexHtml .= SM_Bunadas::fHTML($f2) . comDrongHtml($f,$f2) . ' ';
+        }
+        $lexHtml .= "</div>\n";
+    }
+
+    $stmtCo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal=:focal AND t=:t AND NOT f=:f LIMIT 21');
+    $stmtCo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
+    $rows = $stmtCo->fetchAll(PDO::FETCH_ASSOC);
+    if (count($rows)>0 && count($rows)<21) {
+        $lexHtml .= "<p class=tiotal>$T_Co_fhacail</p>\n";
+        $lexHtml .= '<div style="margin:0.5em 0 0.5em 1em;line-height:150%">';
+        foreach ($rows as $r) {
+            extract($r);
+            $lexHtml .= SM_Bunadas::fHTML($f2) . comDrongHtml($f,$f2) . ' ';
+        }
+        $lexHtml .= "</div>\n";
+    }
+
+    $stmtFo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE LOCATE(focal,:focal)>0 AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3 LIMIT 21');
+    $stmtFo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
+    $rows = $stmtFo->fetchAll(PDO::FETCH_ASSOC);
+    if (count($rows)>0 && count($rows)<21) {
+        $lexHtml .= "<p class=tiotal>$T_Fo_fhacail</p>\n";
+        $lexHtml .= '<div style="margin:0.5em 0 0.5em 1em;line-height:150%">';
+        foreach ($rows as $r) {
+            extract($r);
+            $lexHtml .= SM_Bunadas::fHTML($f2) . comDrongHtml($f,$f2) . ' ';
+        }
+        $lexHtml .= "</div>\n";
+    }
+
+    if ($lexHtml) { $lexHtml = "<fieldset class=lex>\n<legend title='$T_lexLegend_fios'>$T_lexLegend</legend>\n$lexHtml\n</fieldset>\n"; }
+
+
+    $stmtLit = $DbBun->prepare('SELECT l,lit,litfis FROM bunfLit WHERE f=:f ORDER BY bunfLit.l');
+    $stmtLit->execute(array(':f'=>$f));
+    $rows = $stmtLit->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($rows as $r) {
+        extract($r);
+        $lit    = htmlspecialchars($lit);
+        $litfis = htmlspecialchars($litfis);
+        $litHtmlMir = $lit . ( empty($litfis) ? '' : " ($litfis)" );
+        if ($litfis=='Gaeḋealg') { $litHtmlMir = "<span style='font-family:Bunchlo Dubh GC'>$litHtmlMir</span>"; }
+        $multidictHtml = "<a href=\"//multidict.net/multidict/?sl=$t&amp;word=" . urlencode($lit) . "\"><img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
+        $litHtmlMir = "$multidictHtml $litHtmlMir";
+        $litHtmlsguab = ( !$deasaich ? ''
+                        : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>" );
+        $litHtml .= "<li style='list-style-type:none'>$litHtmlMir$litHtmlsguab\n";
+    }
+    if ($deasaich) {
+        $litHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='lit' placeholder='$T_litreachadh' value=''>"
+                    . " <input name='litfis' placeholder='$T_fiosrachadh' style='width:40em'>"
+                    . " <input type='submit' name='curLit' value='$T_Cuir_ris'></form>\n";
+    }
+    if ($litHtml) { $litHtml = "<fieldset class=imrad style='background-color:#dea'>\n<legend title='Litreachaidhean eile air an aon fhacal'>$T_Litreachaidhean_eile</legend>\n<ul>\n$litHtml\n</ul>\n</fieldset>\n"; }
+
+    $stmtImrad = $DbBun->prepare('SELECT i,imrad,url FROM bunfImrad WHERE f=:f ORDER BY bunfImrad.i');
+    $stmtImrad->execute(array(':f'=>$f));
+    $rows = $stmtImrad->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($rows as $r) {
+        extract($r);
+        $imrad = htmlspecialchars($imrad);
+        $url   = htmlspecialchars($url);
+        $ceangal = ( empty($imrad) ? $url : $imrad );
+        if (!empty($url)) { $ceangal = "<a href='$url'>$ceangal</a>"; }
+        $sguabImradHtml = ( !$deasaich ? ''
+                          : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabImrad($f,$i)' title='Sguab às' style='color:red;font-weight:bold'>✘</a>" );
+        $imradHtml .= "<li>$ceangal$sguabImradHtml\n";
+    }
+    if ($deasaich) {
+        $imradHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='imrad' placeholder='$T_teacsa' value=''>"
+                    . " <input name='url' placeholder='url' style='width:40em'>"
+                    . " <input type='submit' name='curImrad' value='$T_Cuir_ris'></form>\n";
+    }
+    if (!empty($imradHtml)) { $imradHtml = "<fieldset class=imrad>\n<legend title='$T_Iomraidhean_fios'>$T_Iomraidhean</legend>\n<ul>\n$imradHtml\n</ul>\n</fieldset>\n"; }
+
+    if ($deasaich) {
+        $stmtDict = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
+        $stmtDict->execute(array(':f'=>$f));
+        $rows = $stmtDict->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {
+            extract($r);
+            $dictTaisbean = "$dictsltl : $word - $dictfis";
+            $sguabDictHtml = ( !$deasaich ? ''
+                              : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabDict($f,$i)' title='Sguab às' style='color:red;font-weight:bold'>✘</a>" );
+            $dictHtml .= "<li>$dictTaisbean$sguabDictHtml\n";
+        }
+        $dictsltlValue = $dictfisValue = '';
+        if ($t=='sga') {
+            $dictsltlValue = "value='eDIL-sga-en'";
+            $dictfisValue = ( empty($derb) ? $focal : "$derb $focal" );
+            $dictfisValue = "value='$dictfisValue'";
+        }
+        $dictHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'>"
+                   . "<input name='dictsltl' placeholder='dict-sl-tl' pattern='\w{2,}-\w{2,}-\w{2,}' $dictsltlValue title='$T_dictsltl_fios'>"
+                   . " <input name='word' placeholder='$T_word_placeholder' required style='width:20em'>"
+                   . " <input name='dictfis' placeholder='$T_dictfis_ph' title='$T_dictfis_ph' $dictfisValue style='width:20em'>"
+                   . " <input type='submit' name='curDict' value='$T_Cuir_ris'></form>\n";
+        if (!empty($dictHtml)) { $dictHtml = "<fieldset class=imrad style='background-color:#fdd'>\n<legend title='$T_Faclairean_fios'>$T_Faclairean</legend>\n<ul>\n$dictHtml\n</ul>\n</fieldset>\n"; }
+    }
+
+    $stmtd1 = $DbBun->prepare('SELECT bundf.d, topar, ABS(meit) AS meit0, ciana AS ciana0 FROM bundf,bund WHERE f=:f AND bundf.d=bund.d ORDER BY meit0,ciana0,d');
+    $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.derb AS derb2, meit, ciana, doich, parentage_ord FROM bundf,bunf,bunt'
+             . ' WHERE bundf.d=:d'
+             . '   AND bundf.f=bunf.f'
+             . '   AND bunf.t=bunt.t'
+             . ' ORDER BY ciana,meit,parentage_ord,focal2,derb2';
+    $stmtd2 = $DbBun->prepare($queryd2);
+    $stmtd1->execute(array(':f'=>$f));
+    while ($row1 = $stmtd1->fetch(PDO::FETCH_ASSOC)) {
+        extract($row1);
+        $dDeasaichHtml = ( $deasaich
+                         ? " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
+                          ." <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dubladh.png title='$T_Dublaich_an_drong'></a>"
+                          ." <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"
+                         : ''
+                         );
+        $stmtd2->execute(array(':d'=>$d));
+        $row2Arr = $stmtd2->fetchAll(PDO::FETCH_ASSOC);
+        $nRiBearradh = 0;
+        if (count($row2Arr)>6) { //Feuch cia meud sreathan a bhiodh rim bearradh
+            $nTaisbean = 0;
+            foreach ($row2Arr as $row2) {
+                extract($row2);
+                if ($f2==$f) { $nTaisbean++; }
+                 elseif ( ($meit==1 && $nTaisbean>=10) || ($meit==2 && $nTaisbean>=6) || ($meit==3 && $nTaisbean>=4) ) { $nRiBearradh++; }
+                 else { $nTaisbean++; }
+            }
+        }
+        $bearr = ( $nRiBearradh>3 ? 1 : 0 ); //Nam biodh an àireamh nas ìsle na 3, cha b’fhiach bearradh a dhèanamh
+        $bearrBarrHtml = '';
+        if ($bearr) { $bearrBarrHtml =  "<span onclick=bearrToggle('d$d')><span class=bearrAir title='$T_Briog_gus_am_faicinn'>▼</span><span class=bearrDheth>▲</span></span>"; }
+
+        $nBearrte = $nTaisbean = 0;
+        $drongHtml = "<div class='drong' id='d$d'><div class=dCeann><b><a href='d.php?d=$d'>$T_Drong $d</a></b>$dDeasaichHtml &nbsp; <span class=topar title='$T_topar'>($topar)</span> $bearrBarrHtml</div>\n";
+        $drongHtml .= "<table>\n";
+        foreach ($row2Arr as $row2) {
+            extract($row2);
+            $meitHtml = SM_Bunadas::meitHtml($meit);
+            $doichHtml = SM_Bunadas::doichHtml($doich);
+            if ($deasaich) {
+                $cianaDeasaichHtml = "<span onclick='atharrCiana($d,$f2,$ciana-1)' style='font-weight:bold;font-size:120%'>-</span> "
+                                   . "<span onclick='atharrCiana($d,$f2,$ciana-0.1)'>-</span> "
+                                   . "<span onclick='atharrCiana($d,$f2,$ciana+0.1)'>+</span> "
+                                   . "<span onclick='atharrCiana($d,$f2,$ciana+1)' style='font-weight:bold;font-size:120%'>+</span> ";
+                $meitDeasaichHtml = "<span onclick='atharrMeit($d,$f2,-3)'>≪</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,-2)'>≺</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,-1)'>≼</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,0)'>–</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,1)'>≽</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,2)'>≻</span> "
+                                  . "<span onclick='atharrMeit($d,$f2,3)'>≫</span≻";
+               $fDeasaichHtml = "<a href='d.php?d=$d&amp;f=$f2'><img src='/icons-smo/peann.png' title='$T_Atharr_nasg_le_drong' alt='Deasaich'></a>"
+                                             .   " <img src='/icons-smo/curAs.png' onclick=\"sguabFbhoD($f2,$d)\" title='$T_Sguab_as_an_drong' alt='Sguab'>";
+               $fDeasaichHtml = "<td>$fDeasaichHtml<span class=cianDeasaich>$cianaDeasaichHtml</span><span class=meitDeasaich>$meitDeasaichHtml</span></td>";
+            }
+            if ($f2==$f) {
+                $trclass = ' class=soillsich';
+                $nTaisbean++;
+            } elseif (!$bearr) {
+                $trclass = '';
+                $nTaisbean++;
+            } elseif ( ($meit==1 && $nTaisbean>=10) || ($meit==2 && $nTaisbean>=6) || ($meit==3 && $nTaisbean>=4) ) {
+                $trclass = ' class=bearr';
+                $nBearrte++;
+            } else {
+                $trclass = '';
+                $nTaisbean++;
+            }
+            $cianaHtml = ( $ciana>0 ? $ciana : "<b style='color:black'>$ciana</b>" );
+            $drongHtml .=  "<tr$trclass><td><a href=\"//multidict.net/multidict/?sl=$t2&amp;word=" . urlencode($focal2)
+                             . "\"><img src='dealbhan/multidict.png' style='margin-right:10px' alt='' title='$T_Lorg_le_Multidict'></a></td><td>"
+                             . SM_Bunadas::fHTML($f2) . "</td><td>$meitHtml</td><td style='color:grey;font-size:80%'>$cianaHtml$doichHtml</td>$fDeasaichHtml</tr>\n";
+        }
+        if ($nBearrte>0) {
+            $bearrBunHtml = "<span class=bearrAir title='$T_Briog_gus_am_faicinn'>·· ▼ ·· <span class=bearrFios>+ $nBearrte $T_a_bharrachd</span></span><span class=bearrDheth>&nbsp;&nbsp; ▲</span>";
+            $drongHtml .= "<tr><td></td><td colspan=3 onclick=bearrToggle('d$d')>$bearrBunHtml</td></tr>\n";
+        }
+        $drongHtml .= "</table>\n</div>\n";
+        $dronganHtml .= $drongHtml;
+    }
+
+    if ($deasaich) { $javascriptDeasachaidh = <<<END_DnD_JAVASCRIPT
+      //Javascript airson slaod-is-leig
+        var drongStart, dDrag, shiftKey, ctrlKey;
+        function findAncestor (el, cls) {
+          //Cleachd “closest” an àite seo, nuair a bhios e mu dheireadh thall aig IE agus Edge
+            while ((el = el.parentElement) && !el.classList.contains(cls));
+            return el;
+        }
+        function handleDragStart(e) {
+             drongStart = findAncestor(e.target,'drong');
+             if (drongStart) { dDrag = drongStart.id.substring(1); }
+              else           { dDrag = -1; }
+             var name = e.target.getAttribute('data-name');
+             e.dataTransfer.setData('text/x-bunadas', name);
+             e.effectAllowed = 'copyMove';
+             if (e.shiftKey) { shiftKey = true; } else { shiftKey = false; }
+             if (e.ctrlKey)  { ctrlKey  = true; } else { ctrlKey  = false; }
+        }
+        function handleDragEnter(e) {
+            if (this!=drongStart) { this.classList.add('over'); }
+        }
+        function handleDragLeave(e) {
+            this.classList.remove('over');
+        }
+        function handleDragOver(e) {
+            if (e.preventDefault) { e.preventDefault(); }
+            e.dataTransfer.dropEffect = 'copy';
+            if (shiftKey || ctrlKey || e.shiftKey || e.ctrlKey ) { e.dataTransfer.dropEffect = 'move'; }
+        }
+        function handleDrop(e) {
+            if (e.stopPropogation) { e.stopPropogation(); }
+            if (e.preventDefault) { e.preventDefault(); }
+            var fDrag = e.dataTransfer.getData('text/x-bunadas').substring(1);
+            var dDrop = this.id.substring(1);
+            if (this!=drongStart) {
+                var url = '$bunadasurl/ajax/DnD.php?fDrag=' + fDrag + '&dDrop=' + dDrop;
+                if (e.dataTransfer.dropEffect == 'move' || e.shiftKey || e.ctrlKey) { url += '&dDrag=' + dDrag; }
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", url, false);
+                xmlhttp.send();
+                var resp = xmlhttp.responseText;
+                if (resp!='OK') { alert('Error in DnD: ' + resp); }
+                location.reload();
+            }
+        }
+        function handleDragEnd(e) {
+            e.dataTransfer.clearData();
+            shiftKey = false;
+            ctrlKey  = false;
+        }
+        function deasaichDnD() {
+            var drongan = document.getElementsByClassName("drong");
+            [].forEach.call(drongan, function(drong) {
+                drong.addEventListener('drop',      handleDrop,      false);
+                drong.addEventListener('dragenter', handleDragEnter, false);
+                drong.addEventListener('dragleave', handleDragLeave, false);
+                drong.addEventListener('dragover',  handleDragOver,  false);
+            });
+            var draggables = document.querySelectorAll('div.f[draggable=true]');
+            [].forEach.call(draggables, function(draggable) {
+                draggable.addEventListener('dragstart', handleDragStart, false);
+            });
+          }
+        function sguabFbhoD(f,d) {
+        //Javascript airson facal f a sguabadh bho drong d
+            var url = '$bunadasurl/ajax/sguabFbhoD.php?f=' + f + '&d=' + d;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in sguabFbhoD: ' + resp); }
+            location.reload();
+        }
+        function sguabLit(f,l) {
+            var url = '$bunadasurl/ajax/sguabLit.php?f=' + f + '&l=' + l;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in sguabLit: ' + resp); }
+            location.reload();
+        }
+        function sguabImrad(f,i) {
+            var url = '$bunadasurl/ajax/sguabImrad.php?f=' + f + '&i=' + i;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in sguabImrad: ' + resp); }
+            location.reload();
+        }
+        function sguabDict(f,i) {
+            var url = '$bunadasurl/ajax/sguabDict.php?f=' + f + '&i=' + i;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in sguabDict: ' + resp); }
+            location.reload();
+        }
+        function atharrMeit(d,f,m) {
+            var url = '$bunadasurl/ajax/atharrMeit.php?d=' + d + '&f=' + f + '&m=' + m;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in atharrMeit: ' + resp); }
+            location.reload();
+        }
+        function atharrCiana(d,f,c) {
+            if (c<0) { c = 0; }
+            var url = '$bunadasurl/ajax/atharrCiana.php?d=' + d + '&f=' + f + '&c=' + c;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, false);
+            xmlhttp.send();
+            var resp = xmlhttp.responseText;
+            if (resp!='OK') { alert('Error in atharrCiana: ' + resp); }
+            location.reload();
+        }
+END_DnD_JAVASCRIPT;
+        $onload = " onload='deasaichDnD();'";
+    }
+
+    $stordataCss = SM_Bunadas::stordataCss();
+    $html = <<<END_HTML
+<!DOCTYPE html>
+<html lang="$hl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <title>Bunadas: $T_Fios_mu_fhacal $f</title>
+    <link rel="StyleSheet" href="/css/smo.css">$stordataCss
+    <link rel="StyleSheet" href="snas.css">
+    <style>
+        div.drong              { background-color:#ffd; clear:both; margin:0.8em 0; border:1px solid; border-radius:0.5em; padding:0.2em; }
+        div.drong table        { border-collapse:collapse; }
+        div.drong tr.soillsich { background-color:#ff4; }
+        div.drong tr.soillsich:hover { background-color:#fd6; }
+        div.drong tr.bearr     { display:none; }
+        div.drong.bearrDheth tr.bearr { display:table-row; }
+        div.drong tr:hover     { background-color:#fdd; }
+        div.drong table td     { padding:1px 1px; }
+        div.drong tr td:nth-child(3) { min-width:1.1em; }
+        div.drong tr td:nth-child(4) { min-width:1.6em; }
+        div.drong tr td:nth-child(5) { padding-left:1.5em; }
+        div.sguab         { margin:0.4em 0; border:6px solid red; border-radius:7px; background-color:#fdd; padding:0.7em; }
+        div.sguab a       { font-size:112%; background-color:#55a8eb; color:white; font-weight:bold; padding:3px 10px; border:0; border-radius:8px; text-decoration:none; }
+        div.sguab a:hover { background-color:blue; }
+        div.sguab a.sguab       { background-color:#f84; }
+        div.sguab a.sguab:hover { background-color:red; font-weight:bold; }
+        a.putan { padding:1px 5px; text-decoration:none; border:1px solid blue; border-radius:7px }
+        a.putan:not(:hover) { background-color:#ddf; }
+        fieldset.lex          { clear:both; margin:0.8em 0; border:1px solid; padding:0.4em 0.4em 0 1em; background-color:#bbb; font-size:60%; }
+        fieldset.lex legend   { background-color:#555; color:white; font-size:110%; font-weight:bold; }
+        fieldset.lex p.tiotal { margin:0;font-size:80%;font-weight:bold }
+        fieldset.imrad        { clear:both; margin-top:1em; background-color:#bec; font-size:80%; }
+        fieldset.imrad legend { background-color:#555; color:white; font-size:85%; font-weight:bold; }
+        fieldset.imrad ul     { margin:0; }
+        li.curImrad { margin-top:8px; margin-bottom:0; list-style-type:none; }
+        div.dCeann { margin-bottom:6px; }
+        table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
+        table#fiost tr { vertical-align:top; }
+        table#fiost td:first-child { padding-right:4em; white-space:nowrap; }
+        table#fiost b { font-weight:normal; font-size:80%; color:#666; }
+        span.topar { font-size:80%; color:#bbb; }
+        span.cianDeasaich { padding-left:1.5em; color:#ac9; }
+        span.meitDeasaich { padding-left:1.5em; color:#99f; }
+        span.cianDeasaich > span:hover,
+        span.meitDeasaich > span:hover { background-color:blue; color:yellow; cursor:default; }
+        span.bearrFios { font-style:italic; font-size:75%; }
+        span.cdTick { color:green; font-size:150%; }
+        div.drong span.bearrAir   { display:inline; }
+        div.drong span.bearrDheth { display:none;   }
+        div.drong.bearrDheth span.bearrAir   { display:none;   }
+        div.drong.bearrDheth span.bearrDheth { display:inline; }
+    </style>
+    <script>
+        function bearrToggle(d) {
+            var drong = document.getElementById(d);
+            if (drong.classList.contains('bearrDheth'))
+                  { drong.classList.remove('bearrDheth'); }
+             else { drong.classList.add('bearrDheth');    }
+        }
+$javascriptDeasachaidh
+    </script>
+</head>
+<body$onload>
+
+$navbar
+<div class="smo-body-indent">
+
+$fSguabHtml
+<a href="./"><img src="dealbhan/bunadas64.png" style="float:left;border:1px solid black;margin:0 2em 2em 0" alt=""></a>
+$fiosHtml
+
+$dronganHtml
+$lexHtml
+$litHtml
+$imradHtml
+$dictHtml
+
+</div>
+$navbar
+
+</body>
+</html>
+END_HTML;
+
+    echo $html;
+
+  } catch (exception $e) { echo $e; }
+?>
