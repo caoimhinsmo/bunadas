@@ -115,12 +115,13 @@ EODsguab;
                             . " <a href='dDeasaich.php?f=$f&d=0'><img src='/favicons/drongUr.png' alt='Drong ùr' title='$T_Cru_drong_le_facal'></a>"
                             . " <a href='f.php?f=$f&amp;sguab'><img src='/icons-smo/curAs2.png' title='$T_Sguab_as' alt='$T_Sguab_as'></a>";
         }
+        $autofocusLit = ( isset($_GET['autofocusLit']) ? 'autofocus' : '');
         if (isset($_REQUEST['curLit']) && !empty($_REQUEST['lit']) && isset($_REQUEST['litfis'])) {
             $litREQ    = trim($_REQUEST['lit']);
             $litfisREQ = trim($_REQUEST['litfis']);
             $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,litfis) VALUES (:f,:lit,:litfis)");
             $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':litfis'=>$litfisREQ) );
-            header("Location:$bunadasurl/f.php?f=$f");
+            header("Location:$bunadasurl/f.php?f=$f&autofocusLit");
         }
         if (isset($_REQUEST['curImrad']) && isset($_REQUEST['imrad']) && isset($_REQUEST['url'])) {
             $imradREQ = trim($_REQUEST['imrad']);
@@ -256,7 +257,7 @@ EODsguab;
         $litHtml .= "<li style='list-style-type:none'>$litHtmlMir$litHtmlsguab\n";
     }
     if ($deasaich) {
-        $litHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='lit' placeholder='$T_litreachadh' value=''>"
+        $litHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='lit' placeholder='$T_litreachadh' value='' $autofocusLit>"
                     . " <input name='litfis' placeholder='$T_fiosrachadh' style='width:40em'>"
                     . " <input type='submit' name='curLit' value='$T_Cuir_ris'></form>\n";
     }
