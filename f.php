@@ -137,7 +137,7 @@ EODsguab;
             $dictfisREQ  = trim($_REQUEST['dictfis']);
             if (!(empty($dictSlTlREQ)&&empty($wordREQ))) {
                 if (count(explode('-',$dictsltlREQ))<>3) { throw new SM_Exception($T_dictsltl_format_exc); }
-                if (preg_match('|^\d+$|',$wordREQ)) { $wordREQ = "[$wordREQ]"; }
+                if (preg_match('|^\d+$|',$wordREQ)) { $wordREQ = "(($wordREQ))"; }
                 $stmtCurDict = $DbBun->prepare("INSERT IGNORE INTO bunfDict(f,dictsltl,word,dictfis) VALUES (:f,:dictsltl,:word,:dictfis)");
                 $stmtCurDict->execute([':f'=>$f, ':dictsltl'=>$dictsltlREQ, ':word'=>$wordREQ, ':dictfis'=>$dictfisREQ]);
                 header("Location:$bunadasurl/f.php?f=$f");
@@ -189,7 +189,7 @@ EODsguab;
     $gramHtml = ( empty($gram) ? '' : " <span style='font-size:90%'>[$gram]</span>" );
     $fiosHtml = "<div style='float:left'>\n"
               . "<div style='margin:4px 0 7px 0'><span style='font-size:80%;font-weight:bold'>$T_Facal " . htmlspecialchars($f) ."</span> $ceanglaicheanHtml &nbsp;&nbsp;&nbsp;"
-              . "<a href='fc.php?f=$f' class=putan>⇒ $T_Coimhearsnachd</a></div/\n"
+              . "<a href='fc.php?f=$f' class=putan>⇒ $T_Coimhearsnachd</a></div>\n"
               . "<div style='margin:2px 0;font-size:170%'>$putan$fDeasaichHtml</div>\n"
               . "</div>\n"
               . "<table id=fiost><tr>\n"
@@ -260,7 +260,7 @@ EODsguab;
                     . " <input name='litfis' placeholder='$T_fiosrachadh' style='width:40em'>"
                     . " <input type='submit' name='curLit' value='$T_Cuir_ris'></form>\n";
     }
-    if ($litHtml) { $litHtml = "<fieldset class=imrad style='background-color:#dea'>\n<legend title='Litreachaidhean eile air an aon fhacal'>$T_Litreachaidhean_eile</legend>\n<ul>\n$litHtml\n</ul>\n</fieldset>\n"; }
+    if ($litHtml) { $litHtml = "<fieldset class=imrad style='background-color:#eee8d7'>\n<legend title='Litreachaidhean eile air an aon fhacal'>$T_Litreachaidhean_eile</legend>\n<ul>\n$litHtml\n</ul>\n</fieldset>\n"; }
 
     $stmtImrad = $DbBun->prepare('SELECT i,imrad,url FROM bunfImrad WHERE f=:f ORDER BY bunfImrad.i');
     $stmtImrad->execute(array(':f'=>$f));
@@ -304,7 +304,7 @@ EODsguab;
                    . " <input name='word' placeholder='$T_word_placeholder' required style='width:20em'>"
                    . " <input name='dictfis' placeholder='$T_dictfis_ph' title='$T_dictfis_ph' $dictfisValue style='width:20em'>"
                    . " <input type='submit' name='curDict' value='$T_Cuir_ris'></form>\n";
-        if (!empty($dictHtml)) { $dictHtml = "<fieldset class=imrad style='background-color:#fdd'>\n<legend title='$T_Faclairean_fios'>$T_Faclairean</legend>\n<ul>\n$dictHtml\n</ul>\n</fieldset>\n"; }
+        if (!empty($dictHtml)) { $dictHtml = "<fieldset class=imrad style='background-color:#fee'>\n<legend title='$T_Faclairean_fios'>$T_Faclairean</legend>\n<ul>\n$dictHtml\n</ul>\n</fieldset>\n"; }
     }
 
     $stmtd1 = $DbBun->prepare('SELECT bundf.d, topar, ABS(meit) AS meit0, ciana AS ciana0 FROM bundf,bund WHERE f=:f AND bundf.d=bund.d ORDER BY meit0,ciana0,d');
@@ -319,7 +319,7 @@ EODsguab;
         extract($row1);
         $dDeasaichHtml = ( $deasaich
                          ? " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
-                          ." <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dubladh.png title='$T_Dublaich_an_drong'></a>"
+                          ." <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png class=dublaich title='$T_Dublaich_an_drong'></a>"
                           ." <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"
                          : ''
                          );
@@ -340,8 +340,7 @@ EODsguab;
         if ($bearr) { $bearrBarrHtml =  "<span onclick=bearrToggle('d$d')><span class=bearrAir title='$T_Briog_gus_am_faicinn'>▼</span><span class=bearrDheth>▲</span></span>"; }
 
         $nBearrte = $nTaisbean = 0;
-        $drongHtml = "<div class='drong' id='d$d'><div class=dCeann><b><a href='d.php?d=$d'>$T_Drong $d</a></b>$dDeasaichHtml &nbsp; <span class=topar title='$T_topar'>($topar)</span> $bearrBarrHtml</div>\n";
-        $drongHtml .= "<table>\n";
+        $dTableHtml = $dClass = '';
         foreach ($row2Arr as $row2) {
             extract($row2);
             $meitHtml = SM_Bunadas::meitHtml($meit);
@@ -362,8 +361,14 @@ EODsguab;
                                              .   " <img src='/icons-smo/curAs.png' onclick=\"sguabFbhoD($f2,$d)\" title='$T_Sguab_as_an_drong' alt='Sguab'>";
                $fDeasaichHtml = "<td>$fDeasaichHtml<span class=cianDeasaich>$cianaDeasaichHtml</span><span class=meitDeasaich>$meitDeasaichHtml</span></td>";
             }
+            $saighead = '';
             if ($f2==$f) {
                 $trclass = ' class=soillsich';
+                $saighead = '⮕';
+                if      ($ciana==0) { $dClass = 'ciana0';    }
+                 elseif ($meit==2)  { $dClass = 'meit2';     }
+                 elseif ($meit==-2) { $dClass = 'meit2neg';  }
+                 elseif ($meit==3)  { $dClass = 'meit3';     }
                 $nTaisbean++;
             } elseif (!$bearr) {
                 $trclass = '';
@@ -376,16 +381,24 @@ EODsguab;
                 $nTaisbean++;
             }
             $cianaHtml = ( $ciana>0 ? $ciana : "<b style='color:black'>$ciana</b>" );
-            $drongHtml .=  "<tr$trclass><td><a href=\"//multidict.net/multidict/?sl=$t2&amp;word=" . urlencode($focal2)
-                             . "\"><img src='dealbhan/multidict.png' style='margin-right:10px' alt='' title='$T_Lorg_le_Multidict'></a></td><td>"
+            $dTableHtml .=  "<tr$trclass><td><a href=\"//multidict.net/multidict/?sl=$t2&amp;word=" . urlencode($focal2)
+                             . "\"><img src='dealbhan/multidict.png' style='margin-right:0.2em' alt='' title='$T_Lorg_le_Multidict'></a>$saighead</td><td>"
                              . SM_Bunadas::fHTML($f2) . "</td><td>$meitHtml</td><td style='color:grey;font-size:80%'>$cianaHtml$doichHtml</td>$fDeasaichHtml</tr>\n";
         }
         if ($nBearrte>0) {
-            $bearrBunHtml = "<span class=bearrAir title='$T_Briog_gus_am_faicinn'>·· ▼ ·· <span class=bearrFios>+ $nBearrte $T_a_bharrachd</span></span><span class=bearrDheth>&nbsp;&nbsp; ▲</span>";
-            $drongHtml .= "<tr><td></td><td colspan=3 onclick=bearrToggle('d$d')>$bearrBunHtml</td></tr>\n";
+            $bearrBunHtml = "<span class=bearrAir title='$T_Briog_gus_am_faicinn'>·· ▼ ·· <span class=bearrFios>+ $nBearrte $T_a_bharrachd</span></span>"
+                          . "<span class=bearrDheth>&nbsp;&nbsp; ▲</span>";
+            $dTableHtml .= "<tr><td></td><td colspan=3 onclick=bearrToggle('d$d')>$bearrBunHtml</td></tr>\n";
         }
-        $drongHtml .= "</table>\n</div>\n";
-        $dronganHtml .= $drongHtml;
+        $dronganHtml .= <<<END_drongHtml
+<div class='drong $dClass' id='d$d'>
+<div class=dCeann><b><a href='d.php?d=$d'>$T_Drong $d</a></b>$dDeasaichHtml &nbsp; <span class=topar title='$T_topar'>($topar)</span> $bearrBarrHtml</div>
+<div class=dColainn>
+<table>
+$dTableHtml
+</table></div>
+</div>
+END_drongHtml;
     }
 
     if ($deasaich) { $javascriptDeasachaidh = <<<END_DnD_JAVASCRIPT
@@ -522,7 +535,7 @@ END_DnD_JAVASCRIPT;
     <link rel="StyleSheet" href="/css/smo.css">$stordataCss
     <link rel="StyleSheet" href="snas.css">
     <style>
-        div.drong              { background-color:#ffd; clear:both; margin:0.8em 0; border:1px solid; border-radius:0.5em; padding:0.2em; }
+        div.drong              { background-color:#ffe; clear:both; margin:0.8em 0; border:1px solid; border-radius:0.6em; max-width:45em; }
         div.drong table        { border-collapse:collapse; }
         div.drong tr.soillsich { background-color:#ff4; }
         div.drong tr.soillsich:hover { background-color:#fd6; }
@@ -543,11 +556,16 @@ END_DnD_JAVASCRIPT;
         fieldset.lex          { clear:both; margin:0.8em 0; border:1px solid; padding:0.4em 0.4em 0 1em; background-color:#bbb; font-size:60%; }
         fieldset.lex legend   { background-color:#555; color:white; font-size:110%; font-weight:bold; }
         fieldset.lex p.tiotal { margin:0;font-size:80%;font-weight:bold }
-        fieldset.imrad        { clear:both; margin-top:1em; background-color:#bec; font-size:80%; }
-        fieldset.imrad legend { background-color:#555; color:white; font-size:85%; font-weight:bold; }
+        fieldset.imrad        { clear:both; margin:1em 0.5em 1em 1.5em; padding:0.1em; background-color:#ddf8e8; font-size:80%; }
+        fieldset.imrad legend { background-color:#555; color:white; font-size:90%; font-weight:bold; margin-left:1em; }
         fieldset.imrad ul     { margin:0; }
         li.curImrad { margin-top:8px; margin-bottom:0; list-style-type:none; }
-        div.dCeann { margin-bottom:6px; }
+        div.dCeann { border-radius:0.6em 0.6em 0 0;  border-bottom:1px solid #88a; background-color:#cdf; padding-left:0.6em; }
+        div.dColainn { margin-top:0.3em; border-radius: 0 0 0.6em 0.6em; padding-left:0.3em; }
+        div.ciana0 div.dCeann  { background-color:#6bb; }
+        div.drong.meit2        { background-color:#e0ffe0; }
+        div.drong.meit2neg     { background-color:#fcf; }
+        div.drong.meit3        { background-color:#ddd; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
         table#fiost td:first-child { padding-right:4em; white-space:nowrap; }
@@ -559,6 +577,7 @@ END_DnD_JAVASCRIPT;
         span.meitDeasaich > span:hover { background-color:blue; color:yellow; cursor:default; }
         span.bearrFios { font-style:italic; font-size:75%; }
         span.cdTick { color:green; font-size:150%; }
+        img.dublaich:hover { background-color:#99f; }
         div.drong span.bearrAir   { display:inline; }
         div.drong span.bearrDheth { display:none;   }
         div.drong.bearrDheth span.bearrAir   { display:none;   }
@@ -577,7 +596,7 @@ $javascriptDeasachaidh
 <body$onload>
 
 $navbar
-<div class="smo-body-indent">
+<div class="smo-body-indent" style="max-width:70em">
 
 $fSguabHtml
 <a href="./"><img src="dealbhan/bunadas64.png" style="float:left;border:1px solid black;margin:0 2em 2em 0" alt=""></a>

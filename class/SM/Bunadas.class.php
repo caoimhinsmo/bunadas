@@ -79,7 +79,7 @@ class SM_Bunadas
           'es'=>'Español (incompleto)');
       $options = '';
       foreach ($hlArr as $hl=>$hlAinm) {
-          if (substr($hl,0,4)=='----') { $options .= "<option value='' disabled>&nbsp;_{$hlAinm}_</option>/n"; }  //Divider in the list of select options
+          if (substr($hl,0,4)=='----') { $options .= "<option value='' disabled>&nbsp;_{$hlAinm}_</option>\n"; }  //Divider in the list of select options
             else                       { $options .= "<option value='$hl|en'" . ( $hl==$hl0 ? ' selected' : '' ) . ">$hlAinm</option>\n"; }
       }
       $selCanan = <<< END_selCanan
