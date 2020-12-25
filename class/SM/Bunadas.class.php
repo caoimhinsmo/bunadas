@@ -44,11 +44,11 @@ class SM_Bunadas
   public static function navbar($domhan='',$duilleagAghaidh=0) {
       $hl0 = SM_T::hl0();
       $T = new SM_T('bunadas/navbar');
-      $T_bunCeangalTitle    = $T->_('bunCeangalTitle');
-      $T_canan_eadarAghaidh = $T->_('canan_eadarAghaidh');
-      $T_Log_air            = $T->_('Log_air');
-      $T_Log_air_fios       = $T->_('Log_air_fios');
-      $T_tr_fios            = $T->_('tr_fios');
+      $T_bunCeangalTitle    = $T->h('bunCeangalTitle');
+      $T_canan_eadarAghaidh = $T->h('canan_eadarAghaidh');
+      $T_Log_air            = $T->h('Log_air');
+      $T_Log_air_fios       = $T->h('Log_air_fios');
+      $T_tr_fios            = $T->h('tr_fios');
       $bundb = ucfirst(self::bundb());
       $bunCeangal = ( $duilleagAghaidh ? '' : "\n<li><a href='/teanga/bunadas/' title='$T_bunCeangalTitle'>$bundb</a>" );
       $myCLIL = SM_myCLIL::singleton();
@@ -204,7 +204,7 @@ EOD_NAVBAR;
   public static function doichHtml($doich) {
   // Comharraidhean-ceiste mar rabhadh ma tha $doich<1
       $T = new SM_T('bunadas/f');
-      $T_coltachd = $T->_('coltachd');
+      $T_coltachd = $T->h('coltachd');
       $doichHtml = $doichStyle = '';
       if ($doich<0.98) {
           $doichHtml = ( $doich>=0.8 ? '?' : '??' );

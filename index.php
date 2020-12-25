@@ -117,7 +117,7 @@ EODbundbForm;
     <meta name="google" content="notranslate">
     <title>Bunadas</title>
     <link rel="StyleSheet" href="/css/smo.css">
-    <link rel="StyleSheet" href="snas.css?sgudalAthluchdaich">
+    <link rel="StyleSheet" href="snas.css.php">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         ul#priomh { clear:both; list-style-type:none; }

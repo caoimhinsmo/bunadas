@@ -16,9 +16,9 @@
     $bunadasURL = SM_Bunadas::bunadasurl();
     $T = new SM_T('bunadas/dDublaich');
     $hl = $T::hl0();
-    $T_Chaidh_drong_a_chopaigeadh = $T->_('Chaidh_drong_a_chopaigeadh');
-    $T_Parameter_neo_iomchaidh    = $T->_('Parameter neo-iomchaidh');
-    $T_Chan_eil_drong_d           = $T->_('Chan_eil_drong_d');
+    $T_Chaidh_drong_a_chopaigeadh = $T->h('Chaidh_drong_a_chopaigeadh');
+    $T_Parameter_neo_iomchaidh    = $T->h('Parameter neo-iomchaidh');
+    $T_Chan_eil_drong_d           = $T->h('Chan_eil_drong_d');
 
     $navbar = SM_Bunadas::navbar($T->domhan);
 

@@ -159,7 +159,7 @@
     <meta name="robots" content="noindex,nofollow">
     <title>Bunadas: $T_Liosta $teanga1 gu $teanga2</title>
     <link rel="StyleSheet" href="/css/smo.css">
-    <link rel="StyleSheet" href="snas.css">$stordataCss
+    <link rel="StyleSheet" href="snas.css.php">$stordataCss
     <style>
         div.loidhne { margin:7px 0 6px 3em; text-indent:-3em; }
         div.loidhne div { text-indent:0; }

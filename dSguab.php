@@ -18,7 +18,7 @@
 
     $T = new SM_T('bunadas/dSguab');
     $hl = $T::hl0(); 
-    $T_Chaidh_drong_d_a_sguabadh_as = $T->_('Chaidh_drong_d_a_sguabadh_as');
+    $T_Chaidh_drong_d_a_sguabadh_as = $T->h('Chaidh_drong_d_a_sguabadh_as');
 
     $d = (!isset($_REQUEST['d']) ? 0 : $_REQUEST['d']);
     $d = htmlspecialchars($d);

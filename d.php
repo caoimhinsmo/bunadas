@@ -12,36 +12,36 @@
   try {
     $T = new SM_T('bunadas/d');
     $hl = $T::hl0();
-    $T_Parameter_p_a_dhith  = $T->_('Parameter_p_a_dhith');
-    $T_Parameter_mi_iom     = $T->_('Parameter_mi_iom');
-    $T_Dublaich_darireabh   = $T->_('Dublaich_darireabh');
-    $T_Dublaich             = $T->_('Dublaich'); 
-    $T_Air_neo              = $T->_('Air neo');
-    $T_Sguir                = $T->_('Sguir');
-    $T_Drong                = $T->_('Drong');
-    $T_topar                = $T->_('topar');
-    $T_Deasaich_an_drong    = $T->_('Deasaich an drong');
-    $T_Cru_facal_don_drong  = $T->_('Cruthaich facal ùr dhan drong seo');
-    $T_Dublaich_an_drong    = $T->_('Dùblaich an drong');
-    $T_Cuir_as_don_drong    = $T->_('Cuir às don drong');
-    $T_Sguab_as_an_drong    = $T->_('Sguab am facal seo às an drong');
-    $T_Lorg_le_Multidict    = $T->_('Lorg le Multidict');
-    $T_Sguab_as_an_drong    = $T->_('Sguab am facal seo às an drong');
-    $T_Atharr_nasg_le_drong = $T->_('Atharr_nasg_le_drong');
-    $T_Lorg                 = $T->_('Lorg');
-    $T_Canan                = $T->_('Language');
-    $T_Facal                = $T->_('Facal');
-    $T_Lorg_facal_don_drong = $T->_('Lorg_facal_don_drong');
-    $T_Facal_ph             = $T->_('Facal_ph');
-    $T_Gluas_ph             = $T->_('Gluas_ph');
-    $T_coltachd             = $T->_('coltachd');
-    $T_Tagh_facal_ri_cur    = $T->_('Tagh_facal_ri_cur');
-    $T_Cuir_ris_an_drong    = $T->_('Cuir ris an drong');
-    $T_cus_fhaclan_a_lorg   = $T->_('cus_fhaclan_a_lorg');
-    $T_Chan_eil_drong_d     = $T->_('Chan_eil_drong_d');
-    $T_Sguab_as             = $T->_('Sguab às');
-    $T_Sguab_drong_da_rir   = $T->_('Sguab_drong_da_rir');
-    $T_Error_in             = $T->_('Error_in','eq');
+    $T_Parameter_p_a_dhith  = $T->h('Parameter_p_a_dhith');
+    $T_Parameter_mi_iom     = $T->h('Parameter_mi_iom');
+    $T_Dublaich_darireabh   = $T->h('Dublaich_darireabh');
+    $T_Dublaich             = $T->h('Dublaich'); 
+    $T_Air_neo              = $T->h('Air neo');
+    $T_Sguir                = $T->h('Sguir');
+    $T_Drong                = $T->h('Drong');
+    $T_topar                = $T->h('topar');
+    $T_Deasaich_an_drong    = $T->h('Deasaich an drong');
+    $T_Cru_facal_don_drong  = $T->h('Cruthaich facal ùr dhan drong seo');
+    $T_Dublaich_an_drong    = $T->h('Dùblaich an drong');
+    $T_Cuir_as_don_drong    = $T->h('Cuir às don drong');
+    $T_Sguab_as_an_drong    = $T->h('Sguab am facal seo às an drong');
+    $T_Lorg_le_Multidict    = $T->h('Lorg le Multidict');
+    $T_Sguab_as_an_drong    = $T->h('Sguab am facal seo às an drong');
+    $T_Atharr_nasg_le_drong = $T->h('Atharr_nasg_le_drong');
+    $T_Lorg                 = $T->h('Lorg');
+    $T_Canan                = $T->h('Language');
+    $T_Facal                = $T->h('Facal');
+    $T_Lorg_facal_don_drong = $T->h('Lorg_facal_don_drong');
+    $T_Facal_ph             = $T->h('Facal_ph');
+    $T_Gluas_ph             = $T->h('Gluas_ph');
+    $T_coltachd             = $T->h('coltachd');
+    $T_Tagh_facal_ri_cur    = $T->h('Tagh_facal_ri_cur');
+    $T_Cuir_ris_an_drong    = $T->h('Cuir ris an drong');
+    $T_cus_fhaclan_a_lorg   = $T->h('cus_fhaclan_a_lorg');
+    $T_Chan_eil_drong_d     = $T->h('Chan_eil_drong_d');
+    $T_Sguab_as             = $T->h('Sguab às');
+    $T_Sguab_drong_da_rir   = $T->h('Sguab_drong_da_rir');
+    $T_Error_in             = $T->j('Error_in','eq');
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
@@ -138,7 +138,10 @@ END_cuirRiHTML;
             $torArr = $stmtSEL->fetchAll(PDO::FETCH_OBJ);
             $count = count($torArr);
             if ($count==0) {
-                $cuirRiHTML .= "<p class='mearachd'>Chan eil a leithid d’fhacail r’a lorg ann am Bunadas.  Feuch a-rithist...</p>\n";
+                $tqENC     = urlencode($tq);
+                $focalqENC = urlencode($focalq);
+                $cuirRiHTML .= "<p class='mearachd'>Chan eil a leithid d’fhacail r’a lorg ann am Bunadas.  Feuch a-rithist,"
+                             . " no <a href='fDeasaich.php?d=$d&amp;t=$tqENC&amp;focal=$focalqENC'>cruthaich am facal</a>.</p>\n";
             } elseif ($count>200) {
                 $cuirRiHTML .= "<p class='mearachd'>$T_cus_fhaclan_a_lorg</p>\n";
             } else {
@@ -230,7 +233,7 @@ END_javascriptDeasachaidh;
 
     if ($deasaich) { $dDeasaichHTML =  "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
                                     .  " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
-                                    . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dubladh.png title='$T_Dublaich_an_drong'></a>"
+                                    . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png title='$T_Dublaich_an_drong'></a>"
                                     . " <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"; }
     $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar'>$topar</span></div>\n";
     $stmtd2->execute(array(':d'=>$d));
@@ -289,7 +292,7 @@ END_HTML;
     <meta name="robots" content="noindex,nofollow">
     <title>Bunadas: Fiosrachadh mu Drong $d</title>
     <link rel="StyleSheet" href="/css/smo.css">$stordataCss
-    <link rel="StyleSheet" href="snas.css">
+    <link rel="StyleSheet" href="snas.css.php">
     <style>
         div.drong { background-color:#ffd; clear:both; margin:0.8em 0; border:1px solid; border-radius:0.4em; padding:0.2em; }
         div.drong table { border-collapse:collapse; }

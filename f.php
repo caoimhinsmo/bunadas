@@ -12,54 +12,55 @@
   try {
     $T = new SM_T('bunadas/f');
     $hl = $T::hl0();
-    $T_Fios_mu_fhacal       = $T->_('Fiosrachadh mu fhacal');
-    $T_Facal                = $T->_('Facal');
-    $T_Coimhearsnachd       = $T->_('Coimhearsnachd');
-    $T_Drong                = $T->_('Drong');
-    $T_topar                = $T->_('topar');
-    $T_Lorg_le_Multidict    = $T->_('Lorg le Multidict');
-    $T_Lorg_ann_an_DASG     = $T->_('Lorg ann an DASG');
-    $T_Deasaich_am_facal    = $T->_('Deasaich am facal');
-    $T_Cru_drong_le_facal   = $T->_('Cruthaich drong ùr leis an fhacal seo');
-    $T_Sguab_as             = $T->_('Sguab às');
-    $T_Derb                 = $T->_('Derb');
-    $T_Canan                = $T->_('Language');
-    $T_Gram                 = $T->_('Gram');
-    $T_Fis                  = $T->_('Fis');
-    $T_IPA                  = $T->_('IPA');
-    $T_Gluas                = $T->_('Gluas');
-    $T_Cruthachadh          = $T->_('Cruthachadh');
-    $T_Atharrachadh         = $T->_('Atharrachadh');
-    $T_le                   = $T->_('le');
-    $T_Cru_facal_don_drong  = $T->_('Cruthaich facal ùr dhan drong seo');
-    $T_Dublaich_an_drong    = $T->_('Dùblaich an drong');
-    $T_Cuir_as_don_drong    = $T->_('Cuir às don drong');
-    $T_Sguab_as_an_drong    = $T->_('Sguab am facal seo às an drong');
-    $T_Atharr_nasg_le_drong = $T->_('Atharr_nasg_le_drong');
-    $T_litreachadh          = $T->_('litreachadh');
-    $T_fiosrachadh          = $T->_('fiosrachadh');
-    $T_Litreachaidhean_eile = $T->_('Litreachaidhean eile');
-    $T_Cuir_ris             = $T->_('Cuir ris');
-    $T_teacsa               = $T->_('teacsa');
-    $T_Iomraidhean          = $T->_('Iomraidhean');
-    $T_Iomraidhean_fios     = $T->_('Iomraidhean_fios');
-    $T_Faclairean           = $T->_('Faclairean');
-    $T_Faclairean_fios      = $T->_('Faclairean_fios');
-    $T_dictsltl_fios        = $T->_('dictsltl_fios');
-    $T_word_placeholder     = $T->_('word_placeholder');
-    $T_dictfis_ph           = $T->_('dictfis_ph');
-    $T_a_bharrachd          = $T->_('a_bharrachd');
-    $T_Briog_gus_am_faicinn = $T->_('Briog_gus_am_faicinn');
-    $T_lexLegend            = $T->_('lexLegend');
-    $T_lexLegend_fios       = $T->_('lexLegend_fios');
-    $T_Os_fhacail           = $T->_('Os_fhacail');
-    $T_Co_fhacail           = $T->_('Co_fhacail');
-    $T_Fo_fhacail           = $T->_('Fo_fhacail');
-    $T_Air_neo              = $T->_('Air neo');
-    $T_Sguir                = $T->_('Sguir');
-    $T_Sguab_facal_da_rir   = $T->_('Sguab_facal_da_rir');
-    $T_Chan_eil_facal_ann   = $T->_('Chan_eil_facal_ann');
-    $T_dictsltl_format_exc  = $T->_('dictsltl_format_exc');
+    $T_Fios_mu_fhacal       = $T->h('Fiosrachadh mu fhacal');
+    $T_Facal                = $T->h('Facal');
+    $T_Coimhearsnachd       = $T->h('Coimhearsnachd');
+    $T_Drong                = $T->h('Drong');
+    $T_topar                = $T->h('topar');
+    $T_Lorg_le_Multidict    = $T->h('Lorg le Multidict');
+    $T_Lorg_ann_an_DASG     = $T->h('Lorg ann an DASG');
+    $T_Deasaich_am_facal    = $T->h('Deasaich am facal');
+    $T_Cru_drong_le_facal   = $T->h('Cruthaich drong ùr leis an fhacal seo');
+    $T_Sguab_as             = $T->h('Sguab às');
+    $T_Derb                 = $T->h('Derb');
+    $T_Canan                = $T->h('Language');
+    $T_Gram                 = $T->h('Gram');
+    $T_Fis                  = $T->h('Fis');
+    $T_IPA                  = $T->h('IPA');
+    $T_Gluas                = $T->h('Gluas');
+    $T_Cruthachadh          = $T->h('Cruthachadh');
+    $T_Atharrachadh         = $T->h('Atharrachadh');
+    $T_le                   = $T->h('le');
+    $T_Cru_facal_don_drong  = $T->h('Cruthaich facal ùr dhan drong seo');
+    $T_Dublaich_an_drong    = $T->h('Dùblaich an drong');
+    $T_Cuir_as_don_drong    = $T->h('Cuir às don drong');
+    $T_Sguab_as_an_drong    = $T->h('Sguab am facal seo às an drong');
+    $T_Atharr_nasg_le_drong = $T->h('Atharr_nasg_le_drong');
+    $T_litreachadh          = $T->h('litreachadh');
+    $T_fiosrachadh          = $T->h('fiosrachadh');
+    $T_Litreachaidhean_eile = $T->h('Litreachaidhean eile');
+    $T_Cuir_ris             = $T->h('Cuir ris');
+    $T_teacsa               = $T->h('teacsa');
+    $T_Iomraidhean          = $T->h('Iomraidhean');
+    $T_Iomraidhean_fios     = $T->h('Iomraidhean_fios');
+    $T_Faclairean           = $T->h('Faclairean');
+    $T_Faclairean_fios      = $T->h('Faclairean_fios');
+    $T_dictsltl_fios        = $T->h('dictsltl_fios');
+    $T_word_placeholder     = $T->h('word_placeholder');
+    $T_dictfis_ph           = $T->h('dictfis_ph');
+    $T_a_bharrachd          = $T->h('a_bharrachd');
+    $T_Briog_gus_am_faicinn = $T->h('Briog_gus_am_faicinn');
+    $T_lexLegend            = $T->h('lexLegend');
+    $T_lexLegend_fios       = $T->h('lexLegend_fios');
+    $T_Os_fhacail           = $T->h('Os_fhacail');
+    $T_Co_fhacail           = $T->h('Co_fhacail');
+    $T_Fo_fhacail           = $T->h('Fo_fhacail');
+    $T_Air_neo              = $T->h('Air neo');
+    $T_Sguir                = $T->h('Sguir');
+    $T_Sguab_facal_da_rir   = $T->h('Sguab_facal_da_rir');
+    $T_Chan_eil_facal_ann   = $T->h('Chan_eil_facal_ann');
+    $T_dictsltl_format_exc  = $T->h('dictsltl_format_exc');
+    $T_Error_in             = $T->h('Error_in');
 
     $dronganHtml = $lexHtml = $litHtml = $imradHtml = $dictHtml = $dictHtmlC = $javascriptDeasachaidh = $onload = '';
 
@@ -199,7 +200,8 @@ EODsguab;
               . "<tr><td colspan=2 style='white-space:normal'><b>$T_Gluas:</b> $gluas</td></tr>\n$fiosCo</table>\n";
 
     //(Dèan rudeigin nas adhartaiche uaireigin airson os-fhacail agus fo-fhacail, a’ toirt fa-near thàthanan agus toiseach facail agus deireadh facail)
-    $stmtOs = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal LIKE :aPat AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3 LIMIT 21');
+    $stmtOs = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal LIKE :aPat AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3'
+                            . ' ORDER BY focal2 LIMIT 21');
     $stmtOs->execute(array(':aPat'=>"%$focal%",':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtOs->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -212,7 +214,7 @@ EODsguab;
         $lexHtml .= "</div>\n";
     }
 
-    $stmtCo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal=:focal AND t=:t AND NOT f=:f LIMIT 21');
+    $stmtCo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal=:focal AND t=:t AND NOT f=:f ORDER BY focal2 LIMIT 21');
     $stmtCo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtCo->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -225,7 +227,8 @@ EODsguab;
         $lexHtml .= "</div>\n";
     }
 
-    $stmtFo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE LOCATE(focal,:focal)>0 AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3 LIMIT 21');
+    $stmtFo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE LOCATE(focal,:focal)>0 AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3'
+                            . ' ORDER BY focal2 LIMIT 21');
     $stmtFo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtFo->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -443,7 +446,7 @@ END_drongHtml;
                 xmlhttp.open("GET", url, false);
                 xmlhttp.send();
                 var resp = xmlhttp.responseText;
-                if (resp!='OK') { alert('Error in DnD: ' + resp); }
+                if (resp!='OK') { alert('$T_Error_in DnD: ' + resp); }
                 location.reload();
             }
         }
@@ -472,7 +475,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in sguabFbhoD: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in sguabFbhoD: ' + resp); }
             location.reload();
         }
         function sguabLit(f,l) {
@@ -481,7 +484,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in sguabLit: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in sguabLit: ' + resp); }
             location.reload();
         }
         function sguabImrad(f,i) {
@@ -490,7 +493,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in sguabImrad: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in sguabImrad: ' + resp); }
             location.reload();
         }
         function sguabDict(f,i) {
@@ -499,7 +502,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in sguabDict: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in sguabDict: ' + resp); }
             location.reload();
         }
         function atharrMeit(d,f,m) {
@@ -508,7 +511,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in atharrMeit: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in atharrMeit: ' + resp); }
             location.reload();
         }
         function atharrCiana(d,f,c) {
@@ -518,7 +521,7 @@ END_drongHtml;
             xmlhttp.open('GET', url, false);
             xmlhttp.send();
             var resp = xmlhttp.responseText;
-            if (resp!='OK') { alert('Error in atharrCiana: ' + resp); }
+            if (resp!='OK') { alert('$T_Error_in atharrCiana: ' + resp); }
             location.reload();
         }
 END_DnD_JAVASCRIPT;
@@ -534,15 +537,15 @@ END_DnD_JAVASCRIPT;
     <meta name="google" content="notranslate">
     <title>Bunadas: $T_Fios_mu_fhacal $f</title>
     <link rel="StyleSheet" href="/css/smo.css">$stordataCss
-    <link rel="StyleSheet" href="snas.css">
+    <link rel="StyleSheet" href="snas.css.php">
     <style>
-        div.drong              { background-color:#ffe; clear:both; margin:0.8em 0; border:1px solid; border-radius:0.6em; max-width:45em; }
+        div.drong              { background-color:#ffe; clear:both; margin:0.8em 0; border:2px solid #338; border-radius:0.6em; max-width:45em; }
         div.drong table        { border-collapse:collapse; }
-        div.drong tr.soillsich { background-color:#ff4; }
-        div.drong tr.soillsich:hover { background-color:#fd6; }
+        div.drong tr.soillsich { background-color:#ff8; }
+        div.drong tr.soillsich:hover { background-color:#fea; }
         div.drong tr.bearr     { display:none; }
         div.drong.bearrDheth tr.bearr { display:table-row; }
-        div.drong tr:hover     { background-color:#fdd; }
+        div.drong tr:hover     { background-color:#fee; }
         div.drong table td     { padding:1px 1px; }
         div.drong tr td:nth-child(3) { min-width:1.1em; }
         div.drong tr td:nth-child(4) { min-width:1.6em; }
@@ -557,13 +560,14 @@ END_DnD_JAVASCRIPT;
         fieldset.lex          { clear:both; margin:0.8em 0; border:1px solid; padding:0.4em 0.4em 0 1em; background-color:#bbb; font-size:60%; }
         fieldset.lex legend   { background-color:#555; color:white; font-size:110%; font-weight:bold; }
         fieldset.lex p.tiotal { margin:0;font-size:80%;font-weight:bold }
-        fieldset.imrad        { clear:both; margin:1em 0.5em 1em 1.5em; padding:0.1em; background-color:#ddf8e8; font-size:80%; }
+        fieldset.imrad        { clear:both; margin:1em 0.5em 1em 3em; padding:0.1em; background-color:#ddf8e8; font-size:80%; }
         fieldset.imrad legend { background-color:#555; color:white; font-size:90%; font-weight:bold; margin-left:1em; }
         fieldset.imrad ul     { margin:0; }
         li.curImrad { margin-top:8px; margin-bottom:0; list-style-type:none; }
-        div.dCeann { border-radius:0.6em 0.6em 0 0;  border-bottom:1px solid #88a; background-color:#cdf; padding-left:0.6em; }
+        div.dCeann { border-radius:0.5em 0.5em 0 0;  border-bottom:1px solid #669; background-color:#cdf; padding:0.1em 0 0 0.6em; }
+        div.dCeann img { padding:0em  0.5em; }
         div.dColainn { margin-top:0.3em; border-radius: 0 0 0.6em 0.6em; padding-left:0.3em; }
-        div.ciana0 div.dCeann  { background-color:#6bb; }
+        div.ciana0 div.dCeann  { background-color:#ece; }
         div.drong.meit2        { background-color:#e0ffe0; }
         div.drong.meit2neg     { background-color:#fcf; }
         div.drong.meit3        { background-color:#ddd; }

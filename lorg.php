@@ -8,18 +8,18 @@
 
     $T = new SM_T('bunadas/lorg');
     $hl = $T::hl0();
-    $T_Lorg_facal       = $T->_('Lorg facal');
-    $T_Canan            = $T->_('Language');
-    $T_Facal            = $T->_('Facal');
-    $T_Facal_ph         = $T->_('Facal_ph');
-    $T_Gluas            = $T->_('Gluas');
-    $T_Gluas_ph         = $T->_('Gluas_ph');
-    $T_Lorg             = $T->_('Lorg');
-    $T_priomhLit        = $T->_('priomhLit');
-    $T_facal            = $T->_('facal');
-    $T_facail           = $T->_('facail');
-    $T_ntoraidheanFios  = $T->_('ntoraidheanFios');
-    $T_Cruthaich_facal  = $T->_('Cruthaich facal ùr');
+    $T_Lorg_facal       = $T->h('Lorg facal');
+    $T_Canan            = $T->h('Language');
+    $T_Facal            = $T->h('Facal');
+    $T_Facal_ph         = $T->h('Facal_ph');
+    $T_Gluas            = $T->h('Gluas');
+    $T_Gluas_ph         = $T->h('Gluas_ph');
+    $T_Lorg             = $T->h('Lorg');
+    $T_priomhLit        = $T->h('priomhLit');
+    $T_facal            = $T->h('facal');
+    $T_facail           = $T->h('facail');
+    $T_ntoraidheanFios  = $T->h('ntoraidheanFios');
+    $T_Cruthaich_facal  = $T->h('Cruthaich facal ùr');
 
     $ainmTeanga = SM_Bunadas::ainmTeanga();
     $teangaithe = array_keys($ainmTeanga);
@@ -119,7 +119,7 @@ EODFORM;
     <meta name="robots" content="noindex,nofollow">
     <title>Bunadas: $T_Lorg_facal</title>
     <link rel="StyleSheet" href="/css/smo.css">
-    <link rel="StyleSheet" href="snas.css">$stordataCss
+    <link rel="StyleSheet" href="snas.css.php">$stordataCss
     <style>
        table#tor { border-collapse:collapse; margin:1em 0 2.5em 0; }
        table#tor td { padding:5px; }

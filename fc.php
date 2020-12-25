@@ -7,25 +7,25 @@
   try {
     $T = new SM_T('bunadas/liosta');
     $hl = $T::hl0();
-    $T_Coimhearsnachd         = $T->_('Coimhearsnachd');
-    $T_Nochd_fo_mhirean       = $T->_('Nochd_fo_mhirean');
-    $T_Nochd_fo_mhirean_fios  = $T->_('Nochd_fo_mhirean_fios');
-    $T_Nochd_fo_mhirean_title = $T->_('Nochd_fo_mhirean_title');
-    $T_Nochd_os_mhirean       = $T->_('Nochd_os_mhirean');
-    $T_Nochd_os_mhirean_fios  = $T->_('Nochd_os_mhirean_fios');
-    $T_Nochd_os_mhirean_title = $T->_('Nochd_os_mhirean_title');
-    $T_Modh                   = $T->_('Modh');
-    $T_Ionannas_teann         = $T->_('Ionannas_teann');
-    $T_Ionannas_garbh         = $T->_('Ionannas_garbh');
-    $T_Ionannas_garbh_fios    = $T->_('Ionannas_garbh_fios');
-    $T_Lean_mion_mhirean      = $T->_('Lean_mion_mhirean');
-    $T_Lean_mion_mhirean_fios = $T->_('Lean_mion_mhirean_fios');
-    $T_Uas_chiana             = $T->_('Uas_chiana');
-    $T_Uas_chiana_fios        = $T->_('Uas_chiana_fios');
-    $T_Uraich                 = $T->_('Uraich');
-    $T_facal                  = $T->_('facal');
-    $T_facail                 = $T->_('facail');
-    $T_Astar_fios             = $T->_('Astar_fios');
+    $T_Coimhearsnachd         = $T->h('Coimhearsnachd');
+    $T_Nochd_fo_mhirean       = $T->h('Nochd_fo_mhirean');
+    $T_Nochd_fo_mhirean_fios  = $T->h('Nochd_fo_mhirean_fios');
+    $T_Nochd_fo_mhirean_title = $T->h('Nochd_fo_mhirean_title');
+    $T_Nochd_os_mhirean       = $T->h('Nochd_os_mhirean');
+    $T_Nochd_os_mhirean_fios  = $T->h('Nochd_os_mhirean_fios');
+    $T_Nochd_os_mhirean_title = $T->h('Nochd_os_mhirean_title');
+    $T_Modh                   = $T->h('Modh');
+    $T_Ionannas_teann         = $T->h('Ionannas_teann');
+    $T_Ionannas_garbh         = $T->h('Ionannas_garbh');
+    $T_Ionannas_garbh_fios    = $T->h('Ionannas_garbh_fios');
+    $T_Lean_mion_mhirean      = $T->h('Lean_mion_mhirean');
+    $T_Lean_mion_mhirean_fios = $T->h('Lean_mion_mhirean_fios');
+    $T_Uas_chiana             = $T->h('Uas_chiana');
+    $T_Uas_chiana_fios        = $T->h('Uas_chiana_fios');
+    $T_Uraich                 = $T->h('Uraich');
+    $T_facal                  = $T->h('facal');
+    $T_facail                 = $T->h('facail');
+    $T_Astar_fios             = $T->h('Astar_fios');
 
     $T_Nochd_os_mhirean_fios  = strtr ($T_Nochd_os_mhirean_fios,  [ '(' => '&nbsp; (' ] );
     $T_Ionannas_garbh_fios    = strtr ($T_Ionannas_garbh_fios,    [ ':' => ': &nbsp;' ] );
@@ -135,7 +135,7 @@
     <meta name="robots" content="noindex,nofollow">
     <title>Bunadas: $T_Coimhearsnachd $f</title>
     <link rel="StyleSheet" href="/css/smo.css">
-    <link rel="StyleSheet" href="snas.css">$stordataCss
+    <link rel="StyleSheet" href="snas.css.php">$stordataCss
     <style>
         div.loidhne { margin:7px 0 6px 1em; text-indent:-1em; background-color:#dcc; border-top:1px solid grey; }
         div.loidhne div { text-indent:0; }

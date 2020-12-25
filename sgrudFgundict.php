@@ -12,10 +12,10 @@
 
   $T = new SM_T('bunadas/sgrudF0');
   $hl = $T::hl0();
-  $T_sgrudFgundict_tiotal = $T->_('sgrudFgundict_tiotal');
-  $T_facal           = $T->_('facal');
-  $T_facail          = $T->_('facail');
-  $T_ntoraidheanFios = $T->_('ntoraidheanFios');
+  $T_facal           = $T->h('facal');
+  $T_facail          = $T->h('facail');
+  $T_ntoraidheanFios = $T->h('ntoraidheanFios');
+  $T_sgrudFgundict_tiotal = $T->h('sgrudFgundict_tiotal');
 
   $smid = $moSMO->id;
   $navbar = SM_Bunadas::navbar($T->domhan);
@@ -50,7 +50,7 @@ EODTOR;
     <meta name="robots" content="noindex,nofollow">
     <title>Bunadas: $T_sgrudFgundict_tiotal</title>
     <link rel="StyleSheet" href="/css/smo.css">
-    <link rel="StyleSheet" href="snas.css">$stordataCss
+    <link rel="StyleSheet" href="snas.css.php">$stordataCss
     <style>
        table#tor { border-collapse:collapse; margin-top:1em; }
        table#tor td { padding:5px; }

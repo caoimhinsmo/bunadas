@@ -1,3 +1,7 @@
+<?php
+header('Content-type: text/css');
+
+echo <<<EOD
 @charset "UTF-8";
 
 .fios { color:green; font-size:80%; }
@@ -139,3 +143,5 @@ option[value=be],
 option[value=ru]   { background-color:blue; color:white; }
 option[value=lt]   { background-color:#65f; color:white; }
 option[value=grc]  { background-color:#871; color:white; }
+EOD;
+?>

@@ -32,7 +32,7 @@
     $T_Facal_ur_ann        = $T->h('Chaidh am facal a chur ann');
     $T_Facal_ann_mu_thrath = $T->h('Facal_ann_mu_thrath');
 
-    $T_Facal_ann_mu_thrath = strtr ($T_Facal_ann_mu_thrath, [ '{' => "<a href='f.php?f=%s'>", '}' => '</a>' ] );
+    $T_Facal_ann_mu_thrath = strtr ($T_Facal_ann_mu_thrath, [ '{' => "<a href='lorg.php?t=%s&amp;f=%s&amp;derb=%s'>", '}' => '</a>' ] );
 
     $smid = $moSMO->id;
     $bunadasURL = SM_Bunadas::bunadasurl();
@@ -99,10 +99,7 @@
                 if (!empty($d)) { $refreshHtml = "\n    <meta http-equiv=refresh content='1;url=$bunadasURL/d.php?cuirRi=$fUr&amp;d=$d&amp;f=$fUr'>"; } //Cuir am focal ùr ann an drong $d
             }
         } else {
-            $stmtLorgFacalEile = $DbBun->prepare('SELECT f FROM bunf WHERE t=:t AND focal=:focal AND derb=:derb');
-            $stmtLorgFacalEile->execute(['t'=>$tUr,'focal'=>$focalUr,'derb'=>$derbUr]);
-            $fEile = $stmtLorgFacalEile->fetchColumn();
-            $fiosMearachd = sprintf($T_Facal_ann_mu_thrath,$fEile);
+            $fiosMearachd = sprintf($T_Facal_ann_mu_thrath,$tUr,$focalUr,$derbUr);
         }
     }
 
@@ -127,9 +124,26 @@ EODHtmlCeann;
             $selectTHtml = "<select name='t'>\n";
             foreach ($teangaithe as $t) { $selectTHtml .= "<option value='$t'" . ($t==$tRoimhe?' selected':'') . " lang='$t'>" . $ainmTeanga[$t] . " ($t)</option>\n"; }
             $selectTHtml .= "</select>\n";
+
+
+$selectTHtml = <<<END_selectTHtml
+<input type=hidden id=tHidden name=t value=''>
+<button type=button id=testButton value=''>TestButton</button>
+<script>
+function setT(lang,el) {
+    document.getElementById('tHidden').value = lang;
+    document.getElementById('testButton').value = lang;
+    document.getElementById('testButton').innerHTML = el.innerHTML;
+}
+</script>
+<button type=button onClick="setT('gd',this)">Gàidhlig</button>
+<button type=button onClick="setT('ga',this)">Gaeilge</button>
+<button type=button onClick="setT('gv',this)">Gaelg</button>
+END_selectTHtml;
+
             $HTML .= <<<EODHtmlFoirm
 <datalist id="gramList"><option value="root"><option value="n"><option value="v"><option value="adj"><option value="adverb"><option value="prefix"><option value="infix"><option value="suffix"><option value="placename"><option value="pronoun"><option value="numeral"><option value="determiner"></datalist>
-<form method=get action="" style="clear:both">
+<form id=priomhFoirm method=get action="" style="clear:both">
 <input type="hidden" name="f" value="$f">
 <input type="hidden" name="d" value="$d">
 <table id=form>
@@ -169,6 +183,9 @@ EODHtmlFoirm;
     <style>
         table#form { width:100%; }
         table#form tr td:first-child { text-align:right; }
+        button[value=gd] { background-color:blue; }
+        button[value=ga] { background-color:green; }
+        button[value=gv] { background-color:red; }
     </style>
 </head>
 <body>

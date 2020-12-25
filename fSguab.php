@@ -17,8 +17,8 @@
 
     $T = new SM_T('bunadas/fSguab');
     $hl = $T::hl0();
-    $T_Parameter_mi_iom        = $T->_('Parameter_mi_iom');
-    $T_Chaidh_facal_f_sguabadh = $T->_('Chaidh_facal_f_sguabadh');
+    $T_Parameter_mi_iom        = $T->h('Parameter_mi_iom');
+    $T_Chaidh_facal_f_sguabadh = $T->h('Chaidh_facal_f_sguabadh');
 
     $f = (!isset($_REQUEST['f']) ? 0 : $_REQUEST['f']);
     $f = htmlspecialchars($f);
