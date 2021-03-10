@@ -348,11 +348,18 @@ EOD_NAVBAR;
   }
 
 
-  public static function nabaidhean2 ($f0, $uasCiana=2, $nochdFoMhir=0, $nochdOsMhir=0, $modh=0, $iosDoich=0.501) {
+  public static function nabaidhean2 ($f0, $uasCiana=2, $nochdFoMhir=0, $nochdOsMhir=0, $modh=0, $iosDoich=0.501, $KSM=FALSE) {
   //Tillidh seo array de na nabaidhean a tha taobh a-stigh ciana $uasCiana de facail $f0, le coltachd os cionn $iosDoich.
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
       $nabArr = [$f0=>array(0,'','',1,'',0,0,'')]; //ciana,slige,meitCar,doich,t,parant,cianaceum,parentage_ord
+// ----- Sealach, gus déiligeadh ri Manainnis bho Kevin Scannell
+$queryKSM = "SELECT bunf2.f FROM bunf AS bunf1, bunf AS bunf2"
+            . " WHERE bunf1.f=:f1 AND bunf1.t=bunf2.t AND bunf1.focal=bunf2.focal"
+            . " AND (    (bunf1.derb NOT LIKE 'KSM%' AND bunf2.derb LIKE 'KSM%')"
+                 .  " OR (bunf1.derb LIKE 'KSM%' AND bunf2.derb NOT LIKE 'KSM%') )";
+$stmtKSM = $DbCaoimhin->prepare($queryKSM);
+// -------------------------------------------------------------
       $piseach = 1;
       try {
 //$iteration = 0;
@@ -367,6 +374,21 @@ EOD_NAVBAR;
                   $slige1    = $nabInfo1[1];
                   $meit1Car  = $nabInfo1[2];
                   $doich1    = $nabInfo1[3];
+                  $t1        = $nabInfo1[4];
+// ----- Sealach, gus déiligeadh ri Manainnis bho Kevin Scannell
+if ($KSM && in_array($t1,['gv','ga','gd','en'])) {
+    $stmtKSM->execute([':f1'=>$f1]);
+    $f2Arr = $stmtKSM->fetchAll(PDO::FETCH_COLUMN,0);
+    foreach ($f2Arr as $f2) {
+        if (isset($nabArr[$f2])) { continue; }
+        $nabInfo2 = $nabInfo1;
+        $nabInfo2[5] = $f1;
+        $nabInfo2[6] = 0;
+        $nabArr[$f2] = $nabInfo2;
+        $piseach = 1;
+    }
+}
+// -------------------------------------------------------------
                   $stmtSEL1->execute(array(':f'=>$f1));
                   while ($rowd = $stmtSEL1->fetch(PDO::FETCH_ASSOC)) {
                       extract($rowd);

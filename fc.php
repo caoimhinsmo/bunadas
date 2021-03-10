@@ -43,6 +43,8 @@
     $nochdFoMhirChecked = ( $nochdFoMhir ? ' checked' : '');
     $nochdOsMhir = ( empty($_GET['nochdOsMhir']) ? FALSE : TRUE );
     $nochdOsMhirChecked = ( $nochdOsMhir ? ' checked' : '');
+    $KSM = ( empty($_GET['KSM']) ? FALSE : TRUE );
+    $KSMChecked = ( $KSM ? ' checked' : '');
     $modh = ( isset($_GET['modh']) ? $_GET['modh'] : 1 );
     $modh0Checked = $modh1Checked = $modh2Checked = '';
     if ($modh==0) { $modh0Checked = 'checked'; }
@@ -52,7 +54,7 @@
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
 
-    $nabArr = SM_Bunadas::nabaidhean2($f,$uasCiana,$nochdFoMhir,$nochdOsMhir,$modh);
+    $nabArr = SM_Bunadas::nabaidhean2($f,$uasCiana,$nochdFoMhir,$nochdOsMhir,$modh,0.501,$KSM);
 
     function cmp($nab1,$nab2) {
     //Airson nàbaidhean a chur an òrdugh
@@ -205,6 +207,9 @@ $navbar
  <span title="$T_Nochd_os_mhirean_title">
   <label><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
   <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios)</span>
+ </span><br>
+ <span title="Kiangley stiagh Gaelg veih Kevin Scannell">
+  <label><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
  </span><br>
  $T_Modh:<br>
  &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
