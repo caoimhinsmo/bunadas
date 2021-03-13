@@ -62,6 +62,7 @@ class SM_Bunadas
                         );
       $hlArr = array(
           'br'=>'Brezhoneg',
+          'da'=>'Dansk',
           'de'=>'Deutsch',
           'en'=>'English',
           'fr'=>'Français',
@@ -69,14 +70,14 @@ class SM_Bunadas
           'gd'=>'Gàidhlig',
           'it'=>'Italiano',
           'lt'=>'Lietuvių',
+          'pt'=>'Portuguès',
           'sh'=>'Srpskohrvatsk',
-            '----1'=>'',  //Partial translations
-          'da'=>'Dansk (ufuldstændig)',
-          'pt'=>'Portuguès (incompleto)',
-          'bg'=>'Български (непълен)',
+          'bg'=>'Български',
+//            '----1'=>'',  //Partial translations
             '----2'=>'',  //Very partial translations
           'cy'=>'Cymraeg (anorffenedig)',
-          'es'=>'Español (incompleto)');
+          'es'=>'Español (incompleto)',
+      );
       $options = '';
       foreach ($hlArr as $hl=>$hlAinm) {
           if (substr($hl,0,4)=='----') { $options .= "<option value='' disabled>&nbsp;_{$hlAinm}_</option>\n"; }  //Divider in the list of select options
