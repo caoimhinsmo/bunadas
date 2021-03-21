@@ -164,7 +164,7 @@ END_cuirRiHTML;
 <td id='ciana$f' class='ciana'>$ciana</td>
 <td><input name='ciana' type='range' min=0 max=$cianaMax step=0.1 value=$ciana style='width:38em;color:#aaa' list=ticks oninput="setCiana('ciana$f',value);" onchange="setCiana('ciana$f',value);"></td>
 <td><input type='submit' value='$T_Cuir_ris_an_drong'></td>
-<td><input name='doich' type='range' min=0 max=1 step=0.1 value=$doich style='width:5em;color:#bbb' list=ticks oninput="setDoich('doich$f',value);" onchange="setDoich('doich$f',value);"></td>
+<td><input name='doich' type='range' min=0 max=1 step=0.1 value=$doich style='width:7em;color:#bbb' list=ticks oninput="setDoich('doich$f',value);" onchange="setDoich('doich$f',value);"></td>
 <td id='doich$f' class='doich'>$doich</td></tr></form>
 END_cuirRiHTMLrow;
                 }
@@ -308,7 +308,7 @@ END_HTML;
         div.sguab a.sguab:hover { background-color:red; font-weight:bold; }
         p.mearachd { color:red; font-size:85%; }
         td.ciana { color:grey; font-size:80%; width:1.8em; white-space:nowrap }
-        td.doich { color:#aaa; font-size:70%; }
+        td.doich { color:#888; font-size:70%; }
         div.dCeann { margin-bottom:0.5em; font-size:90%; color:#bbb; }
         div.dCeann b { color:black; }
         fieldset.cuirRis        { margin-top:0.3em; padding:0.2em 0.3em; background-color:#fee; border:1px solid #a99; border-radius:3px; }
