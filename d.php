@@ -315,8 +315,8 @@ END_HTML;
         fieldset.cuirRis legend { background-color:grey; color:white; padding:1px 4px; border:1px solid grey; border-radius:4px; font-weight:bold; font-size:70%; }
         table#cuirRiTable { border-collapse:collapse; }
         table#cuirRiTable tr:hover { background-color:#dd9; }
-        span.cianDeasaich { padding-left:1.5em; color:#ac9; }
-        span.meitDeasaich { padding-left:1.5em; color:#99f; }
+        span.cianDeasaich { padding-left:1.5em; color:#8b7; }
+        span.meitDeasaich { padding-left:1.5em; color:#77e; }
         span.cianDeasaich > span:hover,
         span.meitDeasaich > span:hover { background-color:blue; color:yellow; cursor:default; }
     </style>

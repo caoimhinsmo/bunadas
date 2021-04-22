@@ -594,8 +594,8 @@ END_DnD_JAVASCRIPT;
         table#fiost td:first-child { padding-right:4em; white-space:nowrap; }
         table#fiost b { font-weight:normal; font-size:80%; color:#666; }
         span.topar { font-size:80%; color:#bbb; }
-        span.cianDeasaich { padding-left:1.5em; color:#ac9; }
-        span.meitDeasaich { padding-left:1.5em; color:#99f; }
+        span.cianDeasaich { padding-left:1.5em; color:#8b7; }
+        span.meitDeasaich { padding-left:1.5em; color:#77e; }
         span.cianDeasaich > span:hover,
         span.meitDeasaich > span:hover { background-color:blue; color:yellow; cursor:default; }
         span.bearrFios { font-style:italic; font-size:75%; }

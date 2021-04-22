@@ -38,7 +38,7 @@
     if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
     $soillsich = $_GET['soillsich'] ?? 0;
     $f = (int)($f);
-    $uasCiana  = ( isset($_GET['uasCiana'])  ? $_GET['uasCiana'] : 12 ); if (!is_numeric($uasCiana)) { $uasCiana = 12; }
+    $uasCiana  = ( isset($_GET['uasCiana'])  ? $_GET['uasCiana'] : 14 ); if (!is_numeric($uasCiana)) { $uasCiana = 14; }
     $nochdFoMhir = ( empty($_GET['nochdFoMhir']) ? FALSE : TRUE );
     $nochdFoMhirChecked = ( $nochdFoMhir ? ' checked' : '');
     $nochdOsMhir = ( empty($_GET['nochdOsMhir']) ? FALSE : TRUE );
@@ -90,7 +90,7 @@
          elseif ($meitchar=='≶') { $backcol = '#fbf'; }
          else                    { $backcol = '#fff'; }
         $cianaroimhe = $ciana - $cianaceum;
-        $fontsizeceum = number_format(100 * (9+$cianaroimhe)/(9+$ciana) ); //percent
+        $fontsizeceum = number_format(100 * (8+$cianaroimhe)/(8+$ciana) ); //percent
         $fontsize = round(800.0/(6+$ciana));
         $html = "$doichHtml$meitchar<div class=charput style='margin:1px' id=cp$f>$html</div>";
         $html = "<div style='float:left;font-size:$fontsizeceum%;background-color:$backcol'>$html</div>";
