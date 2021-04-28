@@ -353,7 +353,14 @@ EOD_NAVBAR;
   //Tillidh seo array de na nabaidhean a tha taobh a-stigh ciana $uasCiana de facail $f0, le coltachd os cionn $iosDoich.
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
-      $nabArr = [$f0=>array(0,'','',1,'',0,0,'')]; //ciana,slige,meitCar,doich,t,parant,cianaceum,parentage_ord
+      $stmtSEL1 = $DbCaoimhin->prepare('SELECT d,       ciana AS cianaD, -meit AS dolSuasD, doich AS doichD FROM bundf WHERE f=:f');
+      $stmtSEL2 = $DbCaoimhin->prepare('SELECT f AS f2, ciana AS cianaF,  meit AS dolSuasF, doich AS doichF FROM bundf WHERE d=:d');
+      $stmtSEL3 = $DbCaoimhin->prepare('SELECT bunf.t, focal, parentage_ord FROM bunf,bunt WHERE f=:f AND bunf.t=bunt.t');
+
+      $stmtSEL3->execute(array(':f'=>$f0));
+      $row0 = $stmtSEL3->fetch(PDO::FETCH_ASSOC);
+      $t0 = $row0['t']; 
+      $nabArr = [$f0=>array(0,'','',1,$t0,0,0,'')]; //ciana,slige,meitCar,doich,t,parant,cianaceum,parentage_ord
 // ----- Sealach, gus déiligeadh ri Manainnis bho Kevin Scannell
 $queryKSM = "SELECT bunf2.f FROM bunf AS bunf1, bunf AS bunf2"
             . " WHERE bunf1.f=:f1 AND bunf1.t=bunf2.t AND bunf1.focal=bunf2.focal"
@@ -364,9 +371,6 @@ $stmtKSM = $DbCaoimhin->prepare($queryKSM);
       $piseach = 1;
       try {
 //$iteration = 0;
-          $stmtSEL1 = $DbCaoimhin->prepare('SELECT d,       ciana AS cianaD, -meit AS dolSuasD, doich AS doichD FROM bundf WHERE f=:f');
-          $stmtSEL2 = $DbCaoimhin->prepare('SELECT f AS f2, ciana AS cianaF,  meit AS dolSuasF, doich AS doichF FROM bundf WHERE d=:d');
-          $stmtSEL3 = $DbCaoimhin->prepare('SELECT bunf.t, focal, parentage_ord FROM bunf,bunt WHERE f=:f AND bunf.t=bunt.t');
           while ($piseach>0) {
 //$iteration++;
               $piseach = 0;
@@ -379,13 +383,13 @@ $stmtKSM = $DbCaoimhin->prepare($queryKSM);
 // ----- Sealach, gus déiligeadh ri Manainnis bho Kevin Scannell
 if ($KSM && in_array($t1,['gv','ga','gd','en'])) {
     $stmtKSM->execute([':f1'=>$f1]);
-    $f2Arr = $stmtKSM->fetchAll(PDO::FETCH_COLUMN,0);
-    foreach ($f2Arr as $f2) {
-        if (isset($nabArr[$f2])) { continue; }
+    $f2KSMArr = $stmtKSM->fetchAll(PDO::FETCH_COLUMN,0);
+    foreach ($f2KSMArr as $f2KSM) {
+        if (isset($nabArr[$f2KSM])) { continue; }
         $nabInfo2 = $nabInfo1;
         $nabInfo2[5] = $f1;
         $nabInfo2[6] = 0;
-        $nabArr[$f2] = $nabInfo2;
+        $nabArr[$f2KSM] = $nabInfo2;
         $piseach = 1;
     }
 }
