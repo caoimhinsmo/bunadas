@@ -2,7 +2,8 @@
   if (!include('autoload.inc.php'))
     header("Location:https://claran.smo.uhi.ac.uk/mearachd/include_a_dhith/?faidhle=autoload.inc.php");
   header('Cache-Control:max-age=0');
-  global $nabArr,$soillsich;
+  global $nabArr, $clethArr, $rindArr;
+  $clethArr = $rindArr = [];
 
   try {
     $T = new SM_T('bunadas/liosta');
@@ -36,8 +37,12 @@
     if (empty($_GET['f'])) { throw new Exception('Parameter f a dhìth'); }
     $f = $_GET['f'];
     if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
-    $soillsich = $_GET['soillsich'] ?? 0;
+    if (!empty($_GET['cleth'])) { $clethArr = explode('|',$_GET['cleth']); }
+    if (!empty($_GET['rind']))  { $rindArr  = explode('|',$_GET['rind']);  }
     $f = (int)($f);
+    foreach ($clethArr as $i=>$fCleth) { $clethArr[$i] = (int)$fCleth; }
+    foreach ($rindArr  as $i=>$fRind)  { $rindArr[$i]  = (int)$fRind;  }
+    $clethImplode = implode('|',$clethArr);
     $uasCiana  = ( isset($_GET['uasCiana'])  ? $_GET['uasCiana'] : 14 ); if (!is_numeric($uasCiana)) { $uasCiana = 14; }
     $nochdFoMhir = ( empty($_GET['nochdFoMhir']) ? FALSE : TRUE );
     $nochdFoMhirChecked = ( $nochdFoMhir ? ' checked' : '');
@@ -74,12 +79,9 @@
     }
 
     function divHtml($f,$doichRoimhe) {
-        global $nabArr, $soillsich;
+        global $nabArr, $rindArr, $clethArr;
         $html = SM_Bunadas::fHTML($f);
-        if ($f==$soillsich) {
-            $reul = "<span style='background-color:#f10;color:white;font-weight:bold;font-size:65%;padding:0 0.3em;border-radius:0.3em'>*</span>";
-            $html = "$html <span class=preab>$reul <span style='color:red;font-weight:bold'>←</span></span>";
-        }
+        if (in_array($f,$rindArr,true)) { $html .= ' <span class=preab><span>*</span> <span>←</span></span>'; }
         $ciana       = $nabArr[$f][0];
         $meitchar    = $nabArr[$f][2];
         $doich       = $nabArr[$f][3];
@@ -100,32 +102,15 @@
         foreach ($clannArr as $nab) { $clannHtmlArr[$nab] = divHtml($nab,$doich).'<br style="clear:both">'; }
         $clannHtml = implode(' ',$clannHtmlArr);
         if (!empty($clannHtml)) {
-            $html .= "<div class=nabDiv style='font-size:$fontsizeceum%;background-color:$backcol' id=nabDiv$f>$clannHtml</div>";
-            $html .= "<div class=togDiv id=td$f>*</div>";
+            $clethClass = ( in_array($f,$clethArr,true) ? ' cleth' : '' );
+            $html .= "<div class='nabDiv$clethClass' style='font-size:$fontsizeceum%;background-color:$backcol' id=nabDiv$f>$clannHtml</div>";
+            $html .= "<div class='togDiv$clethClass' id=td$f>*</div>";
         }
         return $html;
     }
     $resultHtml = '<div style="font-size:120%;margin-top:0.5em">' . divHtml($f,1) .'</div>';
 
     $resultHtml .= "<div style='clear:both;height:2em'></div>\n";  //spacer
-
-/* Sguab seo uaireigin
-    $nabHtmlArr = [];
-    foreach ($nabArr as $nab=>$nabInfo) {
-        $ciana   = $nabInfo[0];
-        $slige   = $nabInfo[1];
-        $meitCar = $nabInfo[2];
-        $parant  = $nabInfo[5];
-        $cianaceum     = $nabInfo[6];
-        $parantage_ord = $nabInfo[7];
-        $put = SM_Bunadas::fHTML($nab);
-        $fontsize = round(850.0/(6+$ciana));
-        $put = "<div class='charput' style='font-size:$fontsize%' title='ciana: $ciana - $slige - $cianaceum'>$meitCar$put</div>";
-        $nabHtmlArr[] = $put;
-    }
-    $nabHTML = implode(' ',$nabHtmlArr);
-    $resultHtml .= "<div class=loidhne>$nabHTML</div>\n";
-*/
 
     $stordataCss = SM_Bunadas::stordataCss();
     $html = <<<END_HTML
@@ -145,21 +130,46 @@
         div.f { vertical-align:middle; }
         div.nabDiv, div.togDiv { float:left; white-space:nowrap; margin:2px; padding-left:3px; border-left:2px solid black; border-radius:5px; }
         div.togDiv { display:none; }
-        span.preab { animation:preabadh 5s; }
+        div.nabDiv.cleth { display: none;  }
+        div.togDiv.cleth { display: block; }
+        span.preab { animation:preabadh 10s; }
         @keyframes preabadh { from { opacity:0; }
-                               10% { opacity:1; }
+                                5% { opacity:1; }
+                               10% { opacity:0; }
+                               15% { opacity:1; background-color:red; }
                                20% { opacity:0; }
-                               30% { opacity:1; background-color:red; }
+                               25% { opacity:1; }
+                               30% { opacity:0; }
+                               35% { opacity:1; background-color:pink;}
                                40% { opacity:0; }
-                               50% { opacity:1; }
+                               45% { opacity:1; }
+                               50% { opacity:0; }
+                               55% { opacity:0.8; }
                                60% { opacity:0; }
-                               70% { opacity:1; }
+                               65% { opacity:0.8; background-color:inherit; }
+                               70% { opacity:0; }
+                               75% { opacity:0.7; }
                                80% { opacity:0; }
-                               90% { opacity:1; }
+                               85% { opacity:0.6; }
+                               90% { opacity:0; }
+                               95% { opacity:0.5; }
                                 to { opacity:0; }
                             }
+        span.preab span:nth-child(1) { background-color:#f10; color:white; font-weight:bold; font-size:65%; padding:0 0.3em; border-radius:0.3em }
+        span.preab span:nth-child(2) { color:red; font-weight:bold; }
     </style>
     <script>
+        var clethArr;
+        function onloadFunc() {
+            var cpdivs = document.querySelectorAll('div.charput');
+            var tddivs = document.querySelectorAll('div.togDiv');
+            for (var i = 0; i < cpdivs.length; i++) { cpdivs[i].addEventListener('click',toggleDiv); }
+            for (var i = 0; i < tddivs.length; i++) { tddivs[i].addEventListener('click',toggleDiv); }
+
+            var clethImplode = '$clethImplode';
+            if (clethImplode=='') { clethArr = []; }
+             else                 { clethArr = clethImplode.split('|'); }
+        }
         function priomhSubmitIf() {
             if (document.getElementById('uasCiana').value != uasCianaRoimhe) { priomhSubmit(); }
         }
@@ -172,20 +182,24 @@
             if (!e.target.hasAttribute('href')) {
                 nabDiv = document.getElementById('nabDiv'+f);
                 togDiv = document.getElementById('td'+f);
-                if (nabDiv.style.display=='none') {
-                    nabDiv.style.display = 'block';
-                    togDiv.style.display = 'none';
+                if (nabDiv.classList.contains('cleth')) {
+                    nabDiv.classList.remove('cleth');
+                    togDiv.classList.remove('cleth');
+                    clethArr = clethArr.filter( function(el){return el!=f;} );
                 } else {
-                    nabDiv.style.display = 'none';
-                    togDiv.style.display = 'block';
+                    nabDiv.classList.add('cleth');
+                    togDiv.classList.add('cleth');
+                    clethArr.push(f);
                 }
             }
-        }
-        function onloadFunc() {
-            var cpdivs = document.querySelectorAll('div.charput');
-            var tddivs = document.querySelectorAll('div.togDiv');
-            for (var i = 0; i < cpdivs.length; i++) { cpdivs[i].addEventListener('click',toggleDiv); }
-            for (var i = 0; i < tddivs.length; i++) { tddivs[i].addEventListener('click',toggleDiv); }
+            var clethJoin = clethArr.join('|');
+            var url = new URL(window.location.href);
+            var search_params = url.searchParams
+            search_params.delete('cleth');
+            if (clethJoin!='') { search_params.append('cleth', clethJoin); }
+            url.search = search_params.toString();
+            var new_url = url.toString();
+            history.replaceState({},null,new_url);
         }
     </script>
 </head>

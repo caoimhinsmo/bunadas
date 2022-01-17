@@ -166,8 +166,10 @@ EODsguab;
     }
     if      ($t=='ieur') { $focalWikt = "Reconstruction:Proto-Indo-European/$focal"; }
      elseif ($t=='celt') { $focalWikt = "Reconstruction:Proto-Celtic/$focal"; }
+     elseif ($t=='mga')  { $focalWikt = "Reconstruction:Middle_Irish/$focal"; }
      elseif ($t=='brit') { $focalWikt = "Reconstruction:Proto-Brythonic/$focal"; }
      elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
+     elseif ($t=='wger') { $focalWikt = "Reconstruction:Proto-West_Germanic/$focal"; }
      elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slav/$focal"; }
      elseif ($t=='la')   { setlocale(LC_CTYPE, 'en_GB.utf8');
                            $focalWikt = iconv('UTF-8','US-ASCII//TRANSLIT',$focal); }
@@ -588,7 +590,8 @@ END_DnD_JAVASCRIPT;
         div.ciana0 div.dCeann  { background-color:#ece; }
         div.drong.meit2        { background-color:#e0ffe0; }
         div.drong.meit2neg     { background-color:#fcf; }
-        div.drong.meit3        { background-color:#ddd; }
+        div.drong.meit3        { background-color:#ccc; }
+        div.drong.meit3 div.dCeann { background-color:#888; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
         table#fiost td:first-child { padding-right:4em; white-space:nowrap; }
