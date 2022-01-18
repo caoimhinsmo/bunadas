@@ -135,7 +135,7 @@ EODHtmlCeann;
 <table id=form>
 <col style="width:4.2em"><col>
 <tr><td>$T_canan</td><td>$selectTHtml</td></tr>
-<tr><td>$T_facal</td><td><input style="width:20em" name="focal" value="$focalRoimhe" lang="$tRoimhe" spellcheck="true"></td></tr>
+<tr><td>$T_facal</td><td><input style="width:20em" name="focal" value="$focalRoimhe" lang="$tRoimhe" required spellcheck="true"></td></tr>
 <tr style="font-size:80%"><td>$T_derb</td><td><input style="width:8em;font-size:80%;margin-left:1em" name="derb"  value="$derbRoimhe"></td></tr>
 <tr><td>&nbsp;</td</tr>
 <tr><td>$T_gram</td><td><input style="width:7em" name="gram" id="gram" value="$gramRoimhe" list="gramList"></td></tr>
