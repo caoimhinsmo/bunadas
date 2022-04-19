@@ -4,7 +4,7 @@
   if (!include('autoload.inc.php'))
     header("Location:https://claran.smo.uhi.ac.uk/mearachd/include_a_dhith/?faidhle=autoload.inc.php");
 
-// Gabhaidh am prògram seo facal sean-Ghàidhlig, agus nì e ath-threòrachadh gu www.dil.ie/browse/show/nnnnn,
+// Gabhaidh am prògram seo facal sean-Ghàidhlig, agus nì e ath-threòrachadh gu dil.ie/browse/show/nnnnn,
 // le àireamh nnnnn a tha iomchaidh gus am facal fhéin (is dòcha) agus faclan a tha faisg air a thaisbeanadh.
 // Chan eil e a’ buntainn ri Bunadas, ach a-mhàin gu bheil e a’ dèanamh feum den fhiosrachadh a th’aig Bunadas mun t-sean-Ghàidhlig agus eDIL
 
@@ -18,7 +18,7 @@
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   extract($row);
   $word = substr($word,1,-1);
-  $location = "http://www.dil.ie/browse/show/$word";
+  $location = "https://dil.ie/browse/show/$word";
   header("Location:$location");
 //  echo "$focal $word";
 

@@ -62,7 +62,7 @@
     $T_dictsltl_format_exc  = $T->h('dictsltl_format_exc');
     $T_Error_in             = $T->h('Error_in');
 
-    $dronganHtml = $lexHtml = $litHtml = $imradHtml = $dictHtml = $dictHtmlC = $javascriptDeasachaidh = $onload = '';
+    $fisHtml = $dronganHtml = $lexHtml = $litHtml = $imradHtml = $dictHtml = $dictHtmlC = $javascriptDeasachaidh = $onload = '';
 
     $f = $_GET['f'];
     $deasaich = SM_Bunadas::ceadSgriobhaidh();
@@ -171,8 +171,7 @@ EODsguab;
      elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
      elseif ($t=='wger') { $focalWikt = "Reconstruction:Proto-West_Germanic/$focal"; }
      elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slav/$focal"; }
-     elseif ($t=='la')   { setlocale(LC_CTYPE, 'en_GB.utf8');
-                           $focalWikt = iconv('UTF-8','US-ASCII//TRANSLIT',$focal); }
+     elseif ($t=='la')   { $focalWikt = strtr($focal,['ā'=>'a','ē'=>'e','ī'=>'i','ō'=>'o','ū'=>'u','Ā'=>'A','Ē'=>'E','Ī'=>'I','Ō'=>'O','Ū'=>'U']); }
      else                { $focalWikt = $focal; }
     $focalWikt = urlencode($focalWikt);
     $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary'><img src='/favicons/wiktionary.png' alt='W'></a>";
@@ -190,20 +189,30 @@ EODsguab;
     $ceanglaicheanHtml .= $dictHtmlC;
 
     $putan = SM_Bunadas::fHTML($f,0);
-    $gramHtml = ( empty($gram) ? '' : " <span style='font-size:90%'>[$gram]</span>" );
+    $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
+    if (!empty($derb)) { $derbHtml = "<b>$T_Derb:</b> $derb"; }
+    if (!empty($gram)) { $gramHtml = "<b>$T_Gram:</b> <span style='font-size:90%'>$gram</span>"; }
+    if (!empty($ipa))  { $ipaHtml  = "<b>$T_IPA:</b> $ipa"; }
+    if (!empty($fis))  { $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><b>$T_Fis:</b> <span style='font-size:80%'>$fis</span></td>"; }
+    $ainmT = $ainmTeanga[$t];
+    $fiosTableHtml = <<< END_fiosTableHtml
+<table id=fiost>
+<tr><td style='width:14em;white-space:nowrap'><b>$T_Canan:</b> $ainmT</td><td>$gramHtml</td></tr>
+<tr><td style='white-space:nowrap'><b>$T_Facal:</b> $focal<br>$derbHtml</td><td>$ipaHtml</td></tr>
+<tr><td colspan=2 style='padding-left:2.5em;text-indent:-2.5em'><b>$T_Gluas:</b> <span style='font-size:110%'>$gluas</span></td></tr>
+$fisHtml
+$fiosCo
+</table>
+END_fiosTableHtml;
     $fiosHtml = "<div style='float:left'>\n"
               . "<div style='margin:4px 0 7px 0'><span style='font-size:80%;font-weight:bold'>$T_Facal " . htmlspecialchars($f) ."</span> $ceanglaicheanHtml &nbsp;&nbsp;&nbsp;"
               . "<a href='fc.php?f=$f' class=putan>⇒ $T_Coimhearsnachd</a></div>\n"
               . "<div style='margin:2px 0;font-size:170%'>$putan$fDeasaichHtml</div>\n"
               . "</div>\n"
-              . "<table id=fiost><tr>\n"
-              . "<td style='width:10em'><b>$T_Derb:</b> $derb<br><b>$T_Canan:</b> " . $ainmTeanga[$t] ."<br><b>$T_Gram:</b>$gramHtml</td>\n"
-              . "<td><b>$T_Fis:</b> <span style='font-size:80%'>$fis</span><br><b>$T_IPA:</b> $ipa</td></tr>\n"
-              . "<tr><td colspan=2 style='white-space:normal'><b>$T_Gluas:</b> $gluas</td></tr>\n$fiosCo</table>\n";
-
+              . $fiosTableHtml;
     //(Dèan rudeigin nas adhartaiche uaireigin airson os-fhacail agus fo-fhacail, a’ toirt fa-near thàthanan agus toiseach facail agus deireadh facail)
     $stmtOs = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal LIKE :aPat AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3'
-                            . ' ORDER BY focal2 LIMIT 21');
+                            . ' ORDER BY focal2,derb LIMIT 21');
     $stmtOs->execute(array(':aPat'=>"%$focal%",':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtOs->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -216,7 +225,7 @@ EODsguab;
         $lexHtml .= "</div>\n";
     }
 
-    $stmtCo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal=:focal AND t=:t AND NOT f=:f ORDER BY focal2 LIMIT 21');
+    $stmtCo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE focal=:focal AND t=:t AND NOT f=:f ORDER BY focal2,derb LIMIT 21');
     $stmtCo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtCo->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -230,7 +239,7 @@ EODsguab;
     }
 
     $stmtFo = $DbBun->prepare('SELECT f AS f2, focal AS focal2 FROM bunf WHERE LOCATE(focal,:focal)>0 AND focal<>:focal AND t=:t AND NOT f=:f AND CHAR_LENGTH(focal)>3'
-                            . ' ORDER BY focal2 LIMIT 21');
+                            . ' ORDER BY focal2,derb LIMIT 21');
     $stmtFo->execute(array(':focal'=>$focal,':t'=>$t,':f'=>$f));
     $rows = $stmtFo->fetchAll(PDO::FETCH_ASSOC);
     if (count($rows)>0 && count($rows)<21) {
@@ -594,7 +603,7 @@ END_DnD_JAVASCRIPT;
         div.drong.meit3 div.dCeann { background-color:#888; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
-        table#fiost td:first-child { padding-right:4em; white-space:nowrap; }
+        table#fiost td { padding:0.1em 0; }
         table#fiost b { font-weight:normal; font-size:80%; color:#666; }
         span.topar { font-size:80%; color:#bbb; }
         span.cianDeasaich { padding-left:1.5em; color:#8b7; }

@@ -80,10 +80,10 @@ div.f > div:nth-child(2):lang(non)  { background-color:#fdf; border-color:#c00; 
 div.f > div:nth-child(2):lang(sv)   { background-color:#fb7; border-color:#f00; }
 div.f > div:nth-child(2):lang(da)   { background-color:#fad; border-color:#f00; }
 div.f > div:nth-child(2):lang(ang)  { background-color:#ddb; border-color:#990; }
-div.f > div:nth-child(2):lang(enm)  { background-color:#bb9; border-color:#990; }
-div.f > div:nth-child(2):lang(en)   { background-color:#ff9; border-color:#220; }
+div.f > div:nth-child(2):lang(enm)  { background-color:#eea; border-color:#990; }
+div.f > div:nth-child(2):lang(en)   { background-color:#ff5; border-color:#220; }
 div.f > div:nth-child(2):lang(sco)  { background-color:#ccf; border-color:blue; }
-div.f > div:nth-child(2):lang(wger)  { background-color:#f7b; border-color:blue; }
+div.f > div:nth-child(2):lang(wger) { background-color:#fad; border-color:blue; }
 div.f > div:nth-child(2):lang(de)   { background-color:#f99; border-color:black; }
 div.f > div:nth-child(2):lang(la)   { background-color:#f6f6f6; border-color:#909; }
 div.f > div:nth-child(2):lang(fro)  { background-color:#fdf; border-color:#64f; }

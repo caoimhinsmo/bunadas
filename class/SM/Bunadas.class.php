@@ -15,7 +15,8 @@ class SM_Bunadas
       if (empty($_COOKIE['bundb']))     { return 'bunadas'; }
       if ($_COOKIE['bundb']=='bunadas') { return 'bunadas'; }
       if ($_COOKIE['bundb']=='bunTest') { return 'bunTest'; }
-      if ($_COOKIE['bundb']=='bunw')    { return 'bunw';    }
+//      if ($_COOKIE['bundb']=='bunw')    { return 'bunw';    }  //Chan eil seo ag obair an-dràsta
+if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       return 'bunadas';
   }
 
@@ -130,6 +131,17 @@ EOD_NAVBAR;
   }
 
 
+  public static function is_count($f) {
+      $stordataConnector = self::stordataConnector();
+      $DbCaoimhin = $stordataConnector::singleton('rw');
+      $stmt = $DbCaoimhin->prepare('SELECT focal FROM bunf WHERE f=:f');
+      $stmt->execute(array(':f'=>$f));
+      $focal = $stmt->fetchColumn();
+      if ($focal=='{count}') { return 1; }
+      return 0;
+  }
+
+
   public static function fHTML($f,$ceangal=1) { //Cruthaich HTML airson putan a sheallas facail le ceangal
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
@@ -138,7 +150,7 @@ EOD_NAVBAR;
       if (!($row = $stmt->fetch(PDO::FETCH_ASSOC)))
           { throw new SM_Exception('Mearachd sa function <b>putan</b>: Chan eil facal ' . htmlspecialchars($f) . ' ann'); }
       extract($row);
-      $draggableT = $draggableF = '';
+      $draggableT = $draggableF = $focalStyle = '';
       if ($focal=='{count}') {  //‘facal’ sònraichte airson cunntach
           $stmtCount = $DbCaoimhin->prepare('SELECT COUNT(1) FROM bunf WHERE t=:t');
           $stmtCount->execute([':t'=>$t]);
@@ -146,6 +158,10 @@ EOD_NAVBAR;
           $stmtBunt = $DbCaoimhin->prepare('SELECT ainmt FROM bunt WHERE t=:t');
           $stmtBunt->execute([':t'=>$t]);
           $gluasHtml = $stmtBunt->fetchColumn();
+          if      ($focalHtml>=1000) { $focalStyle = 'font-weight:bold'; }
+           elseif ($focalHtml<150)   { $focalStyle = 'opacity:0.4';       }
+           elseif ($focalHtml<400)   { $focalStyle = 'opacity:0.7';       }
+          if ($focalStyle) { $focalStyle = " style='$focalStyle'"; }
       } else {  //facal àbhaisteach
           $focalHtml = htmlspecialchars($focal,ENT_QUOTES);
           $gluasHtml = htmlspecialchars($gluas,ENT_QUOTES);
@@ -159,7 +175,7 @@ EOD_NAVBAR;
       $tHtml = $t;
       if (strlen($t)>3 || $t=='mga' || $t=='xbm') { $tHtml = "<span style='font-size:75%'>$tHtml</span>"; }
       $derbStyle = ( substr($derb,0,3)=='KSM' ? ' style="color:red;background-color:pink"' : '' );
-      $html = "<div class=f lang='$t' data-name='f$f'$draggableT><div>$tHtml</div><div title='$gluasHtml'>$focalHtml</div><div$derbStyle>$derb</div></div>";
+      $html = "<div class=f lang='$t' data-name='f$f'$draggableT><div>$tHtml</div><div$focalStyle title='$gluasHtml'>$focalHtml</div><div$derbStyle>$derb</div></div>";
       return $html;
   }
 

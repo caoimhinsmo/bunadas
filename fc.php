@@ -27,6 +27,8 @@
     $T_facal                  = $T->h('facal');
     $T_facail                 = $T->h('facail');
     $T_Astar_fios             = $T->h('Astar_fios');
+    $T_Language               = $T->h('Language');
+    $T_Word_count             = $T->h('Word_count');
 
     $T_Nochd_os_mhirean_fios  = strtr ($T_Nochd_os_mhirean_fios,  [ '(' => '&nbsp; (' ] );
     $T_Ionannas_garbh_fios    = strtr ($T_Ionannas_garbh_fios,    [ ':' => ': &nbsp;' ] );
@@ -55,6 +57,7 @@
     if ($modh==0) { $modh0Checked = 'checked'; }
     if ($modh==1) { $modh1Checked = 'checked'; }
     if ($modh==2) { $modh2Checked = 'checked'; }
+    $onloadSwopCount = '';
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
@@ -108,11 +111,50 @@
         }
         return $html;
     }
-    $resultHtml = '<div style="font-size:120%;margin-top:0.5em">' . divHtml($f,1) .'</div>';
+    $resultHtml = '<div style="clear:both;font-size:120%;padding-top:0.3em">' . divHtml($f,1) .'</div>';
 
     $resultHtml .= "<div style='clear:both;height:2em'></div>\n";  //spacer
 
     $stordataCss = SM_Bunadas::stordataCss();
+    $h1 = "$T_Coimhearsnachd $f";
+
+    $controlsHtml = <<<END_controlsHtml
+<form id="priomhFoirm">
+<div style="clear:both;padding:1px">
+<p style="margin:0 0 20px 80px;font-size:80%">
+ <span title="$T_Nochd_fo_mhirean_title">
+  <label><input type="checkbox" name="nochdFoMhir" $nochdFoMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
+  <span style="color:green;font-size:70%">- $T_Nochd_fo_mhirean_fios</span>
+ </span><br>
+ <span title="$T_Nochd_os_mhirean_title">
+  <label><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
+  <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios)</span>
+ </span><br>
+ <span title="Kiangley stiagh Gaelg veih Kevin Scannell">
+  <label><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
+ </span><br>
+ $T_Modh:<br>
+ &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
+ &nbsp;<label><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label> <span style="color:green;font-size:70%">- $T_Ionannas_garbh_fios</span><br>
+ &nbsp;<label><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label> <span style="color:green;font-size:70%">- $T_Lean_mion_mhirean_fios</span><br>
+</p>
+
+<p style="margin:7px 0;font-size:80%" title="$T_Astar_fios">
+ <label for="uasCiana" style="padding-left:1.7em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output><br>0
+ <input id="uasCiana" name="uasCiana" type="range" min="0" max="18" step="0.1" value="$uasCiana" style="width:80em;height:20px;padding:0" list="astTicks" oninput="document.getElementById('uasCianaOut').value=this.value;" onchange="document.getElementById('uasCianaOut').value=this.value;" onmouseout="priomhSubmitIf();">
+ <datalist id="astTicks"><option>2</option><option>4</option><option>6</option><option>8</option></datalist>
+ 18 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"><br>
+<span style="color:green;font-size:80%;padding-left:2.1em">$T_Uas_chiana_fios</span></p>
+</div>
+<script> uasCianaRoimhe = $uasCiana; </script>
+END_controlsHtml;
+
+    if (SM_Bunadas::is_count($f)) {
+        $h1 = "$T_Language <a onclick='swopCount()'>⬌</a> $T_Word_count";
+        $controlsHtml = '';
+        if (isset($_GET['swopCount'])) { $onloadSwopCount = 'swopCount()'; }
+    }
+
     $html = <<<END_HTML
 <!DOCTYPE html>
 <html lang="$hl">
@@ -169,6 +211,8 @@
             var clethImplode = '$clethImplode';
             if (clethImplode=='') { clethArr = []; }
              else                 { clethArr = clethImplode.split('|'); }
+
+            $onloadSwopCount
         }
         function priomhSubmitIf() {
             if (document.getElementById('uasCiana').value != uasCianaRoimhe) { priomhSubmit(); }
@@ -201,6 +245,17 @@
             var new_url = url.toString();
             history.replaceState({},null,new_url);
         }
+        function swopCount() {
+            let els = document.getElementsByClassName('f');
+            for (let i=0; i<els.length; i++) {
+                let elDeas = els[i].children[1];
+                let elDeasA = elDeas.children[0];
+                let value = elDeasA.innerHTML;
+                let title = elDeas.title;
+                elDeas.title = value;
+                elDeasA.innerHTML = title;
+            }
+        }
     </script>
 </head>
 <body style="font-size:120%;" onload="onloadFunc();">
@@ -208,37 +263,10 @@
 $navbar
 <div class="smo-body-indent">
 
-<form id="priomhFoirm">
 <a href="./"><img src="dealbhan/bunadas64.png" alt="An Sruth" style="float:left;border:1px solid black;margin:0 1em 1px 0"></a>
-<h1 style="font-size:100%;margin-bottom:1px">$T_Coimhearsnachd $f</h1>
+<h1 style="font-size:100%;margin-bottom:1px">$h1</h1>
 
-<div style="clear:both;padding:1px">
-<p style="margin:0 0 20px 80px;font-size:80%">
- <span title="$T_Nochd_fo_mhirean_title">
-  <label><input type="checkbox" name="nochdFoMhir" $nochdFoMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_fo_mhirean_fios</span>
- </span><br>
- <span title="$T_Nochd_os_mhirean_title">
-  <label><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios)</span>
- </span><br>
- <span title="Kiangley stiagh Gaelg veih Kevin Scannell">
-  <label><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
- </span><br>
- $T_Modh:<br>
- &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
- &nbsp;<label><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label> <span style="color:green;font-size:70%">- $T_Ionannas_garbh_fios</span><br>
- &nbsp;<label><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label> <span style="color:green;font-size:70%">- $T_Lean_mion_mhirean_fios</span><br>
-</p>
-
-<p style="margin:7px 0;font-size:80%" title="$T_Astar_fios">
- <label for="uasCiana" style="padding-left:1.7em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output><br>0
- <input id="uasCiana" name="uasCiana" type="range" min="0" max="18" step="0.1" value="$uasCiana" style="width:80em;height:20px;padding:0" list="astTicks" oninput="document.getElementById('uasCianaOut').value=this.value;" onchange="document.getElementById('uasCianaOut').value=this.value;" onmouseout="priomhSubmitIf();">
- <datalist id="astTicks"><option>2</option><option>4</option><option>6</option><option>8</option></datalist>
- 18 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"><br>
-<span style="color:green;font-size:80%;padding-left:2.1em">$T_Uas_chiana_fios</span></p>
-</div>
-<script> uasCianaRoimhe = $uasCiana; </script>
+$controlsHtml
 
 $resultHtml
 

@@ -129,7 +129,7 @@ EODHtmlCeann;
             $selectTHtml .= "</select>\n";
             $HTML .= <<<EODHtmlFoirm
 <datalist id="gramList"><option value="root"><option value="n"><option value="v"><option value="adj"><option value="adverb"><option value="prefix"><option value="infix"><option value="suffix"><option value="placename"><option value="pronoun"><option value="numeral"><option value="determiner"></datalist>
-<form method=get action="" style="clear:both">
+<form method=get style="clear:both">
 <input type="hidden" name="f" value="$f">
 <input type="hidden" name="d" value="$d">
 <table id=form>
@@ -142,7 +142,8 @@ EODHtmlCeann;
 <tr><td>$T_gluas</td><td><input style="width:100%" name="gluas" value="$gluasRoimhe"></td></tr>
 <tr><td>&nbsp;</td</tr>
 <tr><td>$T_IPA</td><td><input style="width:25em" name="ipa" value="$ipaRoimhe"></td></tr>
-<tr><td>$T_fis</td><td><input style="width:100%" name="fis" value="$fisRoimhe"></td></tr>
+<tr><td>$T_fis</td><td><input style="width:100%" name="fis" value="$fisRoimhe" id="fis"></td></tr>
+<tr><td></td><td id=fised><b onclick="fisEd('Wikt')">Wikt</b> <b style="text-decoration:line-through" onclick="fisEd('Refno')">[n]</b></td></tr>
 <tr><td colspan=2 style='text-align:left'><input type=submit name="sabhail" value="$T_Sabhail"></td></tr>
 </table>
 </form>
@@ -169,7 +170,23 @@ EODHtmlFoirm;
     <style>
         table#form { width:100%; }
         table#form tr td:first-child { text-align:right; }
+        td#fised b { padding:0 0.5em; border:1px solid; border-radius:0.4em; font-weight:normal; font-size:80%; background-color:blue; color:yellow; }
+        td#fised b:hover { background-color:yellow; color:blue; }
     </style>
+    <script>
+        function fisEd(action) {
+            var fisEl = document.getElementById('fis');
+            var fis = fisEl.value.trim();
+           if (fis=='') { return; }
+            if (action=='Refno') {
+                fis = fis.replace('[1]','').replace('[2]','').replace('[3]','').replace('[4]','').replace('[5]','').replace('[6]','');
+            } else if (action='Wikt') {
+                if (fis.substr(-6)=='--Wikt') { fis = fis.substring(0,fis.length-6); }
+                fis = fis.trim() + ' --Wikt';
+            }
+            fisEl.value = fis;
+        }
+    </script>
 </head>
 <body>
 
