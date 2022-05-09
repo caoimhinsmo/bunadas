@@ -98,8 +98,8 @@
     extract($row);
     $fis   = htmlspecialchars($fis);
     $gluas = htmlspecialchars($gluas);
-    $fiosCo   = ( empty($csmid) ? '' : "<b>$T_Cruthachadh:</b>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
-    $fiosCo  .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><b>$T_Atharrachadh:</b> " . uairHtml($mutime) . " $T_le $msmid" );
+    $fiosCo   = ( empty($csmid) ? '' : "<span class=lab>$T_Cruthachadh:</span>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
+    $fiosCo  .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><span class=lab>$T_Atharrachadh:</span> " . uairHtml($mutime) . " $T_le $msmid" );
     $fiosCo   = ( empty($fiosCo)? '' : "<tr style='font-size:50%'><td colspan=2>$fiosCo</td></tr>\n" );
     $fDeasaichHtml = $fSguabHtml = '';
     if ($deasaich) {
@@ -118,10 +118,11 @@ EODsguab;
         }
         $autofocusLit = ( isset($_GET['autofocusLit']) ? 'autofocus' : '');
         if (isset($_REQUEST['curLit']) && !empty($_REQUEST['lit']) && isset($_REQUEST['litfis'])) {
-            $litREQ    = trim($_REQUEST['lit']);
-            $litfisREQ = trim($_REQUEST['litfis']);
-            $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,litfis) VALUES (:f,:lit,:litfis)");
-            $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':litfis'=>$litfisREQ) );
+            $litREQ    = Normalizer::normalize(trim($_REQUEST['lit']));
+            $litfisREQ = Normalizer::normalize(trim($_REQUEST['litfis']));
+            $litREQ_ci = SM_Bunadas::lomm($litREQ);
+            $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,lit_ci,litfis) VALUES (:f,:lit,:lit_ci,:litfis)");
+            $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':lit_ci'=>$litREQ_ci, ':litfis'=>$litfisREQ) );
             header("Location:$bunadasurl/f.php?f=$f&autofocusLit");
         }
         if (isset($_REQUEST['curImrad']) && isset($_REQUEST['imrad']) && isset($_REQUEST['url'])) {
@@ -174,7 +175,8 @@ EODsguab;
      elseif ($t=='la')   { $focalWikt = strtr($focal,['ā'=>'a','ē'=>'e','ī'=>'i','ō'=>'o','ū'=>'u','Ā'=>'A','Ē'=>'E','Ī'=>'I','Ō'=>'O','Ū'=>'U']); }
      else                { $focalWikt = $focal; }
     $focalWikt = urlencode($focalWikt);
-    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary'><img src='/favicons/wiktionary.png' alt='W'></a>";
+    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary'><img src='/favicons/wiktionary.png' alt='W'></a>"
+                        . " <a href='//etymologeek.com/search/all/$focal' title='Etymologeek'><img src='/favicons/etymologeek.png' alt='EG'></a>";
 
     $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
     $stmtDictC->execute([':f'=>$f]);
@@ -190,16 +192,16 @@ EODsguab;
 
     $putan = SM_Bunadas::fHTML($f,0);
     $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
-    if (!empty($derb)) { $derbHtml = "<b>$T_Derb:</b> $derb"; }
-    if (!empty($gram)) { $gramHtml = "<b>$T_Gram:</b> <span style='font-size:90%'>$gram</span>"; }
-    if (!empty($ipa))  { $ipaHtml  = "<b>$T_IPA:</b> $ipa"; }
-    if (!empty($fis))  { $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><b>$T_Fis:</b> <span style='font-size:80%'>$fis</span></td>"; }
+    if (!empty($derb)) { $derbHtml = "<br>&nbsp;<span class=lab>$T_Derb:</span> <b>$derb</b>"; }
+    if (!empty($gram)) { $gramHtml = " &nbsp; <span class=lab>$T_Gram:</span> <span style='font-size:90%'>$gram</span>"; }
+    if (!empty($ipa))  { $ipaHtml  = "<span class=lab>$T_IPA:</span> $ipa"; }
+    if (!empty($fis))  { $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><span class=lab>$T_Fis:</span> <span style='font-size:80%'>$fis</span></td>"; }
     $ainmT = $ainmTeanga[$t];
     $fiosTableHtml = <<< END_fiosTableHtml
 <table id=fiost>
-<tr><td style='width:14em;white-space:nowrap'><b>$T_Canan:</b> $ainmT</td><td>$gramHtml</td></tr>
-<tr><td style='white-space:nowrap'><b>$T_Facal:</b> $focal<br>$derbHtml</td><td>$ipaHtml</td></tr>
-<tr><td colspan=2 style='padding-left:2.5em;text-indent:-2.5em'><b>$T_Gluas:</b> <span style='font-size:110%'>$gluas</span></td></tr>
+<tr><td style='width:16em;white-space:nowrap'><span class=lab>$T_Canan:</span> $ainmT</td>></tr>
+<tr><td style='white-space:nowrap'><span class=lab>$T_Facal:</span> <b>$focal</b> $gramHtml$derbHtml</td><td>$ipaHtml</td</tr>
+<tr><td colspan=2 style='padding-left:2.5em;text-indent:-2.5em'><span class=lab>$T_Gluas:</span> <span style='font-size:110%'>$gluas</span></td></tr>
 $fisHtml
 $fiosCo
 </table>
@@ -604,7 +606,7 @@ END_DnD_JAVASCRIPT;
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
         table#fiost td { padding:0.1em 0; }
-        table#fiost b { font-weight:normal; font-size:80%; color:#666; }
+        table#fiost span.lab { font-weight:normal; font-size:80%; color:#666; }
         span.topar { font-size:80%; color:#bbb; }
         span.cianDeasaich { padding-left:1.5em; color:#8b7; }
         span.meitDeasaich { padding-left:1.5em; color:#77e; }

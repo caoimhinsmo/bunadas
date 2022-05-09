@@ -160,7 +160,7 @@ $h1
 <li><a href="lorg.php">$T_Lorg_facal <img src="/icons-smo/lorg.gif" alt=""></a>
     <form action=lorg.php style="display:inline"><input name="f" placeholder="$T_facal_sanas" autofocus></form>
 
-<li>
+<li style="margin-top:4em">
 <form style="display:inline" action="liosta.php">$T_Liosta
 <input type="hidden" name="uasCiana" value=6>
 <input type="hidden" name="uasAireamh" value=400>

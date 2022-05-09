@@ -481,5 +481,17 @@ if ($KSM && in_array($t1,['gv','ga','gd','en'])) {
       return $nabArr;
   }
 
+  public static function lomm($focal) {
+      if (empty($focal)) { return ''; }
+      $focalD = Normalizer::normalize($focal,Normalizer::FORM_D);
+      $focalDchars = mb_str_split($focalD);
+      $focalLomm = '';
+      foreach ($focalDchars as $focalDchar) {
+          if (!IntlChar::getCombiningClass($focalDchar)) { $focalLomm .= IntlChar::tolower($focalDchar); }
+      }
+      $focalLomm = Normalizer::normalize($focalLomm,Normalizer::FORM_C);
+      return $focalLomm;
+  }
+
 }
 ?>

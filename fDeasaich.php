@@ -75,7 +75,7 @@
 
     if (!empty($_REQUEST['sabhail'])) {
         $tUr     = trim($_REQUEST['t']);
-        $focalUr = trim($_REQUEST['focal']);
+        $focalUr = trim($_REQUEST['focal']);  $focal_ci = SM_Bunadas::lomm($focalUr);
         $derbUr  = trim($_REQUEST['derb']);
         $gramUr  = trim($_REQUEST['gram']);
         $gluasUr = trim($_REQUEST['gluas']);
@@ -85,11 +85,15 @@
         if (empty($tUr))     { throw new SM_Exception("sgrios|bog|$T_Feumaidh_tu_canan"); }
         if (empty($focalUr)) { throw new SM_Exception("sgrios|bog|$T_Feumaidh_tu_facal"); }
         if ($f==0) {
-            $stmtATHARRAICH = $DbBun->prepare('INSERT IGNORE INTO bunf (t,focal,derb,gram,gluas,ipa,fis,csmid,cutime,msmid,mutime) VALUES (:t,:focal,:derb,:gram,:gluas,:ipa,:fis,:csmid,:cutime,:msmid,:mutime)');
-            $stmtATHARRAICH->execute( array(':t'=>$tUr, ':focal'=>$focalUr, ':derb'=>$derbUr, ':gram'=>$gramUr, ':gluas'=>$gluasUr, ':ipa'=>$ipaUr, ':fis'=>$fisUr, ':csmid'=>$smid, ':cutime'=>$utime, ':msmid'=>$smid, ':mutime'=>$utime) );
+            $stmtATHARRAICH = $DbBun->prepare('INSERT IGNORE INTO bunf (t,focal,focal_ci,derb,gram,gluas,ipa,fis,csmid,cutime,msmid,mutime)'
+                                            . ' VALUES (:t,:focal,:focal_ci,:derb,:gram,:gluas,:ipa,:fis,:csmid,:cutime,:msmid,:mutime)');
+            $stmtATHARRAICH->execute( array(':t'=>$tUr, ':focal'=>$focalUr, ':focal_ci'=>$focal_ci, ':derb'=>$derbUr, ':gram'=>$gramUr, ':gluas'=>$gluasUr,
+                                            ':ipa'=>$ipaUr, ':fis'=>$fisUr, ':csmid'=>$smid, ':cutime'=>$utime, ':msmid'=>$smid, ':mutime'=>$utime) );
         } else {
-            $stmtATHARRAICH = $DbBun->prepare('UPDATE IGNORE bunf SET t:=:t, focal=:focal, derb=:derb, gram=:gram, gluas=:gluas, ipa=:ipa, fis=:fis, msmid=:smid, mutime=:utime WHERE f=:f');
-            $stmtATHARRAICH->execute( array(':f'=>$f, ':t'=>$tUr, ':focal'=>$focalUr, ':derb'=>$derbUr, ':gram'=>$gramUr, ':gluas'=>$gluasUr, ':ipa'=>$ipaUr, ':fis'=>$fisUr, ':smid'=>$smid, ':utime'=>$utime) );
+            $stmtATHARRAICH = $DbBun->prepare('UPDATE IGNORE bunf SET t:=:t, focal=:focal, focal_ci=:focal_ci, derb=:derb,'
+                                            . ' gram=:gram, gluas=:gluas, ipa=:ipa, fis=:fis, msmid=:smid, mutime=:utime WHERE f=:f');
+            $stmtATHARRAICH->execute( array(':f'=>$f, ':t'=>$tUr, ':focal'=>$focalUr, ':focal_ci'=>$focal_ci, ':derb'=>$derbUr,
+                                            ':gram'=>$gramUr, ':gluas'=>$gluasUr, ':ipa'=>$ipaUr, ':fis'=>$fisUr, ':smid'=>$smid, ':utime'=>$utime) );
         }
         if ($stmtATHARRAICH->rowCount()==1) {
             if ($f>0) {

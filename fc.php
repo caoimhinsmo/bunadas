@@ -150,7 +150,7 @@
 END_controlsHtml;
 
     if (SM_Bunadas::is_count($f)) {
-        $h1 = "$T_Language <a onclick='swopCount()'>⬌</a> $T_Word_count";
+        $h1 = "<span onclick='swopCount()'>$T_Language <a>⬌</a> $T_Word_count</span>";
         $controlsHtml = '';
         if (isset($_GET['swopCount'])) { $onloadSwopCount = 'swopCount()'; }
     }
