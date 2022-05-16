@@ -4,9 +4,9 @@
   header('Cache-Control:max-age=0');
 
   try {
-      $moSMO = SM_moSMO::singleton();
+      $myCLIL = SM_myCLIL::singleton();
   } catch (Exception $e) {
-      $moSMO->toradh = $e->getMessage();
+      $myCLIL->toradh = $e->getMessage();
   }
 
   try {
@@ -194,7 +194,7 @@ EODsguab;
     $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
     if (!empty($derb)) { $derbHtml = "<br>&nbsp;<span class=lab>$T_Derb:</span> <b>$derb</b>"; }
     if (!empty($gram)) { $gramHtml = " &nbsp; <span class=lab>$T_Gram:</span> <span style='font-size:90%'>$gram</span>"; }
-    if (!empty($ipa))  { $ipaHtml  = "<span class=lab>$T_IPA:</span> $ipa"; }
+    if (!empty($ipa))  { $ipaHtml  = "<span class=lab style='padding-left:1em'>$T_IPA:</span> $ipa"; }
     if (!empty($fis))  { $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><span class=lab>$T_Fis:</span> <span style='font-size:80%'>$fis</span></td>"; }
     $ainmT = $ainmTeanga[$t];
     $fiosTableHtml = <<< END_fiosTableHtml

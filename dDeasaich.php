@@ -4,14 +4,14 @@
   header("Cache-Control:max-age=0");
 
   try {
-      $moSMO = SM_moSMO::singleton();
-      if (!SM_Bunadas::ceadSgriobhaidh()) { $moSMO->diultadh(''); }
+      $myCLIL = SM_myCLIL::singleton();
+      if (!SM_Bunadas::ceadSgriobhaidh()) { $myCLIL->diultadh(''); }
   } catch (Exception $e) {
-      $moSMO->toradh = $e->getMessage();
+      $myCLIL->toradh = $e->getMessage();
   }
 
   try {
-    $moSMO->dearbhaich();
+    $myCLIL->dearbhaich();
     $T = new SM_T('bunadas/dDeasaich');
     $hl = $T::hl0();
     $T_Cruthaich_drong_ur  = $T->h('Cruthaich drong ùr');
@@ -27,7 +27,7 @@
     $T_Atharrachadh_soirbh = $T->h('Atharrachadh soirbheachail');
     $T_Drong_ur_ann        = $T->h('Chaidh an drong a chur ann');
 
-    $smid = $moSMO->id;
+    $smid = $myCLIL->id;
     $bunadasURL = SM_Bunadas::bunadasurl();
     $navbar = SM_Bunadas::navbar($T->domhan);
 

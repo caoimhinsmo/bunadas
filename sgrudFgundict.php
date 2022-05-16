@@ -4,10 +4,10 @@
   header('Cache-Control:max-age=0');
 
   try {
-      $moSMO = SM_moSMO::singleton();
-//    if (!$moSMO->cead('{logged-in}')) { $moSMO->diultadh(''); }
+      $myCLIL = SM_myCLIL::singleton();
+//    if (!$myCLIL->cead('{logged-in}')) { $myCLIL->diultadh(''); }
   } catch (Exception $e) {
-      $moSMO->toradh = $e->getMessage();
+      $myCLIL->toradh = $e->getMessage();
   }
 
   $T = new SM_T('bunadas/sgrudF0');
@@ -17,7 +17,7 @@
   $T_ntoraidheanFios = $T->h('ntoraidheanFios');
   $T_sgrudFgundict_tiotal = $T->h('sgrudFgundict_tiotal');
 
-  $smid = $moSMO->id;
+  $smid = $myCLIL->id;
   $navbar = SM_Bunadas::navbar($T->domhan);
   $stordataCss = SM_Bunadas::stordataCss();
   $stordataConnector = SM_Bunadas::stordataConnector();
@@ -68,8 +68,8 @@ $navbar
 EODHtmlTus;
 
   try {
-    $moSMO->dearbhaich();
-    $smid = $moSMO->id;
+    $myCLIL->dearbhaich();
+    $smid = $myCLIL->id;
     echo <<<EODHtmlCeann
 <a href="./"><img src="dealbhan/bunadas64.png" style="float:left;border:1px solid black;margin:0 2em 2em 0" alt=""></a>
 <h1 class=smo>$T_sgrudFgundict_tiotal</h1>

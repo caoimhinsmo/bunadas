@@ -3,14 +3,14 @@
     header("Location:https://claran.smo.uhi.ac.uk/mearachd/include_a_dhith/?faidhle=autoload.inc.php");
 
   try {
-      $moSMO = SM_moSMO::singleton();
+      $myCLIL = SM_myCLIL::singleton();
 // Chan eil feum air seo an-dràsta co-dhiù
-//      if (!$moSMO->cead('{logged-in}')) { $moSMO->diultadh(''); }
+//      if (!$myCLIL->cead('{logged-in}')) { $myCLIL->diultadh(''); }
   } catch (Exception $e) {
-      $moSMO->toradh = $e->getMessage();
+      $myCLIL->toradh = $e->getMessage();
   }
 
-  $moSMO->dearbhaich();
+  $myCLIL->dearbhaich();
   $T = new SM_T('bunadas/index');
   $hl = $T::hl0();
   $T_fotiotal         = $T->h('fo-tiotal');

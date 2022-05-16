@@ -4,8 +4,6 @@
   header('Cache-Control:max-age=0');
 
   try {
-    $moSMO = SM_moSMO::singleton();
-
     $T = new SM_T('bunadas/lorg');
     $hl = $T::hl0();
     $T_Lorg_facal       = $T->h('Lorg facal');
