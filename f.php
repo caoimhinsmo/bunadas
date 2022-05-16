@@ -98,11 +98,11 @@
     extract($row);
     $fis   = htmlspecialchars($fis);
     $gluas = htmlspecialchars($gluas);
-    $fiosCo   = ( empty($csmid) ? '' : "<span class=lab>$T_Cruthachadh:</span>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
-    $fiosCo  .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><span class=lab>$T_Atharrachadh:</span> " . uairHtml($mutime) . " $T_le $msmid" );
-    $fiosCo   = ( empty($fiosCo)? '' : "<tr style='font-size:50%'><td colspan=2>$fiosCo</td></tr>\n" );
-    $fDeasaichHtml = $fSguabHtml = '';
+    $fDeasaichHtml = $fSguabHtml = $fiosCo = '';
     if ($deasaich) {
+        $fiosCo   = ( empty($csmid) ? '' : "<span class=lab>$T_Cruthachadh:</span>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
+        $fiosCo  .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><span class=lab>$T_Atharrachadh:</span> " . uairHtml($mutime) . " $T_le $msmid" );
+        $fiosCo   = ( empty($fiosCo)? '' : "<tr style='font-size:50%'><td colspan=2>$fiosCo</td></tr>\n" );
         if (isset($_GET['sguab'])) {
             $fSguabHtml = <<< EODsguab
 <div class=sguab>
