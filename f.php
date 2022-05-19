@@ -608,9 +608,9 @@ END_DnD_JAVASCRIPT;
         div.dCeann img { padding:0em  0.5em; }
         div.dColainn { margin-top:0.3em; border-radius: 0 0 0.6em 0.6em; padding-left:0.3em; }
         div.ciana0 div.dCeann  { background-color:#ece; }
-        div.drong.meit2        { background-color:#e0ffe0; }
+        div.drong.meit2        { background-color:#e0ffe0; font-size:95%; }
         div.drong.meit2neg     { background-color:#fcf; }
-        div.drong.meit3        { background-color:#ccc; }
+        div.drong.meit3        { background-color:#ddd; font-size:85%; }
         div.drong.meit3 div.dCeann { background-color:#888; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
