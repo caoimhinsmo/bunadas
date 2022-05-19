@@ -199,8 +199,9 @@ EODsguab;
     $ainmT = $ainmTeanga[$t];
     $fiosTableHtml = <<< END_fiosTableHtml
 <table id=fiost>
-<tr><td style='width:16em;white-space:nowrap'><span class=lab>$T_Canan:</span> $ainmT</td>></tr>
-<tr><td style='white-space:nowrap'><span class=lab>$T_Facal:</span> <b>$focal</b> $gramHtml$derbHtml</td><td>$ipaHtml</td</tr>
+<col><col>
+<tr><td style='width:16em;white-space:nowrap'><span class=lab>$T_Canan:</span> $ainmT</td></tr>
+<tr><td style='white-space:nowrap'><span class=lab>$T_Facal:</span> <b>$focal</b> $gramHtml$derbHtml</td><td>$ipaHtml</td></tr>
 <tr><td colspan=2 style='padding-left:2.5em;text-indent:-2.5em'><span class=lab>$T_Gluas:</span> <span style='font-size:110%'>$gluas</span></td></tr>
 $fisHtml
 $fiosCo
@@ -260,6 +261,10 @@ END_fiosTableHtml;
     $stmtLit = $DbBun->prepare('SELECT l,lit,litfis FROM bunfLit WHERE f=:f ORDER BY bunfLit.l');
     $stmtLit->execute(array(':f'=>$f));
     $rows = $stmtLit->fetchAll(PDO::FETCH_ASSOC);
+    $nLit = count($rows);
+    if ($nLit<4)      { $nCols = 1; }
+     elseif ($nLit<6) { $nCols = 2; }
+     else             { $nCols = 3; }
     foreach ($rows as $r) {
         extract($r);
         $lit    = htmlspecialchars($lit);
@@ -272,12 +277,15 @@ END_fiosTableHtml;
                         : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>" );
         $litHtml .= "<li style='list-style-type:none'>$litHtmlMir$litHtmlsguab\n";
     }
-    if ($deasaich) {
-        $litHtml .= "<li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='lit' placeholder='$T_litreachadh' value='' $autofocusLit>"
-                    . " <input name='litfis' placeholder='$T_fiosrachadh' style='width:40em'>"
-                    . " <input type='submit' name='curLit' value='$T_Cuir_ris'></form>\n";
+    if ($litHtml) {
+        $litHtml = "<ul style='columns:$nCols'>\n$litHtml</ul>\n";
     }
-    if ($litHtml) { $litHtml = "<fieldset class=imrad style='background-color:#eee8d7'>\n<legend title='Litreachaidhean eile air an aon fhacal'>$T_Litreachaidhean_eile</legend>\n<ul>\n$litHtml\n</ul>\n</fieldset>\n"; }
+    if ($deasaich) {
+        $litHtml .= "<ul><li class='curImrad'><form method='POST'><input type='hidden' name='f' value='$f'><input name='lit' placeholder='$T_litreachadh' value='' $autofocusLit>"
+                    . " <input name='litfis' placeholder='$T_fiosrachadh' style='width:40em'>"
+                    . " <input type='submit' name='curLit' value='$T_Cuir_ris'></form></ul>\n";
+    }
+    if ($litHtml) { $litHtml = "<fieldset class=imrad style='background-color:#eee8d7'>\n<legend title='Litreachaidhean eile air an aon fhacal'>$T_Litreachaidhean_eile</legend>\n$litHtml</fieldset>\n"; }
 
     $stmtImrad = $DbBun->prepare('SELECT i,imrad,url FROM bunfImrad WHERE f=:f ORDER BY bunfImrad.i');
     $stmtImrad->execute(array(':f'=>$f));
