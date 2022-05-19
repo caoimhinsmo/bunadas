@@ -333,11 +333,12 @@ END_fiosTableHtml;
     }
 
     $stmtd1 = $DbBun->prepare('SELECT bundf.d, topar, ABS(meit) AS meit0, ciana AS ciana0 FROM bundf,bund WHERE f=:f AND bundf.d=bund.d ORDER BY meit0,ciana0,d');
-    $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.derb AS derb2, meit, ciana, doich, parentage_ord FROM bundf,bunf,bunt'
+    $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.focal_ci AS focal2_ci, bunf.derb AS derb2, meit, ciana, doich, parentage_ord'
+             . ' FROM bundf,bunf,bunt'
              . ' WHERE bundf.d=:d'
              . '   AND bundf.f=bunf.f'
              . '   AND bunf.t=bunt.t'
-             . ' ORDER BY ciana,meit,parentage_ord,focal2,derb2';
+             . ' ORDER BY ciana,meit,parentage_ord,focal2_ci,focal2,derb2';
     $stmtd2 = $DbBun->prepare($queryd2);
     $stmtd1->execute(array(':f'=>$f));
     while ($row1 = $stmtd1->fetch(PDO::FETCH_ASSOC)) {

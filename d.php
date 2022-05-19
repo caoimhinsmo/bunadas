@@ -224,15 +224,15 @@ END_javascriptDeasachaidh;
     if (!$row = $stmtd1->fetch(PDO::FETCH_ASSOC)) { throw new SM_Exception(sprintf($T_Chan_eil_drong_d,$d)); }
     extract($row);
 
-    $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.derb AS derb2, meit, ciana, doich FROM bundf,bunf,bunt'
+    $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.focal_ci AS focal2_ci, bunf.derb AS derb2, meit, ciana, doich FROM bundf,bunf,bunt'
              . ' WHERE bundf.d=:d'
              . '   AND bundf.f=bunf.f'
              . '   AND bunt.t = bunf.t'
-             . ' ORDER BY ciana,meit,parentage_ord,focal2,derb2';
+             . ' ORDER BY ciana,meit,parentage_ord,focal2_ci,focal2,derb2';
     $stmtd2 = $DbBun->prepare($queryd2);
 
     if ($deasaich) { $dDeasaichHTML =  "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
-                                    .  " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
+                                    . " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
                                     . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png title='$T_Dublaich_an_drong'></a>"
                                     . " <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"; }
     $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar'>$topar</span></div>\n";
