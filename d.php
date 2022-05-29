@@ -154,7 +154,7 @@ END_cuirRiHTML;
                     $ciana = ( isset($tor->ciana) ? $tor->ciana : 1 );
                     $meit  = ( isset($tor->meit)  ? $tor->meit  : 0 );
                     $doich = ( isset($tor->doich) ? $tor->doich : 1 );
-                    $cianaMax = max($ciana+2,10);
+                    $cianaMax = max($ciana+4,8);
                     $optionsHTML = '';
                     foreach ($meitArr as $val=>$symb) { $optionsHTML .= "<option value=$val" . ($val==$meit ? ' selected' : '') . ">$symb</option>"; }
                     $fHTML = SM_Bunadas::fHTML($f);
@@ -162,7 +162,7 @@ END_cuirRiHTML;
 <form><tr><td>$annAs</td><td>$fHTML<input type='hidden' name='cuirRi' value='$f'><input type='hidden' name='d' value='$d'></td>
 <td><select name='meit'>$optionsHTML</select></td>
 <td id='ciana$f' class='ciana'>$ciana</td>
-<td><input name='ciana' type='range' min=0 max=$cianaMax step=0.1 value=$ciana style='width:38em;color:#aaa' list=ticks oninput="setCiana('ciana$f',value);" onchange="setCiana('ciana$f',value);"></td>
+<td><input name='ciana' type='range' min=0 max=$cianaMax step=0.1 value=$ciana style='width:28em;color:#aaa' list=ticks oninput="setCiana('ciana$f',value);" onchange="setCiana('ciana$f',value);"></td>
 <td><input type='submit' value='$T_Cuir_ris_an_drong'></td>
 <td><input name='doich' type='range' min=0 max=1 step=0.1 value=$doich style='width:7em;color:#bbb' list=ticks oninput="setDoich('doich$f',value);" onchange="setDoich('doich$f',value);"></td>
 <td id='doich$f' class='doich'>$doich</td></tr></form>

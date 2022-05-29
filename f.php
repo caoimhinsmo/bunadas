@@ -138,7 +138,7 @@ EODsguab;
             $dictsltlREQ = trim($_REQUEST['dictsltl']);
             $wordREQ     = trim($_REQUEST['word']);
             $dictfisREQ  = trim($_REQUEST['dictfis']);
-            if (!(empty($dictSlTlREQ)&&empty($wordREQ))) {
+            if (!(empty($dictsltlREQ)&&empty($wordREQ))) {
                 if (count(explode('-',$dictsltlREQ))<>3) { throw new SM_Exception($T_dictsltl_format_exc); }
                 if (preg_match('|^\d+$|',$wordREQ)) { $wordREQ = "(($wordREQ))"; }
                 $stmtCurDict = $DbBun->prepare("INSERT IGNORE INTO bunfDict(f,dictsltl,word,dictfis) VALUES (:f,:dictsltl,:word,:dictfis)");
@@ -319,7 +319,7 @@ END_fiosTableHtml;
             $dictHtml .= "<li>$dictTaisbean$sguabDictHtml\n";
         }
         $dictsltlValue = $dictfisValue = '';
-        if ($t=='sga') {
+        if ($t=='sga' || $t=='mga') {
             $dictsltlValue = "value='eDIL-sga-en'";
             $dictfisValue = ( empty($derb) ? $focal : "$derb $focal" );
             $dictfisValue = "value='$dictfisValue'";
@@ -610,8 +610,8 @@ END_DnD_JAVASCRIPT;
         div.ciana0 div.dCeann  { background-color:#ece; }
         div.drong.meit2        { background-color:#e0ffe0; font-size:95%; }
         div.drong.meit2neg     { background-color:#fcf; }
-        div.drong.meit3        { background-color:#ddd; font-size:85%; }
-        div.drong.meit3 div.dCeann { background-color:#888; }
+        div.drong.meit3        { background-color:#eee; font-size:82%; }
+        div.drong.meit3 div.dCeann { background-color:#aaa; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }
         table#fiost td { padding:0.1em 0; }
