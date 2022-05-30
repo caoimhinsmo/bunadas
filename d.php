@@ -184,14 +184,13 @@ END_taghFacalHTMLrow;
                   </fieldset>
                   END_taghFacalHTML;
             }
-
-            $cuirRiHTML = <<<END_cuirRiHTML2
-              <fieldset class="cuirRis" style="margin:0.5em 0 0.5em 0">
-              <legend>$T_Lorg_facal_don_drong</legend>
-              $cuirRiHTML
-              </fieldset>
-              END_cuirRiHTML2;
         }
+        $cuirRiHTML = <<<END_cuirRiHTML2
+          <fieldset class="cuirRis" style="margin:0.5em 0 0.5em 0">
+          <legend>$T_Lorg_facal_don_drong</legend>
+          $cuirRiHTML
+          </fieldset>
+          END_cuirRiHTML2;
 
         $javascriptDeasachaidh = <<<END_javascriptDeasachaidh
     <script>
@@ -330,7 +329,7 @@ END_HTML;
         div.sguab a:hover { background-color:blue; }
         div.sguab a.sguab       { background-color:#f84; }
         div.sguab a.sguab:hover { background-color:red; font-weight:bold; }
-        p.mearachd { color:red; font-size:85%; }
+        p.mearachd { margin-bottom:0; color:red; font-size:85%; }
         td.ciana { color:grey; font-size:80%; width:1.8em; white-space:nowrap }
         td.doich { color:#888; font-size:70%; }
         div.dCeann { margin-bottom:0.5em; font-size:90%; color:#bbb; }
