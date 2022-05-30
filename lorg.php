@@ -6,18 +6,18 @@
   try {
     $T = new SM_T('bunadas/lorg');
     $hl = $T::hl0();
-    $T_Lorg_facal       = $T->h('Lorg facal');
-    $T_Canan            = $T->h('Language');
-    $T_Facal            = $T->h('Facal');
-    $T_Facal_ph         = $T->h('Facal_ph');
-    $T_Gluas            = $T->h('Gluas');
-    $T_Gluas_ph         = $T->h('Gluas_ph');
-    $T_Lorg             = $T->h('Lorg');
-    $T_priomhLit        = $T->h('priomhLit');
-    $T_facal            = $T->h('facal');
-    $T_facail           = $T->h('facail');
-    $T_ntoraidheanFios  = $T->h('ntoraidheanFios');
-    $T_Cruthaich_facal  = $T->h('Cruthaich facal ùr');
+    $T_Lorg_facal = $T->h('Lorg facal');
+    $T_Canan      = $T->h('Language');
+    $T_Facal      = $T->h('Facal');
+    $T_Facal_ph   = $T->h('Facal_ph');
+    $T_Gluas      = $T->h('Gluas');
+    $T_Gluas_ph   = $T->h('Gluas_ph');
+    $T_Lorg       = $T->h('Lorg');
+    $T_priomhLit  = $T->h('priomhLit');
+    $T_facal      = $T->h('facal');
+    $T_facail     = $T->h('facail');
+    $T_ntoraidheanFios    = $T->h('ntoraidheanFios');
+    $T_Cruthaich_facal_ur = $T->h('Cruthaich_facal_ur');
 
     $toraidheanHtml = $cruthaichFocalHtml = $conditionf_ci = $toraidhean_ci_Html = '';
 
@@ -82,8 +82,10 @@
         foreach ($toraidhean as $f) { $toraidheanHtml .= '<tr><td>' . SM_Bunadas::fHTML($f) . "</td></tr>\n"; }
         if (SM_Bunadas::ceadSgriobhaidh()) {
             $fqURL = urlencode($fq);
-            $multidictHtml = "<a href='//multidict.net/multidict/?sl=$tq&amp;word=$fqURL'><img src='dealbhan/multidict.png' style='margin-right:10px' alt=''></a>";
-            $cruthaichFocalHtml = "<p style='margin-bottom:0.2em'>⇒ <a href='fDeasaich.php?f=0&amp;t=$tq&amp;focal=$fqURL'>$T_Cruthaich_facal</a> $multidictHtml</p>";
+            $multidictHtml = "<a href='//multidict.net/multidict/?sl=$tq&amp;word=$fqURL'>"
+                           . "<img src='dealbhan/multidict.png' style='margin-right:10px' alt=''></a>";
+            $cruthaichFocalHtml = "<p style='margin-bottom:0.2em'>⇒ <a href='fDeasaich.php?f=0&amp;t=$tq&amp;focal=$fqURL'>"
+                                . "$T_Cruthaich_facal_ur</a> $multidictHtml</p>";
         }
         $cunntasFacal = $T->cunntas($ntoraidhean,$T_facal,$T_facail);
         $T_ntoraidheanFios = sprintf($T_ntoraidheanFios,$cunntasFacal);

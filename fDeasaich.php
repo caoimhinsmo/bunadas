@@ -14,7 +14,7 @@
     $myCLIL->dearbhaich();
     $T = new SM_T('bunadas/fDeasaich');
     $hl = $T::hl0();
-    $T_Cruthaich_facal_ur  = $T->h('Cruthaich facal ùr');
+    $T_Cruthaich_facal_ur  = $T->h('Cruthaich_facal_ur');
     $T_Atharraich_facal    = $T->h('Atharraich facal');
     $T_canan               = $T->h('language');
     $T_facal               = $T->h('facal');

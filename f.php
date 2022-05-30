@@ -31,7 +31,7 @@
     $T_Cruthachadh          = $T->h('Cruthachadh');
     $T_Atharrachadh         = $T->h('Atharrachadh');
     $T_le                   = $T->h('le');
-    $T_Cru_facal_don_drong  = $T->h('Cruthaich facal ùr dhan drong seo');
+    $T_Cru_facal_don_drong  = $T->h('Cru_facal_don_drong');
     $T_Dublaich_an_drong    = $T->h('Dùblaich an drong');
     $T_Cuir_as_don_drong    = $T->h('Cuir às don drong');
     $T_Sguab_as_an_drong    = $T->h('Sguab am facal seo às an drong');

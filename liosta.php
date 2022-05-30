@@ -32,7 +32,7 @@
     $T_facal                  = $T->h('facal');
     $T_facail                 = $T->h('facail');
     $T_Briog_gus_suaip        = $T->h('Briog_gus_suaip');
-    $T_Cha_d_fhuaireadh_facal = $T->h('Cha_d_fhuaireadh_facal');
+    $T_No_words_found         = $T->h('No_words_found');
     $T_Seall_na_h_uile        = $T->h('Seall_na_h_uile');
     $T_Seall_na_h_uile_title  = $T->h('Seall_na_h_uile_title');
     $T_Astar_fios             = $T->h('Astar_fios');
@@ -128,7 +128,7 @@
     $php_self = $_SERVER['PHP_SELF'];
     if (!ctype_digit($patran1)) {
         if ($aireamht1==0) {
-            $aireamhHtml = $T_Cha_d_fhuaireadh_facal;
+            $aireamhHtml = $T_No_words_found;
             $aireamhDath = '#f99';
         } elseif ($aireamht1==$uasAireamh2) {
             $uilePutan = "<input type='submit' name='gunAireamh' value='$T_Seall_na_h_uile' class='gunAireamh' onclick='priomhSubmit()' title='$T_Seall_na_h_uile_title'>";
