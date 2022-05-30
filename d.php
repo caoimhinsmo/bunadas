@@ -102,7 +102,7 @@
         }
 
         //Cruthaich foirm airson focal a lorg
-        $fq = $_GET['f'];
+        $fq = $_GET['f'] ?? '';
         $tq = $_GET['t'] ?? '';
         $focalq = $_GET['focal'] ?? '';  $focalq = trim($focalq);
         $gluasq = $_GET['gluas'] ?? '';
@@ -255,7 +255,7 @@ END_javascriptDeasachaidh;
 
     if ($deasaich) { $dDeasaichHTML =
            "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
-        . " <a href=fDeasaich.php?f=0&amp;d=$d&ampfocal=$focal><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
+        . " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
         . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png title='$T_Dublaich_an_drong'></a>"
         . " <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"; }
     $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar'>$topar</span></div>\n";
