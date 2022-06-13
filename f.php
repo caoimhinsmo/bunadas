@@ -209,7 +209,7 @@ $fiosCo
 END_fiosTableHtml;
     $fiosHtml = "<div style='float:left'>\n"
               . "<div style='margin:4px 0 7px 0'><span style='font-size:80%;font-weight:bold'>$T_Facal " . htmlspecialchars($f) ."</span> $ceanglaicheanHtml &nbsp;&nbsp;&nbsp;"
-              . "<a href='fc.php?f=$f' class=putan>⇒ $T_Coimhearsnachd</a></div>\n"
+              . "<a href='fc.php?f=$f' class=putan>🌳 $T_Coimhearsnachd</a></div>\n"
               . "<div style='margin:2px 0;font-size:170%'>$putan$fDeasaichHtml</div>\n"
               . "</div>\n"
               . $fiosTableHtml;

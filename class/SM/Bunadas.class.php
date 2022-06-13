@@ -49,6 +49,7 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       $T_canan_eadarAghaidh = $T->h('canan_eadarAghaidh');
       $T_Log_air            = $T->h('Log_air');
       $T_Log_air_fios       = $T->h('Log_air_fios');
+      $T_Logout             = $T->h('Logout');
       $T_tr_fios            = $T->h('tr_fios');
       $bundb = ucfirst(self::bundb());
       $bunCeangal = ( $duilleagAghaidh ? '' : "\n<li><a href='/teanga/bunadas/' title='$T_bunCeangalTitle'>$bundb</a>" );
@@ -59,8 +60,8 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       $smotr = ( strpos($bunadasURL,'www2')!==false ? 'smotr_dev' : 'smotr'); //Adhockery - Cleachd 'smotr_dev' airson login air www2.smo.uhi.ac.uk
       $till_gu = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
       $ceangalRiMoSMO = ( isset($myCLIL->id)
-                        ? "<li class='deas'><a href='/teanga/$smotr/logout.php' title='Log out from myCLIL'>Logout</a></li>"
-                        : "<li class='deas'><a href='/teanga/$smotr/login.php?till_gu=$till_gu' title='$T_Log_air_fios'>$T_Log_air</a></li>"
+                        ? "<li class='deas'><a href='/teanga/$smotr/logout.php?till_gu=$till_gu' title='Log out from myCLIL'>$T_Logout</a>"
+                        : "<li class='deas'><a href='/teanga/$smotr/login.php?till_gu=$till_gu' title='$T_Log_air_fios'>$T_Log_air</a>"
                         );
       $hlArr = array(
           'br'=>'Brezhoneg',

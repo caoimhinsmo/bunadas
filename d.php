@@ -148,10 +148,11 @@
             $count = count($torArr);
             $tqENC     = urlencode($tq);
             $focalqENC = urlencode($focalq);
-            $cuirRiHTML .= "<p style='margin-bottom:0;font-size:80%'><a href='fDeasaich.php?d=$d&amp;t=$tqENC&amp;focal=$focalqENC'>"
-                         . "<img src='/icons-smo/plusStar.png'> $T_Cruthaich_facal_ur</a></p>\n";
             if ($count==0)       { $cuirRiHTML .= "<p class='mearachd'>$T_No_words_found</p>\n"; }
              elseif ($count>200) { $cuirRiHTML .= "<p class='mearachd'>$T_cus_fhaclan_a_lorg</p>\n"; }
+            $cuirRiHTML .= "<p style='margin:0 0.5em 0 0;font-size:80%'>"
+                         . "<a href='fDeasaich.php?d=$d&amp;t=$tqENC&amp;focal=$focalqENC' title='$T_Cru_facal_don_drong'>"
+                         . "<img src='/icons-smo/plusStar.png'> $T_Cruthaich_facal_ur</a></p>\n";
 
             if ($count>0 && $count<=200) {
                 foreach ($torArr as $tor) {
@@ -329,12 +330,12 @@ END_HTML;
         div.sguab a:hover { background-color:blue; }
         div.sguab a.sguab       { background-color:#f84; }
         div.sguab a.sguab:hover { background-color:red; font-weight:bold; }
-        p.mearachd { margin-bottom:0; color:red; font-size:85%; }
+        p.mearachd { margin:0.5em 0; color:red; font-size:85%; }
         td.ciana { color:grey; font-size:80%; width:1.8em; white-space:nowrap }
         td.doich { color:#888; font-size:70%; }
         div.dCeann { margin-bottom:0.5em; font-size:90%; color:#bbb; }
         div.dCeann b { color:black; }
-        fieldset.cuirRis        { margin-top:0.3em; padding:0.2em 0.3em; background-color:#fee; border:1px solid #a99; border-radius:3px; }
+        fieldset.cuirRis        { margin-top:0.3em; padding:0.2em 0.3em; background-color:#fee; border:1px solid #a99; border-radius:0.4em; }
         fieldset.cuirRis legend { background-color:grey; color:white; padding:1px 4px; border:1px solid grey; border-radius:4px; font-weight:bold; font-size:70%; }
         table#cuirRiTable { border-collapse:collapse; }
         table#cuirRiTable tr:hover { background-color:#dd9; }
