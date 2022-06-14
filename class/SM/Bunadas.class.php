@@ -54,10 +54,14 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       $bundb = ucfirst(self::bundb());
       $bunCeangal = ( $duilleagAghaidh ? '' : "\n<li><a href='/teanga/bunadas/' title='$T_bunCeangalTitle'>$bundb</a>" );
       $myCLIL = SM_myCLIL::singleton();
+      $trPutan = '';
       if ($myCLIL->cead(SM_myCLIL::LUCHD_EADARTHEANGACHAIDH) && !empty($domhan))
-        { $trPutan = "\n<li class=deas><a href='http://www3.smo.uhi.ac.uk/teanga/smotr/tr.php?domhan=$domhan' target='tr' title='$T_tr_fios'>tr</a>"; } else { $trPutan = ''; }
+        { $trPutan = "\n<li class=deas>"
+                    ."<a href='http://www3.smo.uhi.ac.uk/teanga/smotr/tr.php?domhan=$domhan' target='tr' title='$T_tr_fios'>tr</a>"; }
       $bunadasURL = self::bunadasurl();
-      $smotr = ( strpos($bunadasURL,'www2')!==false ? 'smotr_dev' : 'smotr'); //Adhockery - Cleachd 'smotr_dev' airson login air www2.smo.uhi.ac.uk
+      $smotr = ( strpos($bunadasURL,'www2')!==false
+               ? 'smotr_dev' //Adhockery - Cleachd 'smotr_dev' airson login air www2.smo.uhi.ac.uk
+               : 'smotr');
       $till_gu = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
       $ceangalRiMoSMO = ( isset($myCLIL->id)
                         ? "<li class='deas'><a href='/teanga/$smotr/logout.php?till_gu=$till_gu' title='Log out from myCLIL'>$T_Logout</a>"
@@ -83,8 +87,9 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       );
       $options = '';
       foreach ($hlArr as $hl=>$hlAinm) {
-          if (substr($hl,0,4)=='----') { $options .= "<option value='' disabled>&nbsp;_{$hlAinm}_</option>\n"; }  //Divider in the list of select options
-            else                       { $options .= "<option value='$hl|en'" . ( $hl==$hl0 ? ' selected' : '' ) . ">$hlAinm</option>\n"; }
+          if (substr($hl,0,4)=='----')
+                 { $options .= "<option value='' disabled>&nbsp;_{$hlAinm}_</option>\n"; }  //Divider in the list of select options
+            else { $options .= "<option value='$hl|en'" . ( $hl==$hl0 ? ' selected' : '' ) . ">$hlAinm</option>\n"; }
       }
       $selCanan = <<< END_selCanan
 <script>
@@ -125,7 +130,8 @@ EOD_NAVBAR;
   // Cuiridh seo na faclan $f1 agus $f2 an coimeas; tillidh e -1 ma tha $f1 roimh $f2 an òrdugh na h-abaidile agus 1 mura bheil
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
-      $stmtcmp = $DbCaoimhin->prepare('SELECT STRCMP(bunf1.focal,bunf2.focal) FROM bunf AS bunf1, bunf AS bunf2 WHERE bunf1.f=:f1 AND bunf2.f=:f2');
+      $query = 'SELECT STRCMP(bunf1.focal,bunf2.focal) FROM bunf AS bunf1, bunf AS bunf2 WHERE bunf1.f=:f1 AND bunf2.f=:f2';
+      $stmtcmp = $DbCaoimhin->prepare($query);
       $stmtcmp->execute([':f1'=>$f1,':f2'=>$f2]);
       $row = $stmtcmp->fetch(PDO::FETCH_NUM);
       return $row[0];
@@ -176,7 +182,9 @@ EOD_NAVBAR;
       $tHtml = $t;
       if (strlen($t)>3 || $t=='mga' || $t=='xbm') { $tHtml = "<span style='font-size:75%'>$tHtml</span>"; }
       $derbStyle = ( substr($derb,0,3)=='KSM' ? ' style="color:red;background-color:pink"' : '' );
-      $html = "<div class=f lang='$t' data-name='f$f'$draggableT><div>$tHtml</div><div$focalStyle title='$gluasHtml'>$focalHtml</div><div$derbStyle>$derb</div></div>";
+      $html = "<div class=f lang='$t' data-name='f$f'$draggableT>"
+            . "<div>$tHtml</div><div$focalStyle title='$gluasHtml'>$focalHtml</div><div$derbStyle>$derb</div>"
+            . "</div>";
       return $html;
   }
 
@@ -202,7 +210,7 @@ EOD_NAVBAR;
          0 => '–',   // U+2013  EN DASH
          1 => '≽',   // U+227D  SUCCEEDS OR EQUAL TO
          2 => '≻',   // U+227B  SUCCEEDS
-         3 => '≫'); // U+226B  MUCH GREATER THAN
+         3 => '≫');  // U+226B  MUCH GREATER THAN
       return $arr;
   }
 
@@ -238,8 +246,10 @@ EOD_NAVBAR;
   public static function foDrong($dA,$dB) {
   // A’ cur sùil a bheil drong $dB a’ ghabhail a-steach drong $dB
   // Return values:
-  //  2: Gach facal ann an $dA tha e cuideachd ann an $dB; agus chan fhaighear dà fhacal ann an $dA a tha nas fhaisg ann an $dA na tha iad ann an $dB.
-  //  1: Gach facal ann an $dA tha e cuideachd ann an $dB; ach lorgar dà fhacal ann an $dA a tha nas fhaisg ann an $dA na tha iad ann an $dB.
+  //  2: Gach facal ann an $dA tha e cuideachd ann an $dB;
+  //      agus chan fhaighear dà fhacal ann an $dA a tha nas fhaisg ann an $dA na tha iad ann an $dB.
+  //  1: Gach facal ann an $dA tha e cuideachd ann an $dB;
+  //      ach lorgar dà fhacal ann an $dA a tha nas fhaisg ann an $dA na tha iad ann an $dB.
   //  0: Chan eil $dB a’ gabhail a-steach $dA idir - tha facail ann an $dA nach eil ann an $dB.
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
@@ -274,7 +284,8 @@ EOD_NAVBAR;
 
 
   public static function nabaidhean ($f0, $uasCiana=2, $t=null, $nochdFoMhir=0, $nochdOsMhir=0, $modh=0, $iosDoich=0.501) {
-  //Tillidh seo array de na nabaidhean a tha taobh a-stigh ciana $uasCiana de facail $f0, le coltachd os cionn $iosDoich, agus a tha ann an cànan $t.
+  // Tillidh seo array de na nabaidhean a tha taobh a-stigh ciana $uasCiana de facail $f0,
+  // le coltachd os cionn $iosDoich, agus a tha ann an cànan $t.
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
       $nabArr = [$f0=>array(0,'','',1,'','')]; //ciana,slige,meitCar,doich,t,focal
