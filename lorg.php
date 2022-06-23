@@ -94,9 +94,10 @@
         if (!empty($conditionf_ci)) {
             $conditionArr_ci = $conditionArr;
             $executeArr_ci   = $executeArr;
-            $fq_ic = SM_Bunadas::lomm($fq);
+            $fq_ci = SM_Bunadas::lomm($fq);
+           $fq_ci = strtr($fq_ci,['·'=>'-']); //Atharraich seo ma atharraicheas sinn uaireigin '-' gu '·' ann an sga ann am Bunadas
             $conditionArr_ci['f'] = $conditionf_ci;
-            $executeArr_ci['f']   = $fq_ic;
+            $executeArr_ci['f']   = $fq_ci;
             $condition_ci = implode (' AND ',$conditionArr_ci);
             $querySEL_ci = "$querySELsel WHERE $condition_ci $querySELord";
             $stmtSEL_ci = $DbBun->prepare($querySEL_ci);
