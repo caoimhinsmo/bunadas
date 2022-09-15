@@ -78,7 +78,7 @@
         $focalUr = trim($_REQUEST['focal']);  $focal_ci = SM_Bunadas::lomm($focalUr);
         $derbUr  = trim($_REQUEST['derb']);
         $gramUr  = trim($_REQUEST['gram']);
-        $gluasUr = trim($_REQUEST['gluas']);
+        $gluasUr = trim($_REQUEST['gluas']," \n\r\t\v\x00\x2E\u{2002}");
         $ipaUr   = trim($_REQUEST['ipa']);
         $fisUr   = trim($_REQUEST['fis']);
         $utime = time();
@@ -195,7 +195,7 @@ EODHtmlFoirm;
 <body>
 
 $navbar
-<div class="smo-body-indent">
+<div class="smo-body-indent" style="padding-bottom:2em">
 
 $HTML
 

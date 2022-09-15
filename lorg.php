@@ -129,9 +129,9 @@
         <tr><td title="Language">$T_Canan</td><td title="Word">$T_Facal</td><td>$T_Gluas</td><td></td></tr>
         <tr style="vertical-align:top">
         <td>$selectTHtml</td>
-        <td><input name="f" value="$fqHtml" placeholder="$T_Facal_ph" style="width:25em"><br>
+        <td><input name="f" value="$fqHtml" type=text placeholder="$T_Facal_ph" style="width:25em"><br>
             <label><input type=checkbox name=pl $plChecked> <span style="font-size:60%">$T_priomhLit</label></td>
-        <td><input name="gluas" value="$gluasqHtml" placeholder="$T_Gluas_ph" style="width:15em"></td>
+        <td><input name="gluas" value="$gluasqHtml" type=text placeholder="$T_Gluas_ph" style="width:15em"></td>
         <td><input type="submit" name="lorg" value="$T_Lorg"></td>
         </table>
         </tr>
@@ -154,6 +154,7 @@
             <style>
                table#tor { border-collapse:collapse; margin:1em 0 2.5em 0; }
                table#tor td { padding:5px; }
+               input[type=text]:not(:placeholder-shown) { background-color:yellow; }
             </style>
             <script>
                 function teangaUr(sel) {

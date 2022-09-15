@@ -95,8 +95,8 @@
          elseif ($meitchar=='≶') { $backcol = '#fbf'; }
          else                    { $backcol = '#fff'; }
         $cianaroimhe = $ciana - $cianaceum;
-        $fontsizeceum = number_format(100 * (8+$cianaroimhe)/(8+$ciana) ); //percent
-        $fontsize = round(800.0/(6+$ciana));
+        $fontsizeceum = number_format(100 * (6.5+$cianaroimhe)/(6.5+$ciana) ); //percent
+        $fontsize = round(650.0/(6.5+$ciana));
         $html = "$doichHtml$meitchar<div class=charput style='margin:1px' id=cp$f>$html</div>";
         $html = "<div style='float:left;font-size:$fontsizeceum%;background-color:$backcol'>$html</div>";
         $clannArr = $clannHtmlArr = [];

@@ -160,10 +160,14 @@ EODsguab;
             $DbBun->commit();
         }
     }
-    $ceanglaicheanHtml = "<a href=\"//multidict.net/multidict/?sl=$t&amp;word=" . urlencode($focal) . "\"><img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
+    $focalEnc = urlencode($focal);
+    $ceanglaicheanHtml = "<a href='//multidict.net/multidict/?sl=$t&amp;word=$focalEnc' rel=nofollow>"
+                       . "<img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
     if ($t=='gd') {
-        $ceangalDASG = '//www.dasg.ac.uk/corpus/concordance.php?theData=' . urlencode($focal) . '&amp;qmode=sq_nocase&amp;pp=50&amp;del=end&amp;uT=y&amp;del=begin&amp;del=end&amp;uT=y';
-        $ceanglaicheanHtml .= " <a href='$ceangalDASG'><img src=\"//multidict.net/multidict/icon.php?dict=DASG\" alt='DASG' title='$T_Lorg_ann_an_DASG'></a>";
+        $ceangalDASG = "//www.dasg.ac.uk/corpus/concordance.php?theData=$focalEnc"
+                     . '&amp;qmode=sq_nocase&amp;pp=50&amp;del=end&amp;uT=y&amp;del=begin&amp;del=end&amp;uT=y';
+        $ceanglaicheanHtml .= " <a href='$ceangalDASG' rel=nofollow>"
+                             ."<img src=\"//multidict.net/multidict/icon.php?dict=DASG\" alt='DASG' title='$T_Lorg_ann_an_DASG'></a>";
     }
     if      ($t=='ieur') { $focalWikt = "Reconstruction:Proto-Indo-European/$focal"; }
      elseif ($t=='celt') { $focalWikt = "Reconstruction:Proto-Celtic/$focal"; }
@@ -171,12 +175,14 @@ EODsguab;
      elseif ($t=='brit') { $focalWikt = "Reconstruction:Proto-Brythonic/$focal"; }
      elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
      elseif ($t=='wger') { $focalWikt = "Reconstruction:Proto-West_Germanic/$focal"; }
-     elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slav/$focal"; }
+     elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slavic/$focal"; }
      elseif ($t=='la')   { $focalWikt = strtr($focal,['ā'=>'a','ē'=>'e','ī'=>'i','ō'=>'o','ū'=>'u','Ā'=>'A','Ē'=>'E','Ī'=>'I','Ō'=>'O','Ū'=>'U']); }
      else                { $focalWikt = $focal; }
     $focalWikt = urlencode($focalWikt);
-    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary'><img src='/favicons/wiktionary.png' alt='W'></a>"
-                        . " <a href='//etymologeek.com/search/all/$focal' title='Etymologeek'><img src='/favicons/etymologeek.png' alt='EG'></a>";
+    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary' rel=nofollow>"
+                          ."<img src='/favicons/wiktionary.png' alt='W'></a>"
+                        . " <a href='//etymologeek.com/search/all/$focalEnc' title='Etymologeek' rel=nofollow>"
+                          ."<img src='/favicons/etymologeek.png' alt='EG'></a>";
 
     $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
     $stmtDictC->execute([':f'=>$f]);
@@ -186,7 +192,8 @@ EODsguab;
         list($dict,$sl,$tl) = explode('-',$dictsltl);
         $title = "$dictsltl - $word";
         if (!empty($dictfis)) { $title .= " - $dictfis"; }
-        $dictHtmlC .= " <a href='//multidict.net/multidict/?dict=$dict&amp;sl=$sl&amp;tl=$tl&amp;word=$word' title='$title'><img src='//multidict.net/multidict/icon.php?dict=$dict' alt='$dict'></a>";
+        $dictHtmlC .= " <a href='//multidict.net/multidict/?dict=$dict&amp;sl=$sl&amp;tl=$tl&amp;word=$word' title='$title' rel=nofollow>"
+                     ."<img src='//multidict.net/multidict/icon.php?dict=$dict' alt='$dict'></a>";
     }
     $ceanglaicheanHtml .= $dictHtmlC;
 
@@ -200,7 +207,7 @@ EODsguab;
     $fiosTableHtml = <<< END_fiosTableHtml
 <table id=fiost>
 <col><col>
-<tr><td style='width:16em;white-space:nowrap'><span class=lab>$T_Canan:</span> $ainmT</td></tr>
+<tr><td style='width:16em;white-space:nowrap'><span class=lab>$T_Canan:</span> $ainmT</td><td></td></tr>
 <tr><td style='white-space:nowrap'><span class=lab>$T_Facal:</span> <b>$focal</b> $gramHtml$derbHtml</td><td>$ipaHtml</td></tr>
 <tr><td colspan=2 style='padding-left:2.5em;text-indent:-2.5em'><span class=lab>$T_Gluas:</span> <span style='font-size:110%'>$gluas</span></td></tr>
 $fisHtml
@@ -271,10 +278,13 @@ END_fiosTableHtml;
         $litfis = htmlspecialchars($litfis);
         $litHtmlMir = $lit . ( empty($litfis) ? '' : " ($litfis)" );
         if ($litfis=='Gaeḋealg') { $litHtmlMir = "<span style='font-family:Bunchlo Dubh GC'>$litHtmlMir</span>"; }
-        $multidictHtml = "<a href=\"//multidict.net/multidict/?sl=$t&amp;word=" . urlencode($lit) . "\"><img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
+        $litEnc = urlencode($lit);
+        $multidictHtml = "<a href='//multidict.net/multidict/?sl=$t&amp;word=$litEnc' rel=nofollow>"
+                        ."<img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
         $litHtmlMir = "$multidictHtml $litHtmlMir";
         $litHtmlsguab = ( !$deasaich ? ''
-                        : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>" );
+                        : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>"
+                        );
         $litHtml .= "<li style='list-style-type:none'>$litHtmlMir$litHtmlsguab\n";
     }
     if ($litHtml) {
@@ -407,9 +417,11 @@ END_fiosTableHtml;
                 $nTaisbean++;
             }
             $cianaHtml = ( $ciana>0 ? $ciana : "<b style='color:black'>$ciana</b>" );
-            $dTableHtml .=  "<tr$trclass><td><a href=\"//multidict.net/multidict/?sl=$t2&amp;word=" . urlencode($focal2)
-                             . "\"><img src='dealbhan/multidict.png' style='margin-right:0.2em' alt='' title='$T_Lorg_le_Multidict'></a>$saighead</td><td>"
-                             . SM_Bunadas::fHTML($f2) . "</td><td>$meitHtml</td><td style='color:grey;font-size:80%'>$cianaHtml$doichHtml</td>$fDeasaichHtml</tr>\n";
+            $focal2Enc = urlencode($focal2);
+            $dTableHtml .=  "<tr$trclass><td><a href='//multidict.net/multidict/?sl=$t2&amp;word=$focal2Enc' rel=nofollow>"
+                             ."<img src='dealbhan/multidict.png' style='margin-right:0.2em' alt='' title='$T_Lorg_le_Multidict'></a>$saighead</td><td>"
+                             . SM_Bunadas::fHTML($f2)
+                             . "</td><td>$meitHtml</td><td style='color:grey;font-size:80%'>$cianaHtml$doichHtml</td>$fDeasaichHtml</tr>\n";
         }
         if ($nBearrte>0) {
             $bearrBunHtml = "<span class=bearrAir title='$T_Briog_gus_am_faicinn'>·· ▼ ·· <span class=bearrFios>+ $nBearrte $T_a_bharrachd</span></span>"
@@ -610,7 +622,7 @@ END_DnD_JAVASCRIPT;
         div.ciana0 div.dCeann  { background-color:#ece; }
         div.drong.meit2        { background-color:#e0ffe0; font-size:95%; }
         div.drong.meit2neg     { background-color:#fcf; }
-        div.drong.meit3        { background-color:#eee; font-size:82%; }
+        div.drong.meit3        { background-color:#eee; font-size:75%; }
         div.drong.meit3 div.dCeann { background-color:#aaa; }
         table#fiost { clear:both; margin:0.4em 0 0.2em 0; border-collapse:collapse; font-size:90%; }
         table#fiost tr { vertical-align:top; }

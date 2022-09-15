@@ -162,7 +162,7 @@ EODHtmlFoirm;
 <body>
 
 $navbar
-<div class="smo-body-indent">
+<div class="smo-body-indent" style="margin-bottom:2em">
 
 $HTML
 
