@@ -18,6 +18,7 @@
     $T_facail     = $T->h('facail');
     $T_ntoraidheanFios    = $T->h('ntoraidheanFios');
     $T_Cruthaich_facal_ur = $T->h('Cruthaich_facal_ur');
+    $T_Inexact_matches    = $T->h('Inexact_matches');
 
     $toraidheanHtml = $cruthaichFocalHtml = $conditionf_ci = $toraidhean_ci_Html = '';
 
@@ -107,7 +108,7 @@
             if (!empty($toraidhean_ci)) {
                 $toraidhean_ci_Html = <<<EODTORci
                     <div style='font-size:65%;background-color:#eee;border:1px solid black;border-radius:0.5em;padding:1px 0 3px 6px;margin-left:3em;max-width:80em'>
-                    <p style="margin:0 0 2px 2px">Inexact matches</p>
+                    <p style="margin:0 0 2px 2px">$T_Inexact_matches</p>
                     $toraidhean_ci_Html
                     </div>
                     EODTORci;
