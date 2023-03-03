@@ -9,7 +9,7 @@ class SM_Bunadas
        return $url;
   }
 
-  public $fArr, $dArr, $fdArr, $dfArr;
+//  public $fArr, $dArr, $fdArr, $dfArr;
 
   public static function bundb() {
       if (empty($_COOKIE['bundb']))     { return 'bunadas'; }

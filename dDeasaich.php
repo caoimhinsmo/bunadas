@@ -59,7 +59,7 @@
     $toparCumHtmlArr = [];
     $toparStoplist = "'ING', 'KSga', 'KSgv_cont', 'KSgv_der', 'KSgv_inf', 'SCC'";
     $stmtTC = $DbBun->prepare("SELECT COUNT(1) AS cnt, topar AS toparCum FROM bund WHERE topar NOT IN ($toparStoplist)"
-                             ." GROUP BY topar ORDER BY cnt DESC,topar LIMIT 26");
+                             ." GROUP BY topar ORDER BY cnt DESC,topar LIMIT 28");
     $stmtTC->execute();
     $rows = $stmtTC->fetchAll(PDO::FETCH_ASSOC);
     $cntArd   = $rows[7]['cnt'];

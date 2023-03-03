@@ -14,7 +14,7 @@ div.f > div:nth-child(2) { border:1px solid; border-left:0px; border-top-right-r
 div.f > div:nth-child(3) { font-size:40%; color:#333; }
 div.f > div:nth-child(2) > a { padding:3px 3px 2px 3px; white-space:nowrap; font-size:90%; }
 
-div.f > div:nth-child(1):lang(ieur) { background-color:#888; border-color:black; color:white; }
+div.f > div:nth-child(1):lang(ieur) { background-color:#999; border-color:black; color:white; }
 div.f > div:nth-child(1):lang(celt) { background-color:#6a6; border-color:green; color:white; }
 div.f > div:nth-child(1):lang(xtg)  { background-color:green; border-color:green; color:#f99; }
 div.f > div:nth-child(1):lang(sga),
@@ -56,7 +56,7 @@ div.f > div:nth-child(1):lang(ru)   { background-color:blue; border-color:blue; 
 div.f > div:nth-child(1):lang(pl),
 div.f > div:nth-child(1):lang(cs)   { background-color:blue; border-color:blue; color:pink; }
 div.f > div:nth-child(1):lang(lt)   { background-color:#56f; border-color:green; color:white; }
-div.f > div:nth-child(1):lang(grc)  { background-color:#871; border-color:#871; color:white; }
+div.f > div:nth-child(1):lang(grc)  { background-color:#761; border-color:#871; color:white; }
 div.f > div:nth-child(2):lang(ieur) { background-color:#fff; border-color:black; }
 div.f > div:nth-child(2):lang(celt) { background-color:#fff; border-color:red; }
 div.f > div:nth-child(2):lang(xtg)  { background-color:#fdd; border-color:red; }

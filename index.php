@@ -38,6 +38,7 @@
   $T_fiosStordata     = $T->h('fiosStordata');
   $T_Language         = $T->h('Language');
   $T_Word_count       = $T->h('Word_count');
+  $T_bhideo           = ucfirst($T->h('video'));
 
   $T_fiosStordata     = strtr ( $T_fiosStordata, [ '{' => '<b>', '}' => '</b>' ] );
 
@@ -147,9 +148,10 @@ $navbar
 <a href="dealbhan/bunadas476.png"><img src="dealbhan/bunadas160.png" style="float:left;border:1px solid black;margin:0 2em 2em 0" alt=""></a>
 
 <div style="float:right;margin:0.3em 0.3em 1em 2em;border:1px solid green;border-radius:0.4em;background-color:#efe;padding:0.3em 0.5em;font-size:75%">
-<a href="cobair/cobhair1.php">$T_Cobhair 1 <i>($T_sa_Ghaidhlig)</i></a><br>
-<a href="cobair/cobhair2.php">$T_Cobhair 2 <i>($T_sa_Bheurla)</i></a><br>
-<a href="cobair/muBunadas.php">$T_mu_Bunadas <i>($T_sa_Bheurla)</i></a><br>
+<a href="cobair/cobhair1.php">$T_Cobhair 1</a> <i>($T_sa_Ghaidhlig)</i><br>
+<a href="cobair/cobhair2.php">$T_Cobhair 2</a> <i>($T_sa_Bheurla)</i><br>
+<a href="cobair/muBunadas.php">$T_mu_Bunadas</a> <i>($T_sa_Bheurla)</i><br>
+<a href="https://www.youtube.com/watch?v=mcGsfk2p0D4">$T_bhideo</a> <i>($T_sa_Bheurla)</i><br>
 <a href="fc.php?f=73833&amp;swopCount">$T_Language</a> -
 <a href="fc.php?f=73833">$T_Word_count</a></div>
 

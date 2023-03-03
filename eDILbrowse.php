@@ -8,10 +8,11 @@
 // le àireamh nnnnn a tha iomchaidh gus am facal fhéin (is dòcha) agus faclan a tha faisg air a thaisbeanadh.
 // Chan eil e a’ buntainn ri Bunadas, ach a-mhàin gu bheil e a’ dèanamh feum den fhiosrachadh a th’aig Bunadas mun t-sean-Ghàidhlig agus eDIL
 
-  $bundb = SM_BunadasPDO::singleton();
+  $stordataConnector = SM_Bunadas::stordataConnector();
+  $DbBun = $stordataConnector::singleton('rw');
   $q = $_REQUEST['q'];
   if (empty($q)) { throw new Exception('Mearachd ann an eDILbrowse.php: Tha am prògram seo feumach air parameter q='); }
-  $stmt = $bundb->prepare("SELECT focal,word FROM bunf,bunfDict"
+  $stmt = $DbBun->prepare("SELECT focal,word FROM bunf,bunfDict"
                          ." WHERE bunf.t='sga' AND bunf.f=bunfDict.f AND bunf.focal<:q"
                          ." ORDER BY focal DESC LIMIT 1");
   $stmt->execute([':q'=>$q]);

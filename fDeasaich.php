@@ -147,7 +147,9 @@ EODHtmlCeann;
 <tr><td>&nbsp;</td</tr>
 <tr><td>$T_IPA</td><td><input style="width:25em" name="ipa" value="$ipaRoimhe"></td></tr>
 <tr><td>$T_fis</td><td><input style="width:100%" name="fis" value="$fisRoimhe" id="fis"></td></tr>
-<tr><td></td><td id=fised><b onclick="fisEd('Wikt')">Wikt</b> <b style="text-decoration:line-through" onclick="fisEd('Refno')">[n]</b></td></tr>
+<tr><td></td><td id=fised><b onclick="fisEd('Wikt')">Wikt</b>
+                          <b onclick="fisEd('Refno') style="text-decoration:line-through"">[n]</b>
+                          <b onclick="fisEd('DIL')">DIL</b></td></tr>
 <tr><td colspan=2 style='text-align:left'><input type=submit name="sabhail" value="$T_Sabhail"></td></tr>
 </table>
 </form>
@@ -184,9 +186,12 @@ EODHtmlFoirm;
            if (fis=='') { return; }
             if (action=='Refno') {
                 fis = fis.replace('[1]','').replace('[2]','').replace('[3]','').replace('[4]','').replace('[5]','').replace('[6]','');
-            } else if (action='Wikt') {
+            } else if (action=='Wikt') {
                 if (fis.substr(-6)=='--Wikt') { fis = fis.substring(0,fis.length-6); }
                 fis = fis.trim() + ' --Wikt';
+            } else if (action=='DIL') {
+                if (fis.substr(-5)=='--DIL') { fis = fis.substring(0,fis.length-5); }
+                fis = fis.trim() + ' --DIL';
             }
             fisEl.value = fis;
         }

@@ -22,8 +22,10 @@
 <ul>
 <li>“<a href="RnaG.html">BUNADAS – Beatha Ùr don Stòr-fhaclan Co-dhàimheil Ceilteach</a>”<br>
 <i>(gearr-iomradh air pàipear dhan cho-labhairt <a href="http://www.smo.uhi.ac.uk/en/rannsachadh/rnag2016/">Rannsachadh na Gàidhlig 2016</a></i>)
-<li style="margin-top:1em"><a href="Bunadas2.pptx">Taisbeanadh Powerpoint</a> <i>(2018-03-07)</i> <span style="font-size:70%">(<a href="Bunadas2-2.odp">ODP</a>)</span>
+<li style="margin-top:1em"><a href="Bunadas2.pptx">Taisbeanadh Powerpoint</a> <i>(2018-03-07)</i> <span style="font-size:70%">(<a href="Bunadas2-2.odp">.odp</a>)</span>
 </ul>
+
+<p><a href="brecCairdes.php">Breug-chairdeas</a>: eisimpleirean air an taispeanadh le Bunadas</p>
 
 <p>Seo <a href="../fc.php?f=73833">cunntas nam faclan</a> anns gach cànan ris a bheil Bunadas a’ déiligeadh an-dràsta.</p>
 

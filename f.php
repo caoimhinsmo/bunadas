@@ -180,9 +180,7 @@ EODsguab;
      else                { $focalWikt = $focal; }
     $focalWikt = urlencode($focalWikt);
     $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary' rel=nofollow>"
-                          ."<img src='/favicons/wiktionary.png' alt='W'></a>"
-                        . " <a href='//etymologeek.com/search/all/$focalEnc' title='Etymologeek' rel=nofollow>"
-                          ."<img src='/favicons/etymologeek.png' alt='EG'></a>";
+                          ."<img src='/favicons/wiktionary.png' alt='W'></a>";
 
     $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
     $stmtDictC->execute([':f'=>$f]);
