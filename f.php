@@ -140,6 +140,7 @@ EODsguab;
             $dictfisREQ  = trim($_REQUEST['dictfis']);
             if (!(empty($dictsltlREQ)&&empty($wordREQ))) {
                 if (count(explode('-',$dictsltlREQ))<>3) { throw new SM_Exception($T_dictsltl_format_exc); }
+                if (preg_match('|dil\.ie/(.*)|',$wordREQ,$matches)) { $wordREQ = $matches[1]; }
                 if (preg_match('|^\d+$|',$wordREQ)) { $wordREQ = "(($wordREQ))"; }
                 $stmtCurDict = $DbBun->prepare("INSERT IGNORE INTO bunfDict(f,dictsltl,word,dictfis) VALUES (:f,:dictsltl,:word,:dictfis)");
                 $stmtCurDict->execute([':f'=>$f, ':dictsltl'=>$dictsltlREQ, ':word'=>$wordREQ, ':dictfis'=>$dictfisREQ]);

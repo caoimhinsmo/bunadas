@@ -148,7 +148,7 @@ EODHtmlCeann;
 <tr><td>$T_IPA</td><td><input style="width:25em" name="ipa" value="$ipaRoimhe"></td></tr>
 <tr><td>$T_fis</td><td><input style="width:100%" name="fis" value="$fisRoimhe" id="fis"></td></tr>
 <tr><td></td><td id=fised><b onclick="fisEd('Wikt')">Wikt</b>
-                          <b onclick="fisEd('Refno') style="text-decoration:line-through"">[n]</b>
+                          <b onclick="fisEd('Refno')" style="text-decoration:line-through">[n]</b>
                           <b onclick="fisEd('DIL')">DIL</b></td></tr>
 <tr><td colspan=2 style='text-align:left'><input type=submit name="sabhail" value="$T_Sabhail"></td></tr>
 </table>
