@@ -30,6 +30,7 @@
   $stmtSEL->execute();
   $toraidhean = $stmtSEL->fetchAll(PDO::FETCH_OBJ);
   $ntoraidhean = count($toraidhean);
+  $toraidheanHtml = '';
   foreach ($toraidhean as $r) {
       $d     = $r->d;
       $cnt   = $r->cnt;
@@ -62,11 +63,6 @@ EODTOR;
        table#tor td { padding:5px; }
        table#tor td:nth-child(3) { text-align:left; }
     </style>
-    <script>
-        function teangaUr(sel) {
-            sel.parentNode.parentNode.lang = sel.value;
-        }
-    </script>
 </head>
 <body>
 

@@ -30,6 +30,7 @@
   $stmtSEL->execute(array(':n'=>$n));
   $toraidhean = $stmtSEL->fetchAll(PDO::FETCH_OBJ);
   $ntoraidhean = count($toraidhean);
+  $toraidheanHtml = '';
   foreach ($toraidhean as $r) {
       $d     = $r->d;
       $toraidheanHtml .= "<tr><td><a href='d.php?d=$d'>$d</a></td></tr>\n";
@@ -57,11 +58,6 @@ EODTOR;
        table#tor { border-collapse:collapse; margin-top:1em; text-align:center; }
        table#tor td { padding:5px; }
     </style>
-    <script>
-        function teangaUr(sel) {
-            sel.parentNode.parentNode.lang = sel.value;
-        }
-    </script>
 </head>
 <body>
 

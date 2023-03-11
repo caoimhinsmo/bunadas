@@ -84,14 +84,16 @@ EODh1Bunw;
 
 <li><a href="fDeasaich.php?f=0"><img src="/icons-smo/plusStar.png" alt=""> $T_Cuir_facal_ris</a>
 
-<li>$T_Sgrud
+<li style='font-size:65%;background-color:#eee;padding:0.3em;margin-top:2em;margin-right:6em;border:1px solid grey;border-radius:0.5em'>$T_Sgrud
    <ul>
    <li><a href="sgrudF0.php">$T_sgrudF0_tiotal</a>
    <li><a href="sgrudD0.php">$T_sgrudD0_tiotal</a>
    <li><a href="sgrudD1.php">$T_sgrudD1_tiotal</a>
    <li><a href="sgrudDmor.php">$T_sgrudDmor_tiotal</a>
-   <li><a href="sgrudDgabh.php">$T_sgrudDgabh_tiotal</a>
+<!--   <li><a href="sgrudDgabh.php">$T_sgrudDgabh_tiotal</a> -->
    <li><a href="sgrudFgundict.php">$T_sgrudFgundict_tiotal</a>
+
+   <li style='margin-top:1em'><a href="lomaich.php">Lomaich</a>
    </ul>
 EODdeasaich;
     } else {

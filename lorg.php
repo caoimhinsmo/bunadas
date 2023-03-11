@@ -157,11 +157,6 @@
                table#tor td { padding:5px; }
                input[type=text]:not(:placeholder-shown) { background-color:yellow; }
             </style>
-            <script>
-                function teangaUr(sel) {
-                    sel.parentNode.parentNode.lang = sel.value;
-                }
-            </script>
         </head>
         <body>
         
