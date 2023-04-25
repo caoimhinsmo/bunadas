@@ -38,7 +38,7 @@
   $T_fiosStordata     = $T->h('fiosStordata');
   $T_Language         = $T->h('Language');
   $T_Word_count       = $T->h('Word_count');
-  $T_bhideo           = ucfirst($T->h('video'));
+  $T_bhideos          = ucfirst($T->h('videos'));
 
   $T_fiosStordata     = strtr ( $T_fiosStordata, [ '{' => '<b>', '}' => '</b>' ] );
 
@@ -52,14 +52,9 @@
       $h1 = "<h1>Bunadas</h1>";
   } elseif ($bundb=='bunTest') {
       $h1 = <<<EODh1BunTest
-<h1 style="margin:0.2em">BunTest</h1>
-<p class="fiosStordata">$T_fiosStordata</p>
-EODh1BunTest;
-  } elseif ($bundb=='bunw') {
-      $h1 = <<<EODh1Bunw
-<h1 style="margin:0.2em">Bunw</h1>
-<p class="fiosStordata">This is the <a href="//www1.icsi.berkeley.edu/~demelo/etymwn/">Etymological Wordnet</a> created by <a href="http://gerard.demelo.org/">Gerard de Melo</a> in 2013 by data-mining <a href="http://en.wiktionary.org">Wiktionary</a>.  It has been put into Bunadas format here as an experiment.</p>
-EODh1Bunw;
+        <h1 style="margin:0.2em">BunTest</h1>
+        <p class="fiosStordata">$T_fiosStordata</p>
+        EODh1BunTest;
   }
 
   $ainmTeanga = SM_Bunadas::ainmTeanga();
@@ -100,16 +95,14 @@ EODdeasaich;
         $deasaichHtml = '';
     }
 
-    $bunadasSel = $bunTestSel = $bunwSel = '';
+    $bunadasSel = $bunTestSel = '';
     if      ($bundb=='bunadas') { $bunadasSel = 'selected'; }
      elseif ($bundb=='bunTest') { $bunTestSel = 'selected'; }
-     elseif ($bundb=='bunw')    { $bunwSel    = 'selected'; }
     $bundbForm = <<<EODbundbForm
 <form style="float:right;margin-top:2em;font-size:70%" onChange="submit(this);">
 $T_Stordata: <select name="bundb">
 <option value="bunadas" $bunadasSel>bunadas</option>
 <option value="bunTest" $bunTestSel>bunTest</option>
-<option value="bunw" $bunwSel>bunw</option>
 </select>
 </form>
 EODbundbForm;
@@ -153,7 +146,7 @@ $navbar
 <a href="cobair/cobhair1.php">$T_Cobhair 1</a> <i>($T_sa_Ghaidhlig)</i><br>
 <a href="cobair/cobhair2.php">$T_Cobhair 2</a> <i>($T_sa_Bheurla)</i><br>
 <a href="cobair/muBunadas.php">$T_mu_Bunadas</a> <i>($T_sa_Bheurla)</i><br>
-<a href="https://www.youtube.com/watch?v=mcGsfk2p0D4">$T_bhideo</a> <i>($T_sa_Bheurla)</i><br>
+<a href="cobair/videos.php">$T_bhideos</a> <i>($T_sa_Bheurla)</i><br>
 <a href="fc.php?f=73833&amp;swopCount">$T_Language</a> -
 <a href="fc.php?f=73833">$T_Word_count</a></div>
 

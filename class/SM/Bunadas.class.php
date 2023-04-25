@@ -15,7 +15,6 @@ class SM_Bunadas
       if (empty($_COOKIE['bundb']))     { return 'bunadas'; }
       if ($_COOKIE['bundb']=='bunadas') { return 'bunadas'; }
       if ($_COOKIE['bundb']=='bunTest') { return 'bunTest'; }
-//      if ($_COOKIE['bundb']=='bunw')    { return 'bunw';    }  //Chan eil seo ag obair an-dràsta
 if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       return 'bunadas';
   }
@@ -24,7 +23,6 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       $bundb = self::bundb();
       if ($bundb=='bunadas') { return 'SM_BunadasPDO'; }
       if ($bundb=='bunTest') { return 'SM_BunTestPDO'; }
-      if ($bundb=='bunw')    { return 'SM_BunwPDO'; }
       throw new SM_Exception("\$stordata = $bundb - mì-laghail");
   }
 
@@ -39,7 +37,6 @@ if ($_COOKIE['bundb']=='bunw')    { return 'bunadas';    }
       $bundb = self::bundb();
       if ($bundb=='bunadas') { return ''; }
       if ($bundb=='bunTest') { return "\n    <link rel='StyleSheet' href='snasTest.css'>"; }
-      if ($bundb=='bunw')    { return "\n    <link rel='StyleSheet' href='snasw.css'>"; }
   }
 
   public static function navbar($domhan='',$duilleagAghaidh=0) {

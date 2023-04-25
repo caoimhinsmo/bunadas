@@ -48,7 +48,7 @@ word-cluster-word-cluster-word-...</p>
 <a href="/teanga/bunadas/?hl=bg">Български</a>.
 You can switch interface language via the dropdown at the top of any page, or you can link straight to the interface in any language by using a url with an ‘hl’ (host language) paramter such as <a href="/teanga/bunadas/?hl=en">https://www.smo.uhi.ac.uk/teanga/bunadas/?hl=en</a>.
 
-<p>Here is a <a href="https://www.youtube.com/watch?v=mcGsfk2p0D4">video</a> of a one-hour talk/demonstration on 2022-11-18 to the <a href="https://sites.google.com/email.arizona.edu/facl2/materials-recordings/archives">Celtic Linguistics Group</a> at the University of Arizona, describing the workings and ideas behind Bunadas.</p>
+<p>Here are <a href="videos.php">Youtube videos</a> of presentations demonstrating the use of Bunadas and describing its design.</p>
 
 <p>Send comments, ideas and questions to <a href="//www.smo.uhi.ac.uk/~caoimhin/">Caoimhín Ó Donnaíle</a>, caoimhin@smo.uhi.ac.uk</p>
 
@@ -59,6 +59,6 @@ You can switch interface language via the dropdown at the top of any page, or yo
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2022-12-19 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2023-03-21 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>

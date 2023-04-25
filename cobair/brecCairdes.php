@@ -28,6 +28,9 @@ $fr_lac    = ceangal(68177,68164,'4621|68177');
 $en_lay    = ceangal(117336,50779);
 $gd_laoidh = ceangal(81139,81133);
 
+$ga_duine  = ceangal(3000,50528);
+$ga_daoine = ceangal(131917,50507); 
+
 $HTML = <<<END_HTML
 <!DOCTYPE html>
 <html lang="gd">
@@ -55,6 +58,7 @@ $HTML = <<<END_HTML
 <li>$grc_theos ≠ $la_deus, $grc_Zeus
 <li>$en_lake   ≠ $gd_loch, $fr_lac
 <li>$en_lay    ≠ $gd_laoidh
+<li>$ga_duine  ≠ $ga_daoine
 </ul>
 
 </div>
@@ -64,7 +68,7 @@ $HTML = <<<END_HTML
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2022-11-09 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2023-03-21 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
 END_HTML;
