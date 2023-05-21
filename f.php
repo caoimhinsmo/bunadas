@@ -170,19 +170,6 @@ EODsguab;
         $ceanglaicheanHtml .= " <a href='$ceangalDASG' rel=nofollow>"
                              ."<img src=\"//multidict.net/multidict/icon.php?dict=DASG\" alt='DASG' title='$T_Lorg_ann_an_DASG'></a>";
     }
-    if      ($t=='ieur') { $focalWikt = "Reconstruction:Proto-Indo-European/$focal"; }
-     elseif ($t=='celt') { $focalWikt = "Reconstruction:Proto-Celtic/$focal"; }
-     elseif ($t=='mga')  { $focalWikt = "Reconstruction:Middle_Irish/$focal"; }
-     elseif ($t=='brit') { $focalWikt = "Reconstruction:Proto-Brythonic/$focal"; }
-     elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
-     elseif ($t=='wger') { $focalWikt = "Reconstruction:Proto-West_Germanic/$focal"; }
-     elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slavic/$focal"; }
-     elseif ($t=='la')   { $focalWikt = strtr($focal,['ā'=>'a','ē'=>'e','ī'=>'i','ō'=>'o','ū'=>'u','Ā'=>'A','Ē'=>'E','Ī'=>'I','Ō'=>'O','Ū'=>'U']); }
-     else                { $focalWikt = $focal; }
-    $focalWikt = urlencode($focalWikt);
-    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary' rel=nofollow>"
-                          ."<img src='/favicons/wiktionary.png' alt='W'></a>";
-
     $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
     $stmtDictC->execute([':f'=>$f]);
     $rows = $stmtDictC->fetchAll(PDO::FETCH_ASSOC);
@@ -195,6 +182,18 @@ EODsguab;
                      ."<img src='//multidict.net/multidict/icon.php?dict=$dict' alt='$dict'></a>";
     }
     $ceanglaicheanHtml .= $dictHtmlC;
+    if      ($t=='ieur') { $focalWikt = "Reconstruction:Proto-Indo-European/$focal"; }
+     elseif ($t=='celt') { $focalWikt = "Reconstruction:Proto-Celtic/$focal"; }
+     elseif ($t=='mga')  { $focalWikt = "Reconstruction:Middle_Irish/$focal"; }
+     elseif ($t=='brit') { $focalWikt = "Reconstruction:Proto-Brythonic/$focal"; }
+     elseif ($t=='germ') { $focalWikt = "Reconstruction:Proto-Germanic/$focal"; }
+     elseif ($t=='wger') { $focalWikt = "Reconstruction:Proto-West_Germanic/$focal"; }
+     elseif ($t=='slav') { $focalWikt = "Reconstruction:Proto-Slavic/$focal"; }
+     elseif ($t=='la')   { $focalWikt = strtr($focal,['ā'=>'a','ē'=>'e','ī'=>'i','ō'=>'o','ū'=>'u','Ā'=>'A','Ē'=>'E','Ī'=>'I','Ō'=>'O','Ū'=>'U']); }
+     else                { $focalWikt = $focal; }
+    $focalWikt = urlencode($focalWikt);
+    $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary' rel=nofollow>"
+                          ."<img src='/favicons/wiktionary.png' alt='W'></a>";
 
     $putan = SM_Bunadas::fHTML($f,0);
     $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
