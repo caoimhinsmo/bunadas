@@ -142,7 +142,7 @@
                   'SELECT bunf.f,ciana,meit,doich'
                 . ' FROM bunt, bunf LEFT JOIN bundf ON d=:d AND bundf.f=bunf.f'
                 . ' WHERE bunt.t=bunf.t AND bunf.f LIKE :f AND bunf.t LIKE :t AND focal LIKE :focal AND gluas LIKE :gluas'
-                . ' ORDER BY parentage_ord,focal,derb' );
+                . ' ORDER BY parentage_ord,focal_ci,derb' );
             $stmtSEL->execute(array(':d'=>$d,':f'=>$fq,':t'=>$tq,':focal'=>$focalq,':gluas'=>$gluasq));
             $torArr = $stmtSEL->fetchAll(PDO::FETCH_OBJ);
             $count = count($torArr);
