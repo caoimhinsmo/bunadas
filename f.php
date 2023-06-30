@@ -281,7 +281,7 @@ END_fiosTableHtml;
                         ."<img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
         $litHtmlMir = "$multidictHtml $litHtmlMir";
         $litHtmlsguab = ( !$deasaich ? ''
-                        : " <span style='padding:0 0.5em 0 1.5em;color:grey'>—</span> <a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>"
+                        : " <span style='padding:0 0.5em 0 0.2em;color:grey'>—</span><a onclick='sguabLit($f,$l)' title='$T_Sguab_as' style='color:red;font-weight:bold'>✘</a>"
                         );
         $litHtml .= "<li style='list-style-type:none'>$litHtmlMir$litHtmlsguab\n";
     }
