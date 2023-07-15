@@ -25,9 +25,11 @@
 <li style="margin-top:1em"><a href="Bunadas2.pptx">Taisbeanadh Powerpoint</a> <i>(2018-03-07)</i> <span style="font-size:70%">(<a href="Bunadas2-2.odp">.odp</a>)</span>
 </ul>
 
-<p><a href="brecCairdes.php">Breug-chairdeas</a>: eisimpleirean air an taispeanadh le Bunadas</p>
+<p style="margin-top:2.5em"><a href="brecCairdes.php">Breug-chairdeas</a>: eisimpleirean air an taispeanadh le Bunadas</p>
 
-<p>Seo <a href="../fc.php?f=73833">cunntas nam faclan</a> anns gach cànan ris a bheil Bunadas a’ déiligeadh an-dràsta.</p>
+<p><a href="tengaeCetnae.php">Cànan Ceudna</a>: eisimpleirean de dh’fhaclan cairdeacha anns an aon chànan</p>
+
+<p style="margin-top:1.5em">Seo <a href="../fc.php?f=73833">cunntas nam faclan</a> anns gach cànan ris a bheil Bunadas a’ déiligeadh an-dràsta.</p>
 
 <p>Cuir beachdan agus ceistean gu <a href="//www.smo.uhi.ac.uk/~caoimhin/">Caoimhín Ó Donnaíle</a>, caoimhin@smo.uhi.ac.uk</p>
 
@@ -38,6 +40,6 @@
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2019-07-18 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2023-07-02 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
