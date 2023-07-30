@@ -42,15 +42,16 @@
     if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
     if (!empty($_GET['cleth'])) { $clethArr = explode('|',$_GET['cleth']); }
     if (!empty($_GET['rind']))  { $rindArr  = explode('|',$_GET['rind']);  }
-    $scrollID = $_GET['scroll'] ?? 0;
-    $scrollID = (int)$scrollID;
+    $f = (int)($f);
+    foreach ($clethArr as $i=>$fCleth) { $clethArr[$i] = (int)$fCleth; }
+    foreach ($rindArr  as $i=>$fRind)  { $rindArr[$i]  = (int)$fRind;  }
+    if (isset($_GET['scroll']))   { $scrollID = (int)$_GET['scroll']; }
+     elseif (!empty($rindArr[0])) { $scrollID = $rindArr[0]; }
+     else                         { $scrollID = 0; }
     if ($scrollID) { $scrollScript = <<<END_scrollScript
                          document.getElementById("cp$scrollID").scrollIntoView({block:'center',behavior:'smooth'});
                          END_scrollScript;
                    }
-    $f = (int)($f);
-    foreach ($clethArr as $i=>$fCleth) { $clethArr[$i] = (int)$fCleth; }
-    foreach ($rindArr  as $i=>$fRind)  { $rindArr[$i]  = (int)$fRind;  }
     $clethImplode = implode('|',$clethArr);
     $uasCiana  = ( isset($_GET['uasCiana'])  ? $_GET['uasCiana'] : 14 ); if (!is_numeric($uasCiana)) { $uasCiana = 14; }
     $foMhir = $osMhir = TRUE;
