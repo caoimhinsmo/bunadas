@@ -36,11 +36,18 @@
 
     $navbar = SM_Bunadas::navbar($T->domhan);
 
+    $onloadSwopCount = $scrollScript = '';
     if (empty($_GET['f'])) { throw new Exception('Parameter f a dhìth'); }
     $f = $_GET['f'];
     if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
     if (!empty($_GET['cleth'])) { $clethArr = explode('|',$_GET['cleth']); }
     if (!empty($_GET['rind']))  { $rindArr  = explode('|',$_GET['rind']);  }
+    $scrollID = $_GET['scroll'] ?? 0;
+    $scrollID = (int)$scrollID;
+    if ($scrollID) { $scrollScript = <<<END_scrollScript
+                         document.getElementById("cp$scrollID").scrollIntoView({block:'center',behavior:'smooth'});
+                         END_scrollScript;
+                   }
     $f = (int)($f);
     foreach ($clethArr as $i=>$fCleth) { $clethArr[$i] = (int)$fCleth; }
     foreach ($rindArr  as $i=>$fRind)  { $rindArr[$i]  = (int)$fRind;  }
@@ -57,7 +64,6 @@
     if ($modh==0) { $modh0Checked = 'checked'; }
     if ($modh==1) { $modh1Checked = 'checked'; }
     if ($modh==2) { $modh2Checked = 'checked'; }
-    $onloadSwopCount = '';
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
@@ -203,6 +209,7 @@ END_controlsHtml;
     <script>
         var clethArr;
         function onloadFunc() {
+            $scrollScript
             var cpdivs = document.querySelectorAll('div.charput');
             var tddivs = document.querySelectorAll('div.togDiv');
             for (var i = 0; i < cpdivs.length; i++) { cpdivs[i].addEventListener('click',toggleDiv); }

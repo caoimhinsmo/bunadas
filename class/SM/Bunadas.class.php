@@ -1,9 +1,7 @@
 <?php
 class SM_Bunadas
 {
-//  const LUCHD_SGRIOBHAIDH = '1987-rg|1991-cpd|1999-mb|2000-mmd|2015-cc|2016-mp';
-//  const LUCHD_SGRIOBHAIDH = '1991-cpd|2019-kjg';
-  CONST LUCHD_SGRIOBHAIDH = 'caoimhinsmo|MáireNU';
+  CONST LUCHD_SGRIOBHAIDH = 'caoimhinsmo|acdavie';
   public static function bunadasurl() {
        $url = ($_SERVER['HTTPS'] ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . '/teanga/bunadas';
        return $url;
