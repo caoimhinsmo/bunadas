@@ -53,10 +53,17 @@
     foreach ($rindArr  as $i=>$fRind)  { $rindArr[$i]  = (int)$fRind;  }
     $clethImplode = implode('|',$clethArr);
     $uasCiana  = ( isset($_GET['uasCiana'])  ? $_GET['uasCiana'] : 14 ); if (!is_numeric($uasCiana)) { $uasCiana = 14; }
-    $nochdFoMhir = ( empty($_GET['nochdFoMhir']) ? FALSE : TRUE );
-    $nochdFoMhirChecked = ( $nochdFoMhir ? ' checked' : '');
-    $nochdOsMhir = ( empty($_GET['nochdOsMhir']) ? FALSE : TRUE );
-    $nochdOsMhirChecked = ( $nochdOsMhir ? ' checked' : '');
+    $foMhir = $osMhir = TRUE;
+    if ( empty($_GET['fo'])
+      && empty($_GET['foMhir'])
+      && empty($_GET['nochdFoMhir'])
+       ) { $foMhir = FALSE; }
+    if ( empty($_GET['os'])
+      && empty($_GET['osMhir'])
+      && empty($_GET['nochdOsMhir'])
+       ) { $osMhir = FALSE; }
+    $foMhirChecked = ( $foMhir ? ' checked' : '');
+    $osMhirChecked = ( $osMhir ? ' checked' : '');
     $KSM = ( empty($_GET['KSM']) ? FALSE : TRUE );
     $KSMChecked = ( $KSM ? ' checked' : '');
     $modh = ( isset($_GET['modh']) ? $_GET['modh'] : 1 );
@@ -68,7 +75,7 @@
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
 
-    $nabArr = SM_Bunadas::nabaidhean2($f,$uasCiana,$nochdFoMhir,$nochdOsMhir,$modh,0.501,$KSM);
+    $nabArr = SM_Bunadas::nabaidhean2($f,$uasCiana,$foMhir,$osMhir,$modh,0.501,$KSM);
 
     function cmp($nab1,$nab2) {
     //Airson nàbaidhean a chur an òrdugh
@@ -129,11 +136,11 @@
 <div style="clear:both;padding:1px">
 <p style="margin:0 0 20px 80px;font-size:80%">
  <span title="$T_Nochd_fo_mhirean_title">
-  <label><input type="checkbox" name="nochdFoMhir" $nochdFoMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
+  <label><input type="checkbox" name="fo" $foMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
   <span style="color:green;font-size:70%">- $T_Nochd_fo_mhirean_fios</span>
  </span><br>
  <span title="$T_Nochd_os_mhirean_title">
-  <label><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
+  <label><input type="checkbox" name="os" $osMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
   <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios)</span>
  </span><br>
  <span title="Kiangley stiagh Gaelg veih Kevin Scannell">
