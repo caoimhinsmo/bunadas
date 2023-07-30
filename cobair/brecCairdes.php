@@ -26,7 +26,7 @@ $gd_loch   = ceangal(4621,68164,'4621|68177');
 $fr_lac    = ceangal(68177,68164,'4621|68177');
 
 $en_lay    = ceangal(117336,50779);
-$gd_laoidh = ceangal(81139,81133);
+$gd_laoidh = ceangal(81139,134260);
 
 $ga_duine  = ceangal(3000,50528);
 $ga_daoine = ceangal(131917,50507); 
