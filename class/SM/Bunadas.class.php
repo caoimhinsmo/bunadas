@@ -177,7 +177,7 @@ EOD_NAVBAR;
       $tHtml = $t;
       if (strlen($t)>3 || $t=='mga' || $t=='xbm') { $tHtml = "<span style='font-size:75%'>$tHtml</span>"; }
       $derbStyle = ( substr($derb,0,3)=='KSM' ? ' style="color:red;background-color:pink"' : '' );
-      $html = "<div class=f lang='$t' data-name='f$f'$draggableT>"
+      $html = "<div class=f data-lang='$t' data-name='f$f'$draggableT>"
             . "<div>$tHtml</div><div$focalStyle title='$gluasHtml'>$focalHtml</div><div$derbStyle>$derb</div>"
             . "</div>";
       return $html;
