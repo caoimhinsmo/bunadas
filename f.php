@@ -18,7 +18,7 @@
     $T_Drong                = $T->h('Drong');
     $T_topar                = $T->h('topar');
     $T_Lorg_le_Multidict    = $T->h('Lorg le Multidict');
-    $T_Lorg_ann_an_DASG     = $T->h('Lorg ann an DASG');
+//  $T_Lorg_ann_an_DASG     = $T->h('Lorg ann an DASG'); Sguab uaireigin?
     $T_Deasaich_am_facal    = $T->h('Deasaich am facal');
     $T_Cru_drong_le_facal   = $T->h('Cruthaich drong ùr leis an fhacal seo');
     $T_Sguab_as             = $T->h('Sguab às');
@@ -164,12 +164,14 @@ EODsguab;
     $focalEnc = urlencode($focal);
     $ceanglaicheanHtml = "<a href='//multidict.net/multidict/?sl=$t&amp;word=$focalEnc' rel=nofollow>"
                        . "<img src='dealbhan/multidict.png' alt='Multidict' title='$T_Lorg_le_Multidict'></a>";
+/* Sguab uaireigin, oir chan eil an ceangal ri DASG ag obair a-nis --CPD 2023-09-30
     if ($t=='gd') {
         $ceangalDASG = "//www.dasg.ac.uk/corpus/concordance.php?theData=$focalEnc"
                      . '&amp;qmode=sq_nocase&amp;pp=50&amp;del=end&amp;uT=y&amp;del=begin&amp;del=end&amp;uT=y';
         $ceanglaicheanHtml .= " <a href='$ceangalDASG' rel=nofollow>"
                              ."<img src=\"//multidict.net/multidict/icon.php?dict=DASG\" alt='DASG' title='$T_Lorg_ann_an_DASG'></a>";
     }
+*/
     $stmtDictC = $DbBun->prepare('SELECT * FROM bunfDict WHERE f=:f ORDER BY i');
     $stmtDictC->execute([':f'=>$f]);
     $rows = $stmtDictC->fetchAll(PDO::FETCH_ASSOC);
