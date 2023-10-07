@@ -48,7 +48,7 @@
     $stmtSEL->bindColumn(1,$toparRoimhe);
     $stmtSEL->bindColumn(2,$fisRoimhe);
     if ($d==0) {  //Drong ùr
-        $toparRoimhe = 'Wikt'; //Airson an-dràsta - Atharraich gu '' nuair a bhios mi caran deiseil le Wiktionary?
+        $toparRoimhe = 'Wikt';
         $fisRoimhe = '';
     } elseif (!$stmtSEL->fetch()) {
         throw new SM_Exception(sprintf($T_Chan_eil_drong_d,$d));
@@ -59,11 +59,11 @@
     $toparCumHtmlArr = [];
     $toparStoplist = "'ING', 'KSga', 'KSgv_cont', 'KSgv_der', 'KSgv_inf', 'SCC'";
     $stmtTC = $DbBun->prepare("SELECT COUNT(1) AS cnt, topar AS toparCum FROM bund WHERE topar NOT IN ($toparStoplist)"
-                             ." GROUP BY topar ORDER BY cnt DESC,topar LIMIT 28");
+                             ." GROUP BY topar ORDER BY cnt DESC,topar LIMIT 32");
     $stmtTC->execute();
     $rows = $stmtTC->fetchAll(PDO::FETCH_ASSOC);
     $cntArd   = $rows[7]['cnt'];
-    $cntIseal = $rows[14]['cnt'];
+    $cntIseal = $rows[15]['cnt'];
     foreach ($rows as $row) {
         extract($row);
         if      ($cnt>$cntArd)   { $cntClass = 'ard'; }

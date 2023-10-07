@@ -197,7 +197,7 @@ EODsguab;
     $ceanglaicheanHtml .= " <a href='//en.wiktionary.org/wiki/$focalWikt' title='Wiktionary' rel=nofollow>"
                           ."<img src='/favicons/wiktionary.png' alt='W'></a>";
     $ceanglaicheanHtml .= " <a href='//etymologeek.com/search/all/$focalEnc' title='Etymologeek' rel=nofollow>"
-                          ." <img src='/favicons/etymologeek.png alt='EG'></a>";
+                          ." <img src='/favicons/etymologeek.png' alt='EG'></a>";
 
     $putan = SM_Bunadas::fHTML($f,0);
     $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
