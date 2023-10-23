@@ -20,6 +20,10 @@
     $T_Sguir                = $T->h('Sguir');
     $T_Drong                = $T->h('Drong');
     $T_topar                = $T->h('topar');
+    $T_fis                  = $T->h('fis');
+    $T_Cruthachadh          = $T->h('Cruthachadh');
+    $T_Atharrachadh         = $T->h('Atharrachadh');
+    $T_le                   = $T->h('le');
     $T_Deasaich_an_drong    = $T->h('Deasaich an drong');
     $T_Cru_facal_don_drong  = $T->h('Cru_facal_don_drong');
     $T_Cruthaich_facal_ur   = $T->h('Cruthaich_facal_ur');
@@ -69,7 +73,7 @@
     }
 
     $dublaichHTML = $sguabHTML = $cuirRiHTML = $dDeasaichHTML = $fDeasaichHTML = $fSguabCeistHTML = $javascriptDeasachaidh
-                  = $taghFacalHTML = $tfLegend = '';
+                  = $taghFacalHTML = $tfLegend = $fiosCo = '';
 
     if ($deasaich) {
         if (isset($_GET['dublaich'])) {
@@ -240,7 +244,7 @@ END_javascriptDeasachaidh;
 
     }
 
-    $stmtd1 = $DbBun->prepare('SELECT topar FROM bund WHERE d=:d');
+    $stmtd1 = $DbBun->prepare('SELECT * FROM bund WHERE d=:d');
     $stmtd1->execute(array(':d'=>$d));
     if (!$row = $stmtd1->fetch(PDO::FETCH_ASSOC)) { throw new SM_Exception(sprintf($T_Chan_eil_drong_d,$d)); }
     extract($row);
@@ -253,11 +257,17 @@ END_javascriptDeasachaidh;
              . ' ORDER BY ciana,meit,parentage_ord,focal2_ci,focal2,derb2';
     $stmtd2 = $DbBun->prepare($queryd2);
 
-    if ($deasaich) { $dDeasaichHTML =
-           "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
-        . " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
-        . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png title='$T_Dublaich_an_drong'></a>"
-        . " <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>"; }
+    if ($deasaich) {
+        $dDeasaichHTML = "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
+                       . " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
+                       . " <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png title='$T_Dublaich_an_drong'></a>"
+                       . " <a href=d.php?d=$d&amp;sguab><img src=/icons-smo/curAs2.png title='$T_Cuir_as_don_drong'></a>";
+        $fiosCo  = ( empty($csmid) ? '' : "<span class=lab>$T_Cruthachadh:</span>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
+        $fiosCo .= ( empty($msmid) || ($cutime==$mutime) ? '' : "<br><span class=lab>$T_Atharrachadh:</span> " . uairHtml($mutime) . " $T_le $msmid" );
+        $fiosCo .= ( empty($fis)   ? '' : "<br><span class=lab>$T_fis:</span> " . $fis );
+        $fiosCo  = ( empty($fiosCo)? '' : "<tr style='font-size:35%'><td colspan=2>$fiosCo</td></tr>\n" );
+
+    }
     $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar'>$topar</span></div>\n";
     $stmtd2->execute(array(':d'=>$d));
     $drongHTML .= '<table>';
@@ -291,15 +301,19 @@ END_javascriptDeasachaidh;
         $drongHTML .=  "<tr><td><a href=\"//multidict.net/multidict/?sl=$t2&amp;word=" . urlencode($focal2) . "\"><img src='dealbhan/multidict.png' style='margin-right:10px' alt='[M]' title='$T_Lorg_le_Multidict'></a></td><td>"
                      . SM_Bunadas::fHTML($f2) . "</td><td>$meitHtml</td><td class='ciana'>$cianaHTML$doichHtml</td>$fDeasaichHTML</tr>\n";
     }
-    $drongHTML .= "</table>\n</div>\n";
+    $drongHTML .= <<<END_drongHTML
+        $fiosCo
+        </table>
+        </div>
+        END_drongHTML;
     $HTML = <<<END_HTML
-$dublaichHTML$sguabHTML$fSguabCeistHTML
+        $dublaichHTML$sguabHTML$fSguabCeistHTML
 
-<a href="./"><img src="dealbhan/bunadas64.png" style="float:left;border:1px solid black;margin:0 1em 1em 0" alt=""></a>
-$cuirRiHTML
-$taghFacalHTML
-$drongHTML
-END_HTML;
+        <a href="./"><img src="dealbhan/bunadas64.png" style="float:left;border:1px solid black;margin:0 1em 1em 0" alt=""></a>
+        $cuirRiHTML
+        $taghFacalHTML
+        $drongHTML
+        END_HTML;
 
   } catch (Exception $e) {
       if (strpos($e,'Sgrios')!==FALSE) { $HTML = ''; }

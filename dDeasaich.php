@@ -30,6 +30,7 @@
     $smid = $myCLIL->id;
     $bunadasURL = SM_Bunadas::bunadasurl();
     $navbar = SM_Bunadas::navbar($T->domhan);
+    $utime = time();
 
     $dUr = -1;
     $HTML = $foirmHTML = $fiosMearachd = $h1 = '';
@@ -79,11 +80,11 @@
         $fisUr   = ( empty($_REQUEST['fis'])   ? '' : $_REQUEST['fis']   );
         if (empty($toparUr)) { throw new SM_Exception("sgrios|bog|$T_Feumaidh_tu_topar"); }
         if ($d==0) {
-            $stmtATHARRAICH = $DbBun->prepare('INSERT IGNORE INTO bund (topar,fis) VALUES (:topar,:fis)');
-            $stmtATHARRAICH->execute( array(':topar'=>$toparUr, ':fis'=>$fisUr) );
+            $stmtATHARRAICH = $DbBun->prepare('INSERT IGNORE INTO bund (topar,fis,csmid,cutime,msmid,mutime) VALUES (:topar,:fis,:csmid,:cutime,:msmid,:mutime)');
+            $stmtATHARRAICH->execute( array(':topar'=>$toparUr, ':fis'=>$fisUr, ':csmid'=>$smid, ':cutime'=>$utime, ':msmid'=>$smid, ':mutime'=>$utime) );
         } else {
-            $stmtATHARRAICH = $DbBun->prepare('UPDATE IGNORE bund SET topar:=:topar, fis=:fis WHERE d=:d');
-            $stmtATHARRAICH->execute( array(':d'=>$d, ':topar'=>$toparUr, ':fis'=>$fisUr ) );
+            $stmtATHARRAICH = $DbBun->prepare('UPDATE IGNORE bund SET topar:=:topar, fis=:fis, msmid=:msmid, mutime=:mutime WHERE d=:d');
+            $stmtATHARRAICH->execute( array(':d'=>$d, ':topar'=>$toparUr, ':fis'=>$fisUr, ':msmid'=>$smid, ':mutime'=>$utime) );
         }
         if ($stmtATHARRAICH->rowCount()==1) {
             if ($d==0) { $dUr = $DbBun->lastInsertId(); }
