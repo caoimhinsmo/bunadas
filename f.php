@@ -118,11 +118,15 @@ EODsguab;
         }
         $autofocusLit = ( isset($_GET['autofocusLit']) ? 'autofocus' : '');
         if (isset($_REQUEST['curLit']) && !empty($_REQUEST['lit']) && isset($_REQUEST['litfis'])) {
-            $litREQ    = Normalizer::normalize(trim($_REQUEST['lit']));
+            $litREQstr = Normalizer::normalize(trim($_REQUEST['lit']));  //‘str’ gun fhios nach bi commas ann
             $litfisREQ = Normalizer::normalize(trim($_REQUEST['litfis']));
-            $litREQ_ci = SM_Bunadas::lomm($litREQ);
             $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,lit_ci,litfis) VALUES (:f,:lit,:lit_ci,:litfis)");
-            $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':lit_ci'=>$litREQ_ci, ':litfis'=>$litfisREQ) );
+            $litREQarr = explode(',',$litREQstr);
+            foreach ($litREQarr as $litREQ) {
+                $litREQ = trim($litREQ);
+                $litREQ_ci = SM_Bunadas::lomm($litREQ);
+                $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':lit_ci'=>$litREQ_ci, ':litfis'=>$litfisREQ) );
+            }
             header("Location:$bunadasurl/f.php?f=$f&autofocusLit");
         }
         if (isset($_REQUEST['curImrad']) && isset($_REQUEST['imrad']) && isset($_REQUEST['url'])) {
