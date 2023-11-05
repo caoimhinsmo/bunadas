@@ -118,12 +118,14 @@ EODsguab;
         }
         $autofocusLit = ( isset($_GET['autofocusLit']) ? 'autofocus' : '');
         if (isset($_REQUEST['curLit']) && !empty($_REQUEST['lit']) && isset($_REQUEST['litfis'])) {
-            $litREQstr = Normalizer::normalize(trim($_REQUEST['lit']));  //‘str’ gun fhios nach bi commas ann
+            $litREQstr = Normalizer::normalize(trim($_REQUEST['lit']));  //‘str’ gun fhios nach bi commas 7c ann
             $litfisREQ = Normalizer::normalize(trim($_REQUEST['litfis']));
+            $litREQstr = strtr($litREQstr,',;:','|||');  //carachtaran a tha a’ dèanamh sgaradh
+            $litREQarr = explode('|',$litREQstr);
             $stmtCurLit = $DbBun->prepare("INSERT IGNORE INTO bunfLit(f,lit,lit_ci,litfis) VALUES (:f,:lit,:lit_ci,:litfis)");
-            $litREQarr = explode(',',$litREQstr);
             foreach ($litREQarr as $litREQ) {
                 $litREQ = trim($litREQ);
+               if ($litREQ=='') { continue; }
                 $litREQ_ci = SM_Bunadas::lomm($litREQ);
                 $stmtCurLit->execute( array(':f'=>$f, ':lit'=>$litREQ, ':lit_ci'=>$litREQ_ci, ':litfis'=>$litfisREQ) );
             }
