@@ -78,7 +78,7 @@
         $focalUr = trim($_REQUEST['focal']);  $focal_ci = SM_Bunadas::lomm($focalUr);
         $derbUr  = trim($_REQUEST['derb']);
         $gramUr  = trim($_REQUEST['gram']);
-        $gluasUr = trim($_REQUEST['gluas']," \n\r\t\v\x00\x2E\u{2002}");
+        $gluasUr = trim($_REQUEST['gluas']," .,;:\n\r\t\v\0\u{2002}");
         $ipaUr   = trim($_REQUEST['ipa']);
         $fisUr   = trim($_REQUEST['fis']);
         $utime = time();
