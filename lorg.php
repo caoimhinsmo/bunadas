@@ -87,10 +87,10 @@
                              . "<img src='dealbhan/multidict.png' style='margin-right:10px' alt=''></a>";
             $wiktionaryHtml  = "<a href='//en.wiktionary.org/wiki/$fqURL'>"
                              . "<img src='/favicons/wiktionary.png' style='margin-right:12px' alt=''></a>";
-            $etymologeekHtml = "<a href='//etymologeek.com/search/all/$fqURL'>"
-                             . "<img src='/favicons/etymologeek.png' alt=''></a>";
+//            $etymologeekHtml = "<a href='//etymologeek.com/search/all/$fqURL'>"
+//                             . "<img src='/favicons/etymologeek.png' alt=''></a>";
             $cruthaichFocalHtml = "<p style='margin-bottom:0.2em'>⇒ <a href='fDeasaich.php?f=0&amp;t=$tq&amp;focal=$fqURL'>"
-                                . "$T_Cruthaich_facal_ur</a> $multidictHtml $wiktionaryHtml $etymologeekHtml</p>";
+                                . "$T_Cruthaich_facal_ur</a> $multidictHtml $wiktionaryHtml</p>";
         }
         $cunntasFacal = $T->cunntas($ntoraidhean,$T_facal,$T_facail);
         $T_ntoraidheanFios = sprintf($T_ntoraidheanFios,$cunntasFacal);
