@@ -70,7 +70,7 @@
         if      ($cnt>$cntArd)   { $cntClass = 'ard'; }
          elseif ($cnt>$cntIseal) { $cntClass = 'meadhan'; }
          else                    { $cntClass = 'iseal'; }
-        $toparCumHtmlArr[$toparCum] = "<span class=$cntClass title=$cnt onclick='toparCumClick(this.innerHTML);'>$toparCum</span>";
+        $toparCumHtmlArr[strtolower($toparCum)] = "<span class=$cntClass title=$cnt onclick='toparCumClick(this.innerHTML);'>$toparCum</span>";
     }
     ksort($toparCumHtmlArr);
     $toparCumHtml = implode(' ',$toparCumHtmlArr);
