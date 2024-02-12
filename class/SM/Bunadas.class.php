@@ -488,6 +488,17 @@ if ($KSM && in_array($t1,['gv','ga','gd','en'])) {
       return $nabArr;
   }
 
+  public static function focal($f) {
+  //Tillidh seo am "focal" fhéin dhan fhacal le àireamh $f
+      if (empty($f)) { return ''; }
+      $stordataConnector = self::stordataConnector();
+      $DbCaoimhin = $stordataConnector::singleton('rw');
+      $stmt = $DbCaoimhin->prepare('SELECT focal FROM bunf WHERE f=:f');
+      $stmt->execute([':f'=>$f]);
+      $focal = $stmt->fetchColumn();
+      return $focal;
+  }
+
   public static function lomm($focal) {
       if (empty($focal)) { return ''; }
       $focalD = Normalizer::normalize($focal,Normalizer::FORM_D);

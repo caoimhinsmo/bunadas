@@ -12,10 +12,8 @@
     $T_Nochd_gach_facal       = $T->h('Nochd_gach_facal');
     $T_Nochd_gach_facal_title = $T->h('Nochd_gach_facal_title');
     $T_Nochd_fo_mhirean       = $T->h('Nochd_fo_mhirean');
-    $T_Nochd_fo_mhirean_fios  = $T->h('Nochd_fo_mhirean_fios');
     $T_Nochd_fo_mhirean_title = $T->h('Nochd_fo_mhirean_title');
     $T_Nochd_os_mhirean       = $T->h('Nochd_os_mhirean');
-    $T_Nochd_os_mhirean_fios  = $T->h('Nochd_os_mhirean_fios');
     $T_Nochd_os_mhirean_title = $T->h('Nochd_os_mhirean_title');
     $T_Modh                   = $T->h('Modh');
     $T_Ionannas_teann         = $T->h('Ionannas_teann');
@@ -39,14 +37,13 @@
     $T_Sealltainn_aireamh_t1  = $T->h('Sealltainn_aireamh_t1');
     $T_Sealltainn_aireamh_t2  = $T->h('Sealltainn_aireamh_t2');
 
-    $T_Nochd_os_mhirean_fios  = strtr ($T_Nochd_os_mhirean_fios,  [ '(' => '&nbsp; (' ] );
-    $T_Ionannas_garbh_fios    = strtr ($T_Ionannas_garbh_fios,    [ ':' => ': &nbsp;' ] );
-    $T_Lean_mion_mhirean_fios = strtr ($T_Lean_mion_mhirean_fios, [ ':' => ': &nbsp;' ] );
-
     $T_Fios_aireamh_canan1    = strtr ( $T_Fios_aireamh_canan1, [ '{' => '<b>', '}' => '</b>' ] );
     $T_Fios_aireamh_canan2    = strtr ( $T_Fios_aireamh_canan2, [ '{' => '<b>', '}' => '</b>' ] );
     $T_Sealltainn_aireamh_t1  = strtr ( $T_Sealltainn_aireamh_t1, [ '{%d}' => '<b>%d</b>' ] );
     $T_Sealltainn_aireamh_t2  = strtr ( $T_Sealltainn_aireamh_t2, [ '{%d}' => '<b>%d</b>' ] );
+
+    $T_Sioltachan_ph1 = '   ' . strtr ( $T_Sioltachan_ph, [ 'preg' => '*SQL*'  ] );
+    $T_Sioltachan_ph2 = '   ' . strtr ( $T_Sioltachan_ph, [ 'preg' => '*preg*' ] );
 
     $navbar = SM_Bunadas::navbar($T->domhan);
 
@@ -61,10 +58,12 @@
     if (!in_array($t1,$teangaithe )) { throw new SM_Exception("Parameter ceàrr: chan eil t1='$t1' ceadaichte"); }
     if (!in_array($t2,$teangaithe2)) { throw new SM_Exception("Parameter ceàrr: chan eil t2='$t2' ceadaichte"); }
     $patran1 = ( !empty($_GET['patran1']) ? trim($_GET['patran1']) : '%');
+    $patran2 = ( !empty($_GET['patran2']) ? trim($_GET['patran2']) : '');
     $patran1 = strtr($patran1,array('*'=>'%','?'=>'_'));
     $patran1 = strtr($patran1,array('%_'=>'%','_%'=>'%','%%'=>'%'));
     $patran1 = strtr($patran1,array('%_'=>'%','_%'=>'%','%%'=>'%'));
     $patran1HTML = htmlspecialchars(strtr($patran1,array('%'=>'*')));
+    $patran2HTML = htmlspecialchars($patran2);
     if ($patran1HTML=='*') { $patran1HTML = ''; }
     $teanga1 = $ainmTeanga[$t1];
     $teanga2 = $ainmTeanga[$t2];
@@ -101,14 +100,17 @@
               );
     $fquery .= " AND t=:t1";
 
-    $stmtSELbunf = $DbBun->prepare("SELECT f FROM bunf WHERE $fquery");
+    $stmtSELbunf = $DbBun->prepare("SELECT f FROM bunf WHERE $fquery ORDER BY focal_ci");
     $stmtSELbunf->execute(array(':patran1'=>$patran1,':t1'=>$t1));
     $fArr = $stmtSELbunf->fetchAll(PDO::FETCH_COLUMN, 0);
     $aireamht1 = $aireamht2 = 0;
+    $patran2match = '/^' . $patran2 . '$/';
     foreach ($fArr as $f) {
         $nabArr = SM_Bunadas::nabaidhean($f,$uasCiana,$t2,$nochdFoMhir,$nochdOsMhir,$modh);
         $nabHtmlArr = [];
         foreach ($nabArr as $nab=>$nabInfo) {
+            $focal = SM_Bunadas::focal($nab);
+            if (!empty($patran2) && !preg_match($patran2match,$focal)) { break; }
             $ciana   = $nabInfo[0];
             $slige   = $nabInfo[1];
             $meitCar = $nabInfo[2];
@@ -169,6 +171,9 @@
         p.aireamh { margin:0.8em 0; padding:0.1em 0.5em; border:1px solid black; border-radius:0.2em; background-color:yellow; font-size:80%; }
         input.gunAireamh { border:1px solid black; border-radius:4px; background-color:#fcc; padding:1px 4px; font-size:105%; }
         input.gunAireamh:hover { background-color:blue; color:yellow; }
+        table#seltab { border-collapse:collapse; margin-top:0.2em; }
+        table#seltab td { padding:0 0.1em; }
+        table#seltab td:first-child { text-align:right; }
     </style>
     <script>
         function priomhSubmitIf() {
@@ -196,41 +201,41 @@
 
 $navbar
 <div class="smo-body-indent">
+<a href="./"><img src="dealbhan/bunadas64.png" alt="Bunadas" style="float:left;border:1px solid black;margin:0 0.6em 5em 0"></a>
 
 <form id="priomhFoirm">
-<a href="./"><img src="dealbhan/bunadas64.png" alt="An Sruth" style="float:left;border:1px solid black;margin:0 1em 1px 0"></a>
-<p style="font-weight:bold;font-size:120%;margin-bottom:1px">$T_Liosta:
-$selectT1Html
-<a href2="$php_self?t1=$t2&amp;t2=$t1" title="$T_Briog_gus_suaip" onclick="suaipCananan();">▶</a>
-$selectT2Html</p>
+<table id=seltab>
+<tr style="font-weight:bold;font-size:110%">
+<td>$T_Liosta</td>
+<td>$selectT1Html</td>
+<td><a href2="$php_self?t1=$t2&amp;t2=$t1" title="$T_Briog_gus_suaip" onclick="suaipCananan();">▶</a></td>
+<td>$selectT2Html</td>
+</tr>
+<tr>
+<td>$T_Sioltachan</td>
+<td><input name="patran1" value="$patran1HTML" placeholder="$T_Sioltachan_ph1"></td>
+<td></td>
+<td><input name="patran2" value="$patran2HTML" placeholder="$T_Sioltachan_ph2"></td>
+</table>
 
-<div style="clear:both;border2:1px solid;padding:1px">
-<p style="margin:0 0 20px 80px;font-size:80%">
-$T_Sioltachan <input name="patran1" value="$patran1HTML" placeholder="$T_Sioltachan_ph"><br>
- <span title="$T_Nochd_gach_facal_title">
-  <label><input type="checkbox" name="nochdUile" $nochdUileChecked onclick="priomhSubmit();"> $T_Nochd_gach_facal</label>
- </span><br>
- <span title="$T_Nochd_fo_mhirean_title">
-  <label><input type="checkbox" name="nochdFoMhir" $nochdFoMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_fo_mhirean_fios</span>
- </span><br>
- <span title="$T_Nochd_os_mhirean_title">
-  <label><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios</span>
- </span><br>
- $T_Modh:<br>
- &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
- &nbsp;<label><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label> <span style="color:green;font-size:70%">- $T_Ionannas_garbh_fios</span><br>
- &nbsp;<label><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label> <span style="color:green;font-size:70%">- $T_Lean_mion_mhirean_fios</span><br>
-</p>
-
-<p style="margin:7px 0;font-size:80%" title="$T_Astar_fios">
- <label for="uasCiana" style="padding-left:1.7em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output><br>0
- <input id="uasCiana" name="uasCiana" type="range" min="0" max="15" step="0.1" value="$uasCiana" style="width:80em;height:20px;padding:0" list="astTicks" oninput="document.getElementById('uasCianaOut').value=this.value;" onchange="document.getElementById('uasCianaOut').value=this.value;" onmouseout="priomhSubmitIf();">
- <datalist id="astTicks"><option>2</option><option>4</option><option>6</option><option>8</option></datalist>
- 15 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"><br>
-<span style="color:green;font-size:80%;padding-left:2.1em">$T_Uas_chiana_fios</span></p>
+<div style="float:left;padding:0.8em 8em 1em 0;font-size:80%">
+  <label title="$T_Nochd_gach_facal_title"><input type="checkbox" name="nochdUile" $nochdUileChecked onclick="priomhSubmit();"> $T_Nochd_gach_facal</label><br>
+  <label title="$T_Nochd_fo_mhirean_title"><input type="checkbox" name="nochdFoMhir" $nochdFoMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label><br>
+  <label title="$T_Nochd_os_mhirean_title"><input type="checkbox" name="nochdOsMhir" $nochdOsMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label><br>
 </div>
+<div style="float:left;padding:0.5em 0.5em 1.3em 1em;font-size:50%">
+ &nbsp; $T_Modh:<br>
+ &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
+ &nbsp;<label title="$T_Ionannas_garbh_title"><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label><br>
+ &nbsp;<label title="$T_Lean_mion_mhirean_title"><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label>
+</div>
+
+<p style="clear:both;margin:0.4em 0 0.2em 0;font-size:75%" title="$T_Astar_fios">
+ <label for="uasCiana" style="padding-left:1em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output>
+ <span style="color:green;font-size:80%;padding-left:1em">($T_Uas_chiana_fios)</span><br>0
+ <input id="uasCiana" name="uasCiana" type="range" min="0" max="12" step="0.1" value="$uasCiana" style="width:80em;height:20px;padding:0" list="astTicks" oninput="document.getElementById('uasCianaOut').value=this.value;" onchange="document.getElementById('uasCianaOut').value=this.value;" onmouseout="priomhSubmitIf();">
+ <datalist id="astTicks"><option>2</option><option>4</option><option>6</option><option>8</option></datalist>
+ 12 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"></p>
 <script type="text/javascript"> uasCianaRoimhe = $uasCiana; </script>
 <p style="clear:both;margin:0;font-size:70%;color:grey">$aireamhInputHtml</p>
 

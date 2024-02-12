@@ -37,8 +37,11 @@ $grc_theos = ceangal(54686,50503);
 $la_deus   = ceangal(54633,50485,'54633|54639');
 $grc_Zeus  = ceangal(54639,50485,'54633|54639');
 
+$gd_eilean = ceangal(4348,60284);
 $en_island = ceangal(60119,60119,0,'fo');
 $en_isle   = ceangal(135432,135435);
+$la_insula = ceangal(135435,135435);
+$ga_inis   = ceangal(3202,50945);
 
 $en_lake   = ceangal(68157,68166);
 $gd_loch   = ceangal(4621,68164,'4621|68177');
@@ -47,8 +50,8 @@ $fr_lac    = ceangal(68177,68164,'4621|68177');
 $en_lay    = ceangal(117336,50779);
 $gd_laoidh = ceangal(81139,134260);
 
-$ga_duine  = ceangal(3000,50528);
-$ga_daoine = ceangal(131917,50507); 
+$gd_duine  = ceangal(4312,50528);
+$gd_daoine = ceangal(131918,50507); 
 
 $HTML = <<<END_HTML
 <!DOCTYPE html>
@@ -58,6 +61,10 @@ $HTML = <<<END_HTML
     <title>Cairdeas breugach</title>
     <link rel="StyleSheet" href="/css/smo.css">
     <link rel="StyleSheet" href="../snas.css.php">
+    <style>
+        ul.priomh { list-style:none; }
+        ul li { margin:0 0 0.4em 0; }
+    </style>
 </head>
 <body style="font-size:125%">
 
@@ -70,20 +77,20 @@ $HTML = <<<END_HTML
 
 <h1 class="smo">Cairdeas breugach – False cognates</h1>
 
-<ul>
-<li>$de_haben  ≠ $la_habeo
-<li>$de_Feuer  ≠ $fr_feu
-<li>$de_lassen ≠ $fr_laisser
-<li>$en_day    ≠ $es_dia
-<li>$en_much   ≠ $es_mucho
-<li>$en_other  ≠ $es_otro
-<li>$en_river  ≠ $es_rio
-<li>$en_cinder ≠ $fr_cendre
-<li>$grc_theos ≠ $la_deus, $grc_Zeus
-<li>$en_island ≠ $en_isle
-<li>$en_lake   ≠ $gd_loch, $fr_lac
-<li>$en_lay    ≠ $gd_laoidh
-<li>$ga_duine  ≠ $ga_daoine
+<ul class=priomh>
+<li>$de_haben  ≄ $la_habeo
+<li>$de_Feuer  ≄ $fr_feu
+<li>$de_lassen ≄ $fr_laisser
+<li>$en_day    ≄ $es_dia
+<li>$en_much   ≄ $es_mucho
+<li>$en_other  ≄ $es_otro
+<li>$en_river  ≄ $es_rio
+<li>$en_cinder ≄ $fr_cendre
+<li>$grc_theos ≄ $la_deus $grc_Zeus
+<li>$gd_eilean ≄ $en_island ≄ $en_isle $la_insula ≄ $ga_inis
+<li>$en_lake   ≄ $gd_loch $fr_lac
+<li>$en_lay    ≄ $gd_laoidh
+<li>$gd_duine  ≄ $gd_daoine
 </ul>
 
 </div>
@@ -93,7 +100,7 @@ $HTML = <<<END_HTML
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2023-08-13 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2024-02-01 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
 END_HTML;

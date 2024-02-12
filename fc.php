@@ -10,10 +10,8 @@
     $hl = $T::hl0();
     $T_Coimhearsnachd         = $T->h('Coimhearsnachd');
     $T_Nochd_fo_mhirean       = $T->h('Nochd_fo_mhirean');
-    $T_Nochd_fo_mhirean_fios  = $T->h('Nochd_fo_mhirean_fios');
     $T_Nochd_fo_mhirean_title = $T->h('Nochd_fo_mhirean_title');
     $T_Nochd_os_mhirean       = $T->h('Nochd_os_mhirean');
-    $T_Nochd_os_mhirean_fios  = $T->h('Nochd_os_mhirean_fios');
     $T_Nochd_os_mhirean_title = $T->h('Nochd_os_mhirean_title');
     $T_Modh                   = $T->h('Modh');
     $T_Ionannas_teann         = $T->h('Ionannas_teann');
@@ -29,10 +27,6 @@
     $T_Astar_fios             = $T->h('Astar_fios');
     $T_Language               = $T->h('Language');
     $T_Word_count             = $T->h('Word_count');
-
-    $T_Nochd_os_mhirean_fios  = strtr ($T_Nochd_os_mhirean_fios,  [ '(' => '&nbsp; (' ] );
-    $T_Ionannas_garbh_fios    = strtr ($T_Ionannas_garbh_fios,    [ ':' => ': &nbsp;' ] );
-    $T_Lean_mion_mhirean_fios = strtr ($T_Lean_mion_mhirean_fios, [ ':' => ': &nbsp;' ] );
 
     $navbar = SM_Bunadas::navbar($T->domhan);
 
@@ -134,32 +128,24 @@
 
     $controlsHtml = <<<END_controlsHtml
 <form id="priomhFoirm">
-<div style="clear:both;padding:1px">
-<p style="margin:0 0 20px 80px;font-size:80%">
- <span title="$T_Nochd_fo_mhirean_title">
-  <label><input type="checkbox" name="fo" $foMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_fo_mhirean_fios</span>
- </span><br>
- <span title="$T_Nochd_os_mhirean_title">
-  <label><input type="checkbox" name="os" $osMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label>
-  <span style="color:green;font-size:70%">- $T_Nochd_os_mhirean_fios)</span>
- </span><br>
- <span title="Kiangley stiagh Gaelg veih Kevin Scannell">
-  <label><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
- </span><br>
- $T_Modh:<br>
- &nbsp;<label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
- &nbsp;<label><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label> <span style="color:green;font-size:70%">- $T_Ionannas_garbh_fios</span><br>
- &nbsp;<label><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label> <span style="color:green;font-size:70%">- $T_Lean_mion_mhirean_fios</span><br>
-</p>
+<div style="float:left;padding:0.8em 12em 1em 1em;font-size:85%">
+  <label title="$T_Nochd_fo_mhirean_title"><input type="checkbox" name="fo" $foMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label><br>
+  <label title="$T_Nochd_os_mhirean_title"><input type="checkbox" name="os" $osMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label><br>
+  <label title="Kiangley stiagh Gaelg veih Kevin Scannell"><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
+</div>
+<div style="float:left;padding:0.5em 0.5em 1.3em 1em;font-size:55%">
+  &nbsp; $T_Modh:<br>
+  <label><input type="radio" name="modh" value="0" $modh0Checked onclick="priomhSubmit();"> $T_Ionannas_teann</label><br>
+  <label title="$T_Ionannas_garbh_fios"><input type="radio" name="modh" value="1" $modh1Checked onclick="priomhSubmit();"> $T_Ionannas_garbh</label><br>
+  <label title="$T_Lean_mion_mhirean_fios"><input type="radio" name="modh" value="2" $modh2Checked onclick="priomhSubmit();"> $T_Lean_mion_mhirean</label>
+</div>
 
-<p style="margin:7px 0;font-size:80%" title="$T_Astar_fios">
- <label for="uasCiana" style="padding-left:1.7em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output><br>0
+<p style="clear:both;margin:0.4em 0 0.2em 0;font-size:75%" title="$T_Astar_fios">
+ <label for="uasCiana" style="padding-left:21em">$T_Uas_chiana:</label> <output for="uasCiana" id="uasCianaOut" style="font-weight:bold">$uasCiana</output>
+ <span style="color:green;font-size:80%;padding-left:1.5em">($T_Uas_chiana_fios)</span><br>0
  <input id="uasCiana" name="uasCiana" type="range" min="0" max="18" step="0.1" value="$uasCiana" style="width:80em;height:20px;padding:0" list="astTicks" oninput="document.getElementById('uasCianaOut').value=this.value;" onchange="document.getElementById('uasCianaOut').value=this.value;" onmouseout="priomhSubmitIf();">
  <datalist id="astTicks"><option>2</option><option>4</option><option>6</option><option>8</option></datalist>
- 18 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"><br>
-<span style="color:green;font-size:80%;padding-left:2.1em">$T_Uas_chiana_fios</span></p>
-</div>
+ 18 <input type="submit" name="cuir" value="$T_Uraich" onclick="priomhSubmit();"></p>
 <script> uasCianaRoimhe = $uasCiana; </script>
 END_controlsHtml;
 
@@ -278,7 +264,7 @@ END_controlsHtml;
 $navbar
 <div class="smo-body-indent">
 
-<a href="./"><img src="dealbhan/bunadas64.png" alt="An Sruth" style="float:left;border:1px solid black;margin:0 1em 1px 0"></a>
+<a href="./"><img src="dealbhan/bunadas64.png" alt="Bunadas" style="float:left;border:1px solid black;margin:0 1em 1px 0"></a>
 <h1 style="font-size:100%;margin-bottom:1px">$h1</h1>
 
 $controlsHtml
