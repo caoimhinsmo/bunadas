@@ -161,8 +161,8 @@ EOD_NAVBAR;
           $stmtBunt->execute([':t'=>$t]);
           $gluasHtml = $stmtBunt->fetchColumn();
           if      ($focalHtml>=1000) { $focalStyle = 'font-weight:bold'; }
-           elseif ($focalHtml<150)   { $focalStyle = 'opacity:0.4';       }
-           elseif ($focalHtml<400)   { $focalStyle = 'opacity:0.7';       }
+           elseif ($focalHtml<150)   { $focalStyle = 'opacity:0.4';      }
+           elseif ($focalHtml<400)   { $focalStyle = 'opacity:0.7';      }
           if ($focalStyle) { $focalStyle = " style='$focalStyle'"; }
       } else {  //facal àbhaisteach
           $focalHtml = htmlspecialchars($focal,ENT_QUOTES);

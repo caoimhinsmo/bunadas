@@ -9,6 +9,8 @@ function ceangal($f,$root,$rind=0,$params='') {
     return $ceangal;
 }
 
+$neq = "<span style='padding:0 1em;font-family:monospace;font-size:140%'>&#x2249</span>";
+
 $de_haben  = ceangal(57969,50740);
 $la_habeo  = ceangal(55346,50544);
 
@@ -20,6 +22,7 @@ $fr_laisser= ceangal(58534,121907);
 
 $en_day    = ceangal(54631,54630);
 $es_dia    = ceangal(2494,50485);
+$en_diary  = ceangal(141426,50485);
 
 $en_much   = ceangal(59931,53344);
 $es_mucho  = ceangal(135452,135454);
@@ -87,23 +90,23 @@ $HTML = <<<END_HTML
 <h1 class="smo">Cairdeas breugach – False cognates</h1>
 
 <ul class=priomh>
-<li>$de_haben  ≉ $la_habeo
-<li>$de_Feuer  ≉ $fr_feu
-<li>$de_lassen ≉ $fr_laisser
-<li>$en_day    ≉ $es_dia
-<li>$en_much   ≉ $es_mucho
-<li>$en_other  ≉ $es_otro
-<li>$en_river  ≉ $es_rio
-<li>$en_cinder ≉ $fr_cendre
-<li>$grc_theos ≉ $la_deus $grc_Zeus
-<li>$gd_eilean ≉ $en_island ≉ $en_isle $la_insula ≉ $cy_ynys $ga_inis
-<li>$en_lake   ≉ $gd_loch $fr_lac
-<li>$en_lay    ≉ $gd_laoidh
-<li>$gd_duine  ≉ $gd_daoine
+<li>$de_haben  $neq $la_habeo
+<li>$de_Feuer  $neq $fr_feu
+<li>$de_lassen $neq $fr_laisser
+<li>$en_day    $neq $es_dia $en_diary
+<li>$en_much   $neq $es_mucho
+<li>$en_other  $neq $es_otro
+<li>$en_river  $neq $es_rio
+<li>$en_cinder $neq $fr_cendre
+<li>$grc_theos $neq $la_deus $grc_Zeus
+<li>$gd_eilean $neq $en_island $neq $en_isle $la_insula $neq $cy_ynys $ga_inis
+<li>$en_lake   $neq $gd_loch $fr_lac
+<li>$en_lay    $neq $gd_laoidh
+<li>$gd_duine  $neq $gd_daoine
 
 <li style="margin-top:2em">
-    $en_male   ≉ $en_female (cf. man≈woman)
-<li>$en_sorrow ≉ $en_sorry
+    $en_male   $neq $en_female (cf. man≈woman)
+<li>$en_sorrow $neq $en_sorry
 </ul>
 
 </div>

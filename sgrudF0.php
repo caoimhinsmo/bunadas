@@ -23,7 +23,7 @@
   $stordataConnector = SM_Bunadas::stordataConnector();
   $DbBun = $stordataConnector::singleton('rw');
 
-  $querySEL = 'SELECT bunf.f FROM bunf LEFT JOIN bundf ON bundf.f=bunf.f WHERE bundf.d IS NULL ORDER BY t,focal,derb';
+  $querySEL = 'SELECT bunf.f FROM bunf LEFT JOIN bundf ON bundf.f=bunf.f WHERE bundf.d IS NULL ORDER BY t,focal_ci,derb';
   $stmtSEL = $DbBun->prepare($querySEL);
   $stmtSEL->execute();
   $toraidhean = $stmtSEL->fetchAll(PDO::FETCH_OBJ);

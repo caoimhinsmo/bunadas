@@ -48,7 +48,8 @@ word-cluster-word-cluster-word-...</p>
 <a href="/teanga/bunadas/?hl=bg">Български</a>.
 You can switch interface language via the dropdown at the top of any page, or you can link straight to the interface in any language by using a url with an ‘hl’ (host language) paramter such as <a href="/teanga/bunadas/?hl=en">https://www.smo.uhi.ac.uk/teanga/bunadas/?hl=en</a>.
 
-<p>Here are <a href="videos.php">Youtube videos</a> of presentations demonstrating the use of Bunadas and describing its design.</p>
+<p>Here are <a href="videos.php">Youtube videos</a> of presentations demonstrating the use of Bunadas and describing its design,<br>
+and here is a <a href="paper/">paper</a> describing Bunadas.</p>
 
 <p>Send comments, ideas and questions to <a href="//www.smo.uhi.ac.uk/~caoimhin/">Caoimhín Ó Donnaíle</a>, caoimhin@smo.uhi.ac.uk</p>
 
