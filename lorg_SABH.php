@@ -20,7 +20,7 @@
     $T_Cruthaich_facal_ur = $T->h('Cruthaich_facal_ur');
     $T_Inexact_matches    = $T->h('Inexact_matches');
 
-    $toraidheanHtml = $cruthaichFocalHtml = $conditionf_ci = $toraidhean_ci_Html = $dil = '';
+    $toraidheanHtml = $cruthaichFocalHtml = $conditionf_ci = $toraidhean_ci_Html = '';
 
     $ainmTeanga = SM_Bunadas::ainmTeanga();
     $teangaithe = array_keys($ainmTeanga);
@@ -43,11 +43,7 @@
     }
     if (!empty($_REQUEST['f'])) {
         $fq = trim($_REQUEST['f']);
-        if ( strlen($fq)>3 && strtolower(substr($fq,0,3))=='dil' && is_numeric(substr($fq,3)) ) {
-            $dil = substr($fq,3);
-            $fqHtml = "dil$dil";
-            $tqHtml = $gluasqHtml = '';
-        } elseif (is_numeric($fq)) {
+        if (is_numeric($fq)) {
             $fqHtml = $fq;
             $tqHtml = $gluasqHtml = '';
             $conditionArr = array('f' => 'bunf.f=:f');
@@ -70,25 +66,17 @@
     foreach ($teangaithe as $t) { $selectTHtml .= "<option value='$t'" . ($tq==$t ? ' selected' : '') . " lang='$t'>" . $ainmTeanga[$t] . "</option>\n"; }
     $selectTHtml .= "</select>\n";  
 
-    if ($dil || count($conditionArr)>0) {
+    if (count($conditionArr)>0) {
+        $condition = implode (' AND ',$conditionArr);
         $stordataConnector = SM_Bunadas::stordataConnector();
         $DbBun = $stordataConnector::singleton('rw');
-        if ($dil) {
-            $stmtSEL = $DbBun->prepare('SELECT DISTINCT bunf.f FROM bunf'
-                                     . ' LEFT JOIN bunfDict ON bunf.f=bunfDict.f'
-                                     . " WHERE bunfDict.word=:word AND bunfDict.dictsltl='eDIL-sga-en'"
-                                     . ' ORDER BY focal_ci,focal,derb');
-            $executeArr = ['word'=>"(($dil))"];
-        } else {
-            $condition = implode (' AND ',$conditionArr);
-            $querySELsel = 'SELECT DISTINCT bunf.f FROM bunf LEFT JOIN bunfLit ON bunf.f=bunfLit.f LEFT JOIN bunt ON bunf.t=bunt.t';
-            $querySELord = 'ORDER BY parentage_ord,focal_ci,focal,derb';
-            $querySEL = "$querySELsel WHERE $condition $querySELord";
-            $stmtSEL = $DbBun->prepare($querySEL);
-            if (isset($conditionArr['t']))     { $executeArr['t']     = $tq;     }
-            if (isset($conditionArr['f']))     { $executeArr['f']     = $fq;     }
-            if (isset($conditionArr['gluas'])) { $executeArr['gluas'] = $gluasq; }
-        }
+        $querySELsel = 'SELECT DISTINCT bunf.f FROM bunf LEFT JOIN bunfLit ON bunf.f=bunfLit.f LEFT JOIN bunt ON bunf.t=bunt.t';
+        $querySELord = 'ORDER BY parentage_ord,focal_ci,focal,derb';
+        $querySEL = "$querySELsel WHERE $condition $querySELord";
+        $stmtSEL = $DbBun->prepare($querySEL);
+        if (isset($conditionArr['t']))     { $executeArr['t']     = $tq;     }
+        if (isset($conditionArr['f']))     { $executeArr['f']     = $fq;     }
+        if (isset($conditionArr['gluas'])) { $executeArr['gluas'] = $gluasq; }
         $stmtSEL->execute($executeArr);
         $toraidhean = $stmtSEL->fetchAll(PDO::FETCH_COLUMN);
         $ntoraidhean = count($toraidhean);
