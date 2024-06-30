@@ -350,7 +350,8 @@ END_fiosTableHtml;
         if (!empty($dictHtml)) { $dictHtml = "<fieldset class=imrad style='background-color:#fee'>\n<legend title='$T_Faclairean_fios'>$T_Faclairean</legend>\n<ul>\n$dictHtml\n</ul>\n</fieldset>\n"; }
     }
 
-    $stmtd1 = $DbBun->prepare('SELECT bundf.d, topar, ABS(meit) AS meit0, ciana AS ciana0 FROM bundf,bund WHERE f=:f AND bundf.d=bund.d ORDER BY meit0,ciana0,d');
+    $stmtd1 = $DbBun->prepare('SELECT bundf.d, topar.topar, topar.ainm, ABS(meit) AS meit0, ciana AS ciana0 FROM bundf, bund LEFT JOIN topar ON bund.topar=topar.topar'
+                            . ' WHERE f=:f AND bundf.d=bund.d ORDER BY meit0,ciana0,d');
     $queryd2 = 'SELECT bunf.f AS f2, bunf.t AS t2, bunf.focal AS focal2, bunf.focal_ci AS focal2_ci, bunf.derb AS derb2, meit, ciana, doich, parentage_ord'
              . ' FROM bundf,bunf,bunt'
              . ' WHERE bundf.d=:d'
@@ -438,7 +439,7 @@ END_fiosTableHtml;
         }
         $dronganHtml .= <<<END_drongHtml
 <div class='drong$dClass' id='d$d'>
-<div class=dCeann><b><a href='d.php?d=$d'>$T_Drong $d</a></b>$dDeasaichHtml &nbsp; <span class=topar title='$T_topar'>($topar)</span> $bearrBarrHtml</div>
+<div class=dCeann><b><a href='d.php?d=$d'>$T_Drong $d</a></b>$dDeasaichHtml &nbsp; <span class=topar title='$T_topar: $ainm'>($topar)</span> $bearrBarrHtml</div>
 <div class=dColainn>
 <table>
 $dTableHtml

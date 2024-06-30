@@ -244,7 +244,7 @@ END_javascriptDeasachaidh;
 
     }
 
-    $stmtd1 = $DbBun->prepare('SELECT * FROM bund WHERE d=:d');
+    $stmtd1 = $DbBun->prepare('SELECT * FROM bund LEFT JOIN topar ON bund.topar=topar.topar WHERE d=:d');
     $stmtd1->execute(array(':d'=>$d));
     if (!$row = $stmtd1->fetch(PDO::FETCH_ASSOC)) { throw new SM_Exception(sprintf($T_Chan_eil_drong_d,$d)); }
     extract($row);
@@ -268,7 +268,7 @@ END_javascriptDeasachaidh;
         $fiosCo  = ( empty($fiosCo)? '' : "<tr style='font-size:35%'><td colspan=2>$fiosCo</td></tr>\n" );
 
     }
-    $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar'>$topar</span></div>\n";
+    $drongHTML = "<div class=drong><div class=dCeann><b>$T_Drong $d</b> $dDeasaichHTML &nbsp; <span title='$T_topar: $ainm'>$topar</span></div>\n";
     $stmtd2->execute(array(':d'=>$d));
     $drongHTML .= '<table>';
     while ($row2 = $stmtd2->fetch(PDO::FETCH_ASSOC)) {
