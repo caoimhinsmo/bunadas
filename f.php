@@ -31,6 +31,7 @@
     $T_Cruthachadh          = $T->h('Cruthachadh');
     $T_Atharrachadh         = $T->h('Atharrachadh');
     $T_le                   = $T->h('le');
+    $T_Deasaich_an_drong    = $T->h('Deasaich an drong');
     $T_Cru_facal_don_drong  = $T->h('Cru_facal_don_drong');
     $T_Dublaich_an_drong    = $T->h('Dùblaich an drong');
     $T_Cuir_as_don_drong    = $T->h('Cuir às don drong');
@@ -363,7 +364,8 @@ END_fiosTableHtml;
     while ($row1 = $stmtd1->fetch(PDO::FETCH_ASSOC)) {
         extract($row1);
         $dDeasaichHtml = ( $deasaich
-                         ? " <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
+                         ? "<a href=dDeasaich.php?d=$d><img src=/icons-smo/peann.png title='$T_Deasaich_an_drong'></a>"
+                          ." <a href=fDeasaich.php?f=0&amp;d=$d><img src=/icons-smo/plusStar.png title='$T_Cru_facal_don_drong'></a>"
                           ." <a href=d.php?d=$d&amp;dublaich><img src=/icons-smo/dublaich.png class=dublaich title='$T_Dublaich_an_drong'></a>"
                           ." <a href=##><img src=/icons-smo/curAs2.png onClick=\"sguabDrong('$d');return(false);\" title='$T_Cuir_as_don_drong'></a>"
                          : ''
