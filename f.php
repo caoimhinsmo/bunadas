@@ -606,7 +606,7 @@ END_DnD_JAVASCRIPT;
     <style>
         div.drong              { background-color:#ffe; clear:both; margin:0.8em 0; border:2px solid #338; border-radius:0.6em; max-width:45em; }
         div.drong table        { border-collapse:collapse; }
-        div.drong tr.soillsich { background-color:#ff8; }
+        div.drong tr.soillsich { background-color:#ff0; }
         div.drong tr.soillsich:hover { background-color:#fea; }
         div.drong tr.bearr     { display:none; }
         div.drong.bearrDheth tr.bearr { display:table-row; }
