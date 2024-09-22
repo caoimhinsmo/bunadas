@@ -144,7 +144,8 @@ EOD_NAVBAR;
   }
 
 
-  public static function fHTML($f,$ceangal=1) { //Cruthaich HTML airson putan a sheallas facail le ceangal
+  public static function fHTML($f,$ceangal=1,$KSM=TRUE) {
+     //Cruthaich HTML airson putan a sheallas facail (le ceangal ma tha $ceangal=1)
       $stordataConnector = self::stordataConnector();
       $DbCaoimhin = $stordataConnector::singleton('rw');
       $stmt = $DbCaoimhin->prepare('SELECT t,focal,derb,gram,gluas FROM bunf WHERE f=:f');
@@ -154,7 +155,8 @@ EOD_NAVBAR;
       extract($row);
       $draggableT = $draggableF = $focalStyle = '';
       if ($focal=='{count}') {  //‘facal’ sònraichte airson cunntach
-          $stmtCount = $DbCaoimhin->prepare('SELECT COUNT(1) FROM bunf WHERE t=:t');
+          if ($KSM) { $stmtCount = $DbCaoimhin->prepare("SELECT COUNT(1) FROM bunf WHERE t=:t"); } //Thoir a-steach faclan Manainnise bho Kevin Scannell
+           else     { $stmtCount = $DbCaoimhin->prepare("SELECT COUNT(1) FROM bunf WHERE t=:t AND derb NOT LIKE 'KSM%'"); }
           $stmtCount->execute([':t'=>$t]);
           $focalHtml = $stmtCount->fetchColumn() - 1;
           $stmtBunt = $DbCaoimhin->prepare('SELECT ainmt FROM bunt WHERE t=:t');

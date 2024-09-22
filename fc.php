@@ -27,10 +27,11 @@
     $T_Astar_fios             = $T->h('Astar_fios');
     $T_Language               = $T->h('Language');
     $T_Word_count             = $T->h('Word_count');
+    $T_Iomlan                 = $T->h('Iomlan');
 
     $navbar = SM_Bunadas::navbar($T->domhan);
 
-    $onloadSwopCount = $scrollScript = '';
+    $onloadSwopCount = $scrollScript = $iomlanMessage = '';
     if (empty($_GET['f'])) { throw new Exception('Parameter f a dhìth'); }
     $f = $_GET['f'];
     if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
@@ -90,8 +91,8 @@
     }
 
     function divHtml($f,$doichRoimhe) {
-        global $nabArr, $rindArr, $clethArr;
-        $html = SM_Bunadas::fHTML($f);
+        global $nabArr, $rindArr, $clethArr, $KSM;
+        $html = SM_Bunadas::fHTML($f,NULL,$KSM);
         if (in_array($f,$rindArr,true)) { $html .= ' <span class=preab><span>*</span> <span>←</span></span>'; }
         $ciana       = $nabArr[$f][0];
         $meitchar    = $nabArr[$f][2];
@@ -127,7 +128,6 @@
     $h1 = "$T_Coimhearsnachd $f";
 
     $controlsHtml = <<<END_controlsHtml
-<form id="priomhFoirm">
 <div style="float:left;padding:0.8em 12em 1em 1em;font-size:85%">
   <label title="$T_Nochd_fo_mhirean_title"><input type="checkbox" name="fo" $foMhirChecked onclick="priomhSubmit();"> $T_Nochd_fo_mhirean</label><br>
   <label title="$T_Nochd_os_mhirean_title"><input type="checkbox" name="os" $osMhirChecked onclick="priomhSubmit();"> $T_Nochd_os_mhirean</label><br>
@@ -151,8 +151,20 @@ END_controlsHtml;
 
     if (SM_Bunadas::is_count($f)) {
         $h1 = "<span onclick='swopCount()'>$T_Language <a>⬌</a> $T_Word_count</span>";
-        $controlsHtml = '';
+        $controlsHtml = <<<END_controlsHtmlCount
+            <div style="float:left;padding:0.8em 12em 1em 1em;font-size:85%">
+              <label title="Kiangley stiagh Gaelg veih Kevin Scannell"><input type="checkbox" name="KSM" $KSMChecked onclick="priomhSubmit();"> KSM</label>
+            </div>
+            END_controlsHtmlCount;
         if (isset($_GET['swopCount'])) { $onloadSwopCount = 'swopCount()'; }
+        $queryIomlan = ( $KSM
+                       ? "SELECT COUNT(1) FROM bunf"
+                       : "SELECT COUNT(1) FROM bunf WHERE derb NOT LIKE 'KSM%'"
+                       );
+        $stmtIomlan = $DbBun->prepare($queryIomlan);
+        $stmtIomlan->execute();
+        $iomlan = $stmtIomlan->fetchColumn();
+        $iomlanMessage = "$T_Iomlan: $iomlan";
     }
 
     $html = <<<END_HTML
@@ -267,13 +279,13 @@ $navbar
 <a href="./"><img src="dealbhan/bunadas64.png" alt="Bunadas" style="float:left;border:1px solid black;margin:0 1em 1px 0"></a>
 <h1 style="font-size:100%;margin-bottom:1px">$h1</h1>
 
+<form id="priomhFoirm">
 $controlsHtml
-
 $resultHtml
-
 <input type=hidden name=f value=$f>
 </form>
 
+$iomlanMessage
 </div>
 $navbar
 

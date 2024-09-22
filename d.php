@@ -153,7 +153,7 @@
             $tqENC     = urlencode($tq);
             $focalqENC = urlencode($focalq);
             if ($count==0)       { $cuirRiHTML .= "<p class='mearachd'>$T_No_words_found</p>\n"; }
-             elseif ($count>200) { $cuirRiHTML .= "<p class='mearachd'>$T_cus_fhaclan_a_lorg</p>\n"; }
+             elseif ($count>400) { $cuirRiHTML .= "<p class='mearachd'>$T_cus_fhaclan_a_lorg</p>\n"; }
             $cuirRiHTML .= "<p style='margin:0 0.5em 0 0;font-size:80%'>"
                          . "<a href='fDeasaich.php?d=$d&amp;t=$tqENC&amp;focal=$focalqENC' title='$T_Cru_facal_don_drong'>"
                          . "<img src='/icons-smo/plusStar.png'> $T_Cruthaich_facal_ur</a></p>\n";
