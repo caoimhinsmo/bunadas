@@ -92,7 +92,7 @@
 
     function divHtml($f,$doichRoimhe) {
         global $nabArr, $rindArr, $clethArr, $KSM;
-        $html = SM_Bunadas::fHTML($f,NULL,$KSM);
+        $html = SM_Bunadas::fHTML($f,1,$KSM);
         if (in_array($f,$rindArr,true)) { $html .= ' <span class=preab><span>*</span> <span>←</span></span>'; }
         $ciana       = $nabArr[$f][0];
         $meitchar    = $nabArr[$f][2];
