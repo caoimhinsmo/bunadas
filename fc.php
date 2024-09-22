@@ -262,11 +262,10 @@ END_controlsHtml;
             let els = document.getElementsByClassName('f');
             for (let i=0; i<els.length; i++) {
                 let elDeas = els[i].children[1];
-                let elDeasA = elDeas.children[0];
-                let value = elDeasA.innerHTML;
+                let value = elDeas.innerHTML;
                 let title = elDeas.title;
                 elDeas.title = value;
-                elDeasA.innerHTML = title;
+                elDeas.innerHTML = title;
             }
         }
     </script>
@@ -280,10 +279,10 @@ $navbar
 <h1 style="font-size:100%;margin-bottom:1px">$h1</h1>
 
 <form id="priomhFoirm">
-$controlsHtml
-$resultHtml
 <input type=hidden name=f value=$f>
+$controlsHtml
 </form>
+$resultHtml
 
 $iomlanMessage
 </div>
