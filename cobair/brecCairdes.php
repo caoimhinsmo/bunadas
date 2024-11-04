@@ -24,6 +24,9 @@ $en_day    = ceangal(54631,54630);
 $es_dia    = ceangal(2494,50485);
 $en_diary  = ceangal(141426,50485);
 
+$de_heute  = ceangal(2034,54630);
+$la_hodie  = ceangal(8606,50485);
+
 $en_much   = ceangal(59931,53344);
 $es_mucho  = ceangal(135452,135454);
 
@@ -94,6 +97,7 @@ $HTML = <<<END_HTML
 <li>$de_Feuer  $neq $fr_feu
 <li>$de_lassen $neq $fr_laisser
 <li>$en_day    $neq $es_dia $en_diary
+<li>$de_heute  $neq $la_hodie
 <li>$en_much   $neq $es_mucho
 <li>$en_other  $neq $es_otro
 <li>$en_river  $neq $es_rio
@@ -116,7 +120,7 @@ $HTML = <<<END_HTML
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2024-02-25 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2024-10-27 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
 END_HTML;
