@@ -97,8 +97,9 @@
     $stmt->execute(array(':f'=>$f));
     if (!$row = $stmt->fetch(PDO::FETCH_ASSOC)) { throw new SM_Exception("$T_Chan_eil_facal_ann: " . htmlspecialchars($f)); }
     extract($row);
-    $fis   = htmlspecialchars($fis);
+    $derb  = htmlspecialchars($derb);
     $gluas = htmlspecialchars($gluas);
+    $fis   = htmlspecialchars($fis);
     $fDeasaichHtml = $fSguabHtml = $fiosCo = '';
     if ($deasaich) {
         $fiosCo   = ( empty($csmid) ? '' : "<span class=lab>$T_Cruthachadh:</span>&nbsp; " . uairHtml($cutime) . " $T_le $csmid" );
@@ -208,14 +209,10 @@ EODsguab;
 
     $putan = SM_Bunadas::fHTML($f,0);
     $derbHtml = $gramHtml = $ipaHtml = $fiosHtml = '';
-    if (!empty($derb)) { $derbSC = htmlspecialchars($derb);
-                         $derbHtml = "<br>&nbsp;<span class=lab>$T_Derb:</span> <b>$derbSC</b>"; }
-    if (!empty($gram)) { $gramSC = htmlspecialchars($gram);
-                         $gramHtml = " &nbsp; <span class=lab>$T_Gram:</span> <span style='font-size:90%'>$gramSC</span>"; }
-    if (!empty($ipa))  { $ipaSC = htmlspecialchars($ipa);
-                         $ipaHtml  = "<span class=lab style='padding-left:1em'>$T_IPA:</span> $ipaSC"; }
-    if (!empty($fis))  { $fisSC = htmlspecialchars($fis);
-                         $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><span class=lab>$T_Fis:</span> <span style='font-size:80%'>$fisSC</span></td>"; }
+    if (!empty($derb)) { $derbHtml = "<br>&nbsp;<span class=lab>$T_Derb:</span> <b>$derb</b>"; }
+    if (!empty($gram)) { $gramHtml = " &nbsp; <span class=lab>$T_Gram:</span> <span style='font-size:90%'>$gram</span>"; }
+    if (!empty($ipa))  { $ipaHtml  = "<span class=lab style='padding-left:1em'>$T_IPA:</span> $ipa"; }
+    if (!empty($fis))  { $fisHtml  = "<td colspan=2 style='padding-left:2em;text-indent:-2em'><span class=lab>$T_Fis:</span> <span style='font-size:80%'>$fis</span></td>"; }
     $ainmT = $ainmTeanga[$t];
     $fiosTableHtml = <<< END_fiosTableHtml
 <table id=fiost>
