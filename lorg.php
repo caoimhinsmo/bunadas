@@ -92,7 +92,7 @@
         $stmtSEL->execute($executeArr);
         $toraidhean = $stmtSEL->fetchAll(PDO::FETCH_COLUMN);
         $ntoraidhean = count($toraidhean);
-        foreach ($toraidhean as $f) { $toraidheanHtml .= '<tr><td>' . SM_Bunadas::fHTML($f) . "</td></tr>\n"; }
+        foreach ($toraidhean as $f) { $toraidheanHtml .= "<tr><td><a href=fc.php?f=$f>🌳</a></td><td>" . SM_Bunadas::fHTML($f) . "</td></tr>\n"; }
         if (SM_Bunadas::ceadSgriobhaidh()) {
             $fqURL = urlencode($fq);
             $multidictHtml   = "<a href='//multidict.net/multidict/?sl=$tq&amp;word=$fqURL'>"
