@@ -8,7 +8,7 @@
   try {
     $T = new SM_T('bunadas/liosta');
     $hl = $T::hl0();
-    $T_Coimhearsnachd         = $T->h('Coimhearsnachd');
+    $T_Craobh                 = $T->h('Craobh');
     $T_Nochd_fo_mhirean       = $T->h('Nochd_fo_mhirean');
     $T_Nochd_fo_mhirean_title = $T->h('Nochd_fo_mhirean_title');
     $T_Nochd_os_mhirean       = $T->h('Nochd_os_mhirean');
@@ -125,7 +125,7 @@
     $resultHtml .= "<div style='clear:both;height:2em'></div>\n";  //spacer
 
     $stordataCss = SM_Bunadas::stordataCss();
-    $h1 = "$T_Coimhearsnachd $f";
+    $h1 = "$T_Craobh $f";
 
     $controlsHtml = <<<END_controlsHtml
 <div style="float:left;padding:0.8em 12em 1em 1em;font-size:85%">
@@ -174,7 +174,7 @@ END_controlsHtml;
     <meta charset="UTF-8">
     <meta name="google" content="notranslate">
     <meta name="robots" content="noindex,nofollow">
-    <title>Bunadas: $T_Coimhearsnachd $f</title>
+    <title>Bunadas: $T_Craobh $f</title>
     <link rel="StyleSheet" href="/css/smo.css">
     <link rel="StyleSheet" href="snas.css.php">$stordataCss
     <style>
