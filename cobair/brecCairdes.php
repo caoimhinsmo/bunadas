@@ -39,6 +39,9 @@ $es_rio    = ceangal(57263,50717);
 $en_cinder = ceangal(70325,70329);
 $fr_cendre = ceangal(70322,70319);
 
+$en_wood = ceangal(2450,83776);
+$nl_woud = ceangal(147743,60287);
+
 $grc_theos = ceangal(54686,50503);
 $la_deus   = ceangal(54633,50485,'54633|54639');
 $grc_Zeus  = ceangal(54639,50485,'54633|54639');
@@ -46,6 +49,7 @@ $grc_Zeus  = ceangal(54639,50485,'54633|54639');
 $gd_eilean = ceangal(4348,60284);
 $en_island = ceangal(60119,60119,0,'fo');
 $en_isle   = ceangal(135432,135435);
+$fr_ile    = ceangal(135436,135435);
 $la_insula = ceangal(135435,135435);
 $cy_ynys   = ceangal(1845,50945);
 $ga_inis   = ceangal(3202,50945);
@@ -102,8 +106,9 @@ $HTML = <<<END_HTML
 <li>$en_other  $neq $es_otro
 <li>$en_river  $neq $es_rio
 <li>$en_cinder $neq $fr_cendre
+<li>$en_wood   $neq $nl_woud
 <li>$grc_theos $neq $la_deus $grc_Zeus
-<li>$gd_eilean $neq $en_island $neq $en_isle $la_insula $neq $cy_ynys $ga_inis
+<li>$gd_eilean $neq $en_island $neq $en_isle $fr_ile $la_insula $neq $cy_ynys $ga_inis
 <li>$en_lake   $neq $gd_loch $fr_lac
 <li>$en_lay    $neq $gd_laoidh
 <li>$gd_duine  $neq $gd_daoine
@@ -120,7 +125,7 @@ $HTML = <<<END_HTML
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2024-10-27 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2025-09-17 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
 END_HTML;
