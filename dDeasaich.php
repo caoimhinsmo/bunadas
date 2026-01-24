@@ -59,8 +59,8 @@
     }
     $toparCumHtmlArr = [];
     $toparStoplist = "'ING', 'KSga', 'KSgv_cont', 'KSgv_der', 'KSgv_inf', 'SCC'";
-    $stmtTC = $DbBun->prepare("SELECT COUNT(1) AS cnt, topar AS toparCum FROM bund WHERE topar NOT IN ($toparStoplist)"
-                             ." GROUP BY topar ORDER BY cnt DESC,topar LIMIT 32");
+    $stmtTC = $DbBun->prepare("SELECT COUNT(1) AS cnt, bund.topar AS toparCum, ainm FROM bund, topar WHERE bund.topar=topar.topar AND bund.topar NOT IN ($toparStoplist)"
+                             ." GROUP BY toparCum ORDER BY cnt DESC, toparCum LIMIT 33");
     $stmtTC->execute();
     $rows = $stmtTC->fetchAll(PDO::FETCH_ASSOC);
     $cntArd   = $rows[7]['cnt'];
@@ -70,7 +70,7 @@
         if      ($cnt>$cntArd)   { $cntClass = 'ard'; }
          elseif ($cnt>$cntIseal) { $cntClass = 'meadhan'; }
          else                    { $cntClass = 'iseal'; }
-        $toparCumHtmlArr[strtolower($toparCum)] = "<span class=$cntClass title=$cnt onclick='toparCumClick(this.innerHTML);'>$toparCum</span>";
+        $toparCumHtmlArr[strtolower($toparCum)] = "<span class=$cntClass title='$cnt - $ainm' onclick='toparCumClick(this.innerHTML);'>$toparCum</span>";
     }
     ksort($toparCumHtmlArr);
     $toparCumHtml = implode(' ',$toparCumHtmlArr);
@@ -147,9 +147,9 @@ EODHtmlFoirm;
     <style>
         table#form tr td:first-child { text-align:right; }
         span#toparCum { font-size:70%; color:green }
-        span#toparCum span.ard     { font-size:115%; color:green; font-weight:bold; }
+        span#toparCum span.ard     { font-size:120%; color:green; font-weight:bold; }
         span#toparCum span.meadhan { font-size:100%; color:#080; }
-        span#toparCum span.iseal   { font-size:80%;  color:#0a0; }
+        span#toparCum span.iseal   { font-size:70%;  color:#0a0; }
         span#
     </style>
     <script>

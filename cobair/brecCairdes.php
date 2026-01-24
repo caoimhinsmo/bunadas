@@ -11,65 +11,71 @@ function ceangal($f,$root,$rind=0,$params='') {
 
 $neq = "<span style='padding:0 1em;font-family:monospace;font-size:140%'>&#x2249</span>";
 
-$de_haben  = ceangal(57969,50740);
-$la_habeo  = ceangal(55346,50544);
+$de_haben   = ceangal(57969,50740);
+$la_habeo   = ceangal(55346,50544);
 
-$de_Feuer  = ceangal(73926,50886);
-$fr_feu    = ceangal(117210,66635);
+$de_Feuer   = ceangal(73926,50886);
+$fr_feu     = ceangal(117210,66635);
 
-$de_lassen = ceangal(58533,76334);
-$fr_laisser= ceangal(58534,121907);
+$de_lassen  = ceangal(58533,76334);
+$fr_laisser = ceangal(58534,121907);
 
-$en_day    = ceangal(54631,54630);
-$es_dia    = ceangal(2494,50485);
-$en_diary  = ceangal(141426,50485);
+$en_day     = ceangal(54631,54630);
+$es_dia     = ceangal(2494,50485);
+$en_diary   = ceangal(141426,50485);
 
-$de_heute  = ceangal(2034,54630);
-$la_hodie  = ceangal(8606,50485);
+$de_heute   = ceangal(2034,54630);
+$la_hodie   = ceangal(8606,50485);
 
-$en_much   = ceangal(59931,53344);
-$es_mucho  = ceangal(135452,135454);
+$en_much    = ceangal(59931,53344);
+$es_mucho   = ceangal(135452,135454);
 
-$en_other  = ceangal(134515,50685);
-$es_otro   = ceangal(135466,56383);
+$en_other   = ceangal(134515,50685);
+$es_otro    = ceangal(135466,56383);
 
-$en_river  = ceangal(56080,56065);
-$es_rio    = ceangal(57263,50717);
+$en_river   = ceangal(56080,56065);
+$es_rio     = ceangal(57263,50717);
 
-$en_cinder = ceangal(70325,70329);
-$fr_cendre = ceangal(70322,70319);
+$en_cinder  = ceangal(70325,70329);
+$fr_cendre  = ceangal(70322,70319);
 
-$en_wood = ceangal(2450,83776);
-$nl_woud = ceangal(147743,60287);
+$en_wood    = ceangal(2450,83776);
+$nl_woud    = ceangal(147743,60287);
 
-$grc_theos = ceangal(54686,50503);
-$la_deus   = ceangal(54633,50485,'54633|54639');
-$grc_Zeus  = ceangal(54639,50485,'54633|54639');
+$grc_theos  = ceangal(54686,50503);
+$la_deus    = ceangal(54633,50485,'54633|54639');
+$grc_Zeus   = ceangal(54639,50485,'54633|54639');
 
-$gd_eilean = ceangal(4348,60284);
-$en_island = ceangal(60119,60119,0,'fo');
-$en_isle   = ceangal(135432,135435);
-$fr_ile    = ceangal(135436,135435);
-$la_insula = ceangal(135435,135435);
-$cy_ynys   = ceangal(1845,50945);
-$ga_inis   = ceangal(3202,50945);
+$gd_eilean  = ceangal(4348,60284);
+$en_island  = ceangal(60119,60119,0,'fo');
+$en_isle    = ceangal(135432,135435);
+$fr_ile     = ceangal(135436,135435);
+$la_insula  = ceangal(135435,135435);
+$cy_ynys    = ceangal(1845,50945);
+$ga_inis    = ceangal(3202,50945);
 
-$en_lake   = ceangal(68157,68166);
-$gd_loch   = ceangal(4621,68164,'4621|68177');
-$fr_lac    = ceangal(68177,68164,'4621|68177');
+$en_lake    = ceangal(68157,68166);
+$gd_loch    = ceangal(4621,68164,'4621|68177');
+$fr_lac     = ceangal(68177,68164,'4621|68177');
 
-$en_lay    = ceangal(117336,50779);
-$gd_laoidh = ceangal(81139,134260);
+$en_lay     = ceangal(117336,50779);
+$gd_laoidh  = ceangal(81139,134260);
 
-$gd_duine  = ceangal(4312,50528);
-$gd_daoine = ceangal(131918,50507); 
+$gd_duine   = ceangal(4312,50528);
+$gd_daoine  = ceangal(131918,50507); 
 
 
-$en_male   = ceangal(140055,123546);
-$en_female = ceangal(137801,50502);
+$en_male    = ceangal(140055,123546);
+$en_female  = ceangal(137801,50502);
 
-$en_sorrow = ceangal(127608,127603);
-$en_sorry  = ceangal(133599,61120);
+$en_sorrow  = ceangal(127608,127603);
+$en_sorry   = ceangal(133599,61120);
+
+$en_legal   = ceangal(58461,50785);
+$en_law     = ceangal(2271,50771);
+$gd_laghail = ceangal(151081,50771);
+$gv_leghoil = ceangal(151082,50771);
+
 
 $HTML = <<<END_HTML
 <!DOCTYPE html>
@@ -116,6 +122,7 @@ $HTML = <<<END_HTML
 <li style="margin-top:2em">
     $en_male   $neq $en_female (cf. man≈woman)
 <li>$en_sorrow $neq $en_sorry
+<li>$en_legal  $neq $en_law $gd_laghail $gv_leghoil
 </ul>
 
 </div>
@@ -125,7 +132,7 @@ $HTML = <<<END_HTML
 <li><a href="/teanga/bunadas/" title="Bunadas - stòras de fhacail cho-dhàimheil">Bunadas</a>
 </ul>
 
-<div class="smo-latha">2025-09-17 <a href="/~caoimhin/cpd.html">CPD</a></div>
+<div class="smo-latha">2025-12-05 <a href="/~caoimhin/cpd.html">CPD</a></div>
 </body>
 </html>
 END_HTML;
