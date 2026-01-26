@@ -122,7 +122,7 @@
     }
     $resultHtml = '<div style="clear:both;font-size:120%;padding-top:0.3em">' . divHtml($f,1) .'</div>';
 
-    $resultHtml .= "<div style='clear:both;height:2em'></div>\n";  //spacer
+    $resultHtml .= "<div style='clear:both;height:2em'>$iomlanMessage</div>\n";  //spacer
 
     $stordataCss = SM_Bunadas::stordataCss();
     $h1 = "$T_Craobh $f";
@@ -282,9 +282,9 @@ $navbar
 <input type=hidden name=f value=$f>
 $controlsHtml
 </form>
+<div style="clear:both">$iomlanMessage</div>
 $resultHtml
 
-$iomlanMessage
 </div>
 $navbar
 
