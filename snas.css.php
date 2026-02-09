@@ -148,5 +148,9 @@ option[value=uk],
 option[value=ru]   { background-color:blue; color:white; }
 option[value=lt]   { background-color:#65f; color:white; }
 option[value=grc]  { background-color:#871; color:white; }
+
+input:focus:invalid { background-color:#fdd; }
+input[type=submit], a.button { font-size:112%; background-color:#55a8eb; color:white; font-weight:bold; padding:3px 10px; border:0; border-radius:12px; }
+input[type=submit]:hover, a.button:hover { background-color:blue; }
 EOD;
 ?>

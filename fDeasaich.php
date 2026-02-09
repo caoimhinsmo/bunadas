@@ -39,12 +39,13 @@
     $navbar = SM_Bunadas::navbar($T->domhan);
 
     $fUr = -1;
-    $HTML = $foirmHTML = $fiosMearachd = $refreshHtml = $h1 = '';
+    $HTML = $foirmHTML = $fiosMearachd = $refreshHtml = $dublaichHtml = $h1 = '';
 
     $f = ( !isset($_REQUEST['f']) ? 0 : htmlspecialchars($_REQUEST['f']) );
     $d = ( !isset($_REQUEST['d']) ? 0 : htmlspecialchars($_REQUEST['d']) ); //Drong far an téid am focal ùr, ma ’s e focal ùr a th’ann
     if (!is_numeric($f) || intval($f)<>$f || $f<0) { throw new SM_Exception("$T_Parameter_mi_iom: f=$f"); }
     if (!is_numeric($d) || intval($d)<>$d || $d<0) { throw new SM_Exception("$T_Parameter_mi_iom: d=$d"); }
+    if (isset($_REQUEST['dublaich'])) { $f = 0; }
 
     $stordataConnector = SM_Bunadas::stordataConnector();
     $DbBun = $stordataConnector::singleton('rw');
@@ -131,6 +132,8 @@ EODHtmlCeann;
             $selectTHtml = "<select name='t'>\n";
             foreach ($teangaithe as $t) { $selectTHtml .= "<option value='$t'" . ($t==$tRoimhe?' selected':'') . " lang='$t'>" . $ainmTeanga[$t] . " ($t)</option>\n"; }
             $selectTHtml .= "</select>\n";
+            if ($f<>0) { $dublaichHtml = "<input type=checkbox name=dublaich id=dublaich style='margin-left:1.5em'>"
+                                       . "<label for=dublaich>$T_Cruthaich_facal_ur</label>"; }
             $HTML .= <<<EODHtmlFoirm
 <datalist id="gramList"><option value="root"><option value="n"><option value="v"><option value="adj"><option value="adverb"><option value="prefix"><option value="infix"><option value="suffix"><option value="placename"><option value="pronoun"><option value="numeral"><option value="determiner"></datalist>
 <form method=get style="clear:both">
@@ -151,7 +154,8 @@ EODHtmlCeann;
                           <b onclick="fisEd('Refno')" style="text-decoration:line-through">[n]</b>
                           <b onclick="fisEd('--DIL')">--DIL</b>
                           <b onclick="fisEd('--LÉIA')">--LÉIA</b></td></tr>
-<tr><td colspan=2 style='text-align:left'><input type=submit name="sabhail" value="$T_Sabhail"></td></tr>
+<tr><td style='text-align:left'><input type=submit name="sabhail" value="$T_Sabhail"></td>
+    <td style='font-size:65%'>$dublaichHtml</td></tr>
 </table>
 </form>
 EODHtmlFoirm;
