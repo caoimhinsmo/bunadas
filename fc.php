@@ -33,8 +33,8 @@
 
     $onloadSwopCount = $scrollScript = $iomlanMessage = '';
     if (empty($_GET['f'])) { throw new Exception('Parameter f a dhìth'); }
-    $f = $_GET['f'];
-    if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f"); }
+    $f = $_GET['f']; $f_hsc = htmlspecialchars($f);
+    if (!ctype_digit($f)) { throw new Exception("Parameter neo-iomchaidh f=$f_hsc"); }
     if (!empty($_GET['cleth'])) { $clethArr = explode('|',$_GET['cleth']); }
     if (!empty($_GET['rind']))  { $rindArr  = explode('|',$_GET['rind']);  }
     $f = (int)($f);
