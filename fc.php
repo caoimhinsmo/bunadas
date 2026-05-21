@@ -158,8 +158,8 @@ END_controlsHtml;
             END_controlsHtmlCount;
         if (isset($_GET['swopCount'])) { $onloadSwopCount = 'swopCount()'; }
         $queryIomlan = ( $KSM
-                       ? "SELECT COUNT(1) FROM bunf"
-                       : "SELECT COUNT(1) FROM bunf WHERE derb NOT LIKE 'KSM%'"
+                       ? "SELECT COUNT(1) FROM bunf WHERE focal<>'{count}'"
+                       : "SELECT COUNT(1) FROM bunf WHERE focal<>'{count}' AND derb NOT LIKE 'KSM%'"
                        );
         $stmtIomlan = $DbBun->prepare($queryIomlan);
         $stmtIomlan->execute();
