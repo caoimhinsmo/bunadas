@@ -112,8 +112,8 @@ $options</select>
 END_selCanan;
       $navbar = <<<EOD_NAVBAR
 <ul class="smo-navlist">
-<li><a href="/toisich/" title="Sabhal Mór Ostaig - prìomh dhuilleag (le dà briog)">SMO</a>
-<li><a href="/teanga/" title="Goireasan iol-chànanach aig SMO">Teanga</a></li>$bunCeangal
+<li><a href="/toisich/" title="Duilleag thòiseachaidh aig teanga.info">Teanga</a>
+<li><a href="/teanga/" title="Goireasan iol-chànanach aig teanga.info">Teanga</a></li>$bunCeangal
 $ceangalRiMoSMO
 <li style="float:right" title="$T_canan_eadarAghaidh">$selCanan$trPutan
 </ul>
